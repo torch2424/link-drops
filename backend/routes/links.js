@@ -5,6 +5,10 @@ var link = mongoose.model( 'link' );
 
 //WE WANT CREATE READ UPDATE DELETE OUR LINKS (CRUD)
 
+//Made with the help of mongoose docs, express docs, and
+//http://dreamerslab.com/blog/en/write-a-todo-list-with-express-and-mongodb/
+
+
 /*
     we need to check for errors by simply Using
     if(err)
@@ -38,6 +42,33 @@ router.get('/', function(req, res, next) {
   });
 });
 
+
+//UPDATE (PUT)
+//This will find a link and update it's fields
+// accept PUT request at /user
+router.put('/', function (req, res) {
+    //This will search the links objects, once it is Found
+    //it will pass the link object to link remove
+    link.findById( req.body.id, function ( err, link ){
+    if(err)
+    {
+        //if there is an error
+        res.json({msg: 'ERROR LINK COULD NOT BE FOUND...NIGGA'});
+    }
+    else
+    {
+        //Simply change the variables of think
+        link.content = req.body.content;
+        link.updated_at = Date.now();
+
+        //Save the modified
+        link.save(function( err, link, count ){
+           //.save will save our new link object in the backend
+          res.json(link);
+        });
+    }
+   });
+});
 
 //DELETE
 //Using the ORM (object relational mapping) which is mongoose
