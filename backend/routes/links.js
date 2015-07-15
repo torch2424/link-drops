@@ -8,6 +8,7 @@ var link = mongoose.model( 'link' );
 //Made with the help of mongoose docs, express docs, and
 //http://dreamerslab.com/blog/en/write-a-todo-list-with-express-and-mongodb/
 
+//Also need to add support for user id's to be passed when links
 
 /*
     we need to check for errors by simply Using
