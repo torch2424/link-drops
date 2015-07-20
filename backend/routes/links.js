@@ -3,35 +3,17 @@ var router = express.Router();
 var mongoose = require( 'mongoose' );
 var link = mongoose.model( 'link' );
 
-//WE WANT CREATE READ UPDATE DELETE OUR LINKS (CRUD)
-
-//Made with the help of mongoose docs, express docs, and
-//http://dreamerslab.com/blog/en/write-a-todo-list-with-express-and-mongodb/
-
-//Also need to add support for user id's to be passed when links
-
-/*
-    we need to check for errors by simply Using
-    if(err)
-    {
-    //handle shizz
-}
-
-*/
-
-/* CREATE. */
-//Post request sending a form to the backend
+//Create a new link
 router.post('/', function(req, res, next) {
-    //When we submit a form create a new link
-  new link({
+    new link({
       //json object the a link object contains
       user_id    : req.body.user_id,
       content    : req.body.content,
       updated_at : Date.now()
-  }).save(function( err, link, count ){
+    }).save(function( err, link, count ){
      //.save will save our new link object in the backend
     res.json({msg: 'successssssss'});
-  });
+    });
 });
 
 /* READ */
