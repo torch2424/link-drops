@@ -22,21 +22,23 @@ angular.module('linkDumpApp')
    }
 
    //Function to signup
-   $scope.signUp = function (){
+   $scope.signUp = function ()
+   {
        //Check if the passwords match
        if($scope.signup.password.indexOf($scope.signup.confirm) > -1)
        {
            //Signup the user, and save their session token
            $scope.token = Join.submit($scope.signup);
 
-           //Save the sessionToken
+           //Save the sessionToken in cookies
            $cookieStore.put("sessionToken", $scope.token);
 
            //Send them to the links page
            $location.path("/links");
 
        }
-       else {
+       else
+       {
            //If they dont error to the users
 
            alert("Your passwords dont match!");
