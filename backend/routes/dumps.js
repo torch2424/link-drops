@@ -93,24 +93,37 @@ router.put('/:linkId', function (req, res) {
 //Using the ORM (object relational mapping) which is mongoose
 //it will find a link by it's mongoose id, and remove it from the backend
 router.delete('/', function (req, res) {
-    //This will search the links objects, once it is Found
-    //it will pass the link object to link remove
-    Dump.findById( req.body.id, function ( err, dump ){
-    if(err)
-    {
-        //if there is an error
-        res.json({msg: 'ERROR LINK COULD NOT BE FOUND...NIGGA'});
-    }
-    else
-    {
-        //call remove on the link object that was passed
-        //then pass that to the remove so we can include it in the message
-        dump.remove( function ( err, dump ){
-       //backends are not user friendly, just output the deleted link
-          res.json(dump);
-        });
-    }
-   });
+    Session.findOne({ token : req.query.token })
+    .select('user_id')
+    .exec(function(err, session) {
+        if(err){
+            res.json({msg: "Couldn't search the database for session!",
+                    errorid: "778"});
+        } else if(!session){
+            res.json({msg: "Session does not exist!",
+                    errorid: "43"});
+        } else {
+            Dump.findById( req.params.id, function ( err, dump ){
+                if(err){
+                    res.json({msg: "Couldn't search the database for dump!",
+                            errorid: "779"});
+                } else if(!dump){
+                    res.json({msg: "Dump does not exist!",
+                            errorid: "44"});
+                } else {
+                    if(session.user_id == dump.user_id){
+                        dump.remove( function ( err, dump ){
+                            res.json(dump);
+                        });
+                    } else {
+                        res.json({msg: "User does not own dump!",
+                                errorid: "999"});
+                    }
+                }
+            });
+
+        }
+    });
 });
 
 
