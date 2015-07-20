@@ -2,26 +2,49 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require( 'mongoose' );
 var Dump = mongoose.model( 'Dump' );
+var Session = mongoose.model( 'Session' );
 
 //Create a new link
 router.post('/', function(req, res, next) {
-    new Dump({
-        //json object the a link object contains
-        user_id    : req.body.user_id,
-        content    : req.body.content,
-        updated_at : Date.now()
-    }).save(function( err, dump, count ){
-        //.save will save our new link object in the backend
-        res.json({msg: 'successssssss'});
+    Session.findOne({ token : req.body.token })
+    .select('user_id')
+    .exec(function(err, session) {
+        if(err){
+            res.json({msg: "Couldn't search the database for session!",
+                    errorid: "778"});
+        } else if(!session){
+            res.json({msg: "Session does not exist!",
+                    errorid: "43"});
+        } else {
+            new Dump({
+                //json object the a link object contains
+                user_id    : session.user_id,
+                content    : req.body.content,
+                updated_at : Date.now()
+            }).save(function( err, dump, count ){
+                //.save will save our new link object in the backend
+                res.json(dump);
+            });
+        }
     });
 });
 
-/* READ */
-//This will search our links for a link the the backend
-//.find is an ORM feature that will do this for us
+//Get all of a user's links
 router.get('/', function(req, res, next) {
-    Dump.find(function ( err, dumps, count ){
-      res.json(dumps);
+    Session.findOne({ token : req.query.token })
+    .select('user_id')
+    .exec(function(err, session) {
+        if(err){
+            res.json({msg: "Couldn't search the database for session!",
+                    errorid: "778"});
+        } else if(!session){
+            res.json({msg: "Session does not exist!",
+                    errorid: "43"});
+        } else {
+            Dump.find({ user_id: session.user_id }, function ( err, dumps, count ){
+                res.json(dumps);
+            });
+        }
     });
 });
 
