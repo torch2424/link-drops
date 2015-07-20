@@ -8,6 +8,43 @@
  * Service in the linkDumpApp.
  */
 angular.module('linkDumpApp')
-  .service('Users', function () {
-    // AngularJS will instantiate a singleton by calling "new" on this function
-  });
+    .factory('Login', ['$resource', function($resource) {
+
+    return $resource( '/users/login',
+        { }, {
+            submit: {
+                method: 'POST',
+                params: {},
+                isArray: false
+            }
+
+        } );
+}]);
+
+angular.module('linkDumpApp')
+    .factory('Join', ['$resource', function($resource) {
+
+    return $resource( '/users/join',
+        { }, {
+            submit: {
+                method: 'POST',
+                params: {},
+                isArray: false
+            }
+
+        } );
+}]);
+
+angular.module('linkDumpApp')
+    .factory('Join', ['$resource', function($resource) {
+
+    return $resource( '/users/join',
+        { }, {
+            submit: {
+                method: 'POST',
+                params: {},
+                isArray: false
+            }
+
+        } );
+}]);

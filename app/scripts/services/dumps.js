@@ -8,6 +8,40 @@
  * Service in the linkDumpApp.
  */
 angular.module('linkDumpApp')
-  .service('Dumps', function () {
-    // AngularJS will instantiate a singleton by calling "new" on this function
-  });
+.factory('Dumps', ['$resource', function($resource) {
+
+ return $resource('dumps/',
+     { }, {
+         get: {
+             method: 'GET',
+             params: {},
+             isArray: false
+         },
+         save: {
+             method: 'POST',
+             params: {},
+             isArray: false
+         }
+
+     });
+
+}]);
+
+angular.module('linkDumpApp')
+.factory('Dump', ['$resource', function($resource) {
+
+ return $resource('dumps/:id',
+     { id: '@id' }, {
+         update: {
+              method: 'PUT',
+              params: { id: '@id' },
+              isArray: false
+          },
+          delete: {
+              method: 'DELETE',
+              params: { id: '@id' },
+              isArray: false
+          }
+     });
+
+}]);
