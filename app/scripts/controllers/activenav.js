@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name linkDumpApp.controller:LoginCtrl
+ * @name linkDumpApp.controller:ActivenavCtrl
  * @description
- * # LoginCtrl
+ * # ActivenavCtrl
  * Controller of the linkDumpApp
  */
 angular.module('linkDumpApp')
-  .controller('LoginCtrl', function ($scope, $location) {
+  .controller('NavCtrl', function ($scope, $location) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -20,4 +20,5 @@ angular.module('linkDumpApp')
     {
        return route === $location.path();
    }
+   
   });

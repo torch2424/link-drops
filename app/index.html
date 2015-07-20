@@ -39,12 +39,12 @@
             <a class="navbar-brand black-text" href="#/">linkDump.</a>
           </div>
 
-          <div class="collapse navbar-collapse" id="js-navbar-collapse">
+          <div class="collapse navbar-collapse" id="js-navbar-collapse" ng-controller="NavCtrl">
 
             <ul class="nav navbar-nav">
-              <li class="activeTab"><a class = "black-text" href="#/">Home</a></li>
-              <li><a class = "black-text" ng-href="#/about">About</a></li>
-              <li><a class = "black-text" ng-href="#/">Contact</a></li>
+              <li ng-class="{activeTab:isActive('/')}"><a class = "black-text" href="#/">Home</a></li>
+              <li ng-class="{activeTab:isActive('/signup')}"><a class = "black-text" ng-href="#/signup">Sign Up</a></li>
+              <li ng-class="{activeTab:isActive('/login')}"><a class = "black-text" ng-href="#/login">Log In</a></li>
             </ul>
           </div>
         </div>
@@ -94,6 +94,7 @@
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/signup.js"></script>
         <script src="scripts/controllers/login.js"></script>
+        <script src="scripts/controllers/activenav.js"></script>
         <!-- endbuild -->
 </body>
 </html>
