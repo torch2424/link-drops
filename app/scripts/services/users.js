@@ -34,17 +34,3 @@ angular.module('linkDumpApp')
 
         } );
 }]);
-
-angular.module('linkDumpApp')
-    .factory('Join', ['$resource', function($resource) {
-
-    return $resource( '/users/join',
-        { }, {
-            submit: {
-                method: 'POST',
-                params: {},
-                isArray: false
-            }
-
-        } );
-}]);
