@@ -39,6 +39,11 @@ angular
         controller: 'LoginCtrl',
         controllerAs: 'login'
       })
+      .when('/links', {
+        templateUrl: 'views/links.html',
+        controller: 'LinksCtrl',
+        controllerAs: 'links'
+      })
       .otherwise({
         redirectTo: '/'
       });
