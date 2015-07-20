@@ -49,31 +49,44 @@ router.get('/', function(req, res, next) {
 });
 
 
-//UPDATE (PUT)
-//This will find a link and update it's fields
-// accept PUT request at /user
-router.put('/', function (req, res) {
-    //This will search the links objects, once it is Found
-    //it will pass the link object to link remove
-    Dump.findById( req.body.id, function ( err, dump ){
-    if(err)
-    {
-        //if there is an error
-        res.json({msg: 'ERROR LINK COULD NOT BE FOUND...NIGGA'});
-    }
-    else
-    {
-        //Simply change the variables of think
-        dump.content = req.body.content;
-        dump.updated_at = Date.now();
+//Update a link
+router.put('/:linkId', function (req, res) {
+    Session.findOne({ token : req.query.token })
+    .select('user_id')
+    .exec(function(err, session) {
+        if(err){
+            res.json({msg: "Couldn't search the database for session!",
+                    errorid: "778"});
+        } else if(!session){
+            res.json({msg: "Session does not exist!",
+                    errorid: "43"});
+        } else {
+            Dump.findById( req.params.id, function ( err, dump ){
+                if(err){
+                    res.json({msg: "Couldn't search the database for dump!",
+                            errorid: "779"});
+                } else if(!dump){
+                    res.json({msg: "Dump does not exist!",
+                            errorid: "44"});
+                } else {
+                    if(session.user_id == dump.user_id){
+                        //Simply change the variables of think
+                        dump.content = req.body.content;
+                        dump.updated_at = Date.now();
 
-        //Save the modified
-        dump.save(function( err, dump, count ){
-           //.save will save our new link object in the backend
-          res.json(dump);
-        });
-    }
-   });
+                        //Save the modified
+                        dump.save(function( err, dump, count ){
+                           //.save will save our new link object in the backend
+                          res.json(dump);
+                        });
+                    } else {
+                        res.json({msg: "User does not own dump!",
+                                errorid: "999"});
+                    }
+                }
+            });
+        }
+    });
 });
 
 //DELETE
