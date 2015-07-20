@@ -1,18 +1,18 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require( 'mongoose' );
-var link = mongoose.model( 'link' );
+var Dump = mongoose.model( 'Dump' );
 
 //Create a new link
 router.post('/', function(req, res, next) {
-    new link({
-      //json object the a link object contains
-      user_id    : req.body.user_id,
-      content    : req.body.content,
-      updated_at : Date.now()
-    }).save(function( err, link, count ){
-     //.save will save our new link object in the backend
-    res.json({msg: 'successssssss'});
+    new Dump({
+        //json object the a link object contains
+        user_id    : req.body.user_id,
+        content    : req.body.content,
+        updated_at : Date.now()
+    }).save(function( err, dump, count ){
+        //.save will save our new link object in the backend
+        res.json({msg: 'successssssss'});
     });
 });
 
@@ -20,9 +20,9 @@ router.post('/', function(req, res, next) {
 //This will search our links for a link the the backend
 //.find is an ORM feature that will do this for us
 router.get('/', function(req, res, next) {
-  link.find(function ( err, links, count ){
-      res.json(links);
-  });
+    Dump.find(function ( err, dumps, count ){
+      res.json(dumps);
+    });
 });
 
 
@@ -32,7 +32,7 @@ router.get('/', function(req, res, next) {
 router.put('/', function (req, res) {
     //This will search the links objects, once it is Found
     //it will pass the link object to link remove
-    link.findById( req.body.id, function ( err, link ){
+    Dump.findById( req.body.id, function ( err, dump ){
     if(err)
     {
         //if there is an error
@@ -41,13 +41,13 @@ router.put('/', function (req, res) {
     else
     {
         //Simply change the variables of think
-        link.content = req.body.content;
-        link.updated_at = Date.now();
+        dump.content = req.body.content;
+        dump.updated_at = Date.now();
 
         //Save the modified
-        link.save(function( err, link, count ){
+        dump.save(function( err, dump, count ){
            //.save will save our new link object in the backend
-          res.json(link);
+          res.json(dump);
         });
     }
    });
@@ -59,7 +59,7 @@ router.put('/', function (req, res) {
 router.delete('/', function (req, res) {
     //This will search the links objects, once it is Found
     //it will pass the link object to link remove
-    link.findById( req.body.id, function ( err, link ){
+    Dump.findById( req.body.id, function ( err, dump ){
     if(err)
     {
         //if there is an error
@@ -69,9 +69,9 @@ router.delete('/', function (req, res) {
     {
         //call remove on the link object that was passed
         //then pass that to the remove so we can include it in the message
-        link.remove( function ( err, link ){
+        dump.remove( function ( err, dump ){
        //backends are not user friendly, just output the deleted link
-          res.json(link);
+          res.json(dump);
         });
     }
    });

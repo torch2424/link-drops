@@ -7,12 +7,6 @@ var Dump = new Schema({
     updated_at : Date
 });
 
-var link = new Schema({
-    user_id    : String,
-    content    : String,
-    updated_at : Date
-});
-
 var User = new Schema({
     username : String,
     password : String,
@@ -25,7 +19,6 @@ var Session = new Schema({
 });
 
 mongoose.model( 'Dump', Dump );
-mongoose.model( 'link', link );
 mongoose.model( 'User', User );
 mongoose.model( 'Session', Session );
 mongoose.connect( 'mongodb://localhost/link-dump' );
