@@ -7,7 +7,7 @@ var Session = mongoose.model('Session');
 
 /* Log in user */
 router.post('/login', function(req, res, next) {
-
+    //Find a user with the username requested. Select salt and password
     User.findOne({ username : req.body.username })
     .select('password salt')
     .exec(function(err, user) {
@@ -18,9 +18,13 @@ router.post('/login', function(req, res, next) {
             res.json({msg: "Username does not exist!",
                     errorid: "23"});
         } else {
+            //Hash the requested password and salt
             var hash = crypto.pbkdf2Sync(req.body.password, user.salt, 10000, 512);
+            //Compare to stored hash
             if(hash == user.password){
+                //Create a random token
                 var token = crypto.randomBytes(48).toString('hex');
+                //New session!
                 new Session(
                     {
                         user_id: user._id,
@@ -31,6 +35,7 @@ router.post('/login', function(req, res, next) {
                             res.json({msg: "Error saving token to DB!",
                                     errorid: "667"});
                         } else {
+                            //All good, give the user their token
                             res.json({token: token});
                         }
                     });
@@ -44,7 +49,7 @@ router.post('/login', function(req, res, next) {
 
 /* Join as a user */
 router.post('/join', function(req, res, next) {
-
+    //Check if a user with that username already exists
     User.findOne({ username : req.body.username })
     .select('_id')
     .exec(function(err, user) {
@@ -52,8 +57,11 @@ router.post('/join', function(req, res, next) {
             res.json({msg: "Username already exists!",
                     errorid: "22"});
         } else {
+            //Create a random salt
             var salt = crypto.randomBytes(128).toString('base64');
+            //Create a unique hash from the provided password and salt
             var hash = crypto.pbkdf2Sync(req.body.password, salt, 10000, 512);
+            //Create a new user with the assembled information
             var user = new User({
                 username: req.body.username,
                 password: hash,
@@ -64,7 +72,9 @@ router.post('/join', function(req, res, next) {
                     res.json({msg: "Error saving user to DB!",
                             errorid: "666"});
                 } else {
+                    //Create a random token
                     var token = crypto.randomBytes(48).toString('hex');
+                    //New session!
                     new Session(
                         {
                             user_id: user._id,
@@ -75,6 +85,7 @@ router.post('/join', function(req, res, next) {
                                 res.json({msg: "Error saving token to DB!",
                                         errorid: "667"});
                             } else {
+                                //All good, give the user their token
                                 res.json({token: token});
                             }
                         });
