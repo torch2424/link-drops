@@ -22,7 +22,7 @@ angular.module('linkDumpApp')
    }
 
    //Function to signup
-   $scope.signUp = function ()
+   $scope.submitInfo = function ()
    {
        //Check if the passwords match
        if($scope.signup.password.indexOf($scope.signup.confirm) > -1)
