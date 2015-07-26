@@ -28,13 +28,21 @@ angular.module('linkDumpApp')
        if($scope.signup.password.indexOf($scope.signup.confirm) > -1)
        {
            //Signup the user, and save their session token
-           $scope.token = Join.submit($scope.signup);
+           var joinResponse = Join.submit($scope.signup, function()
+           {
+               if(joinResponse.errorid)
+               {
+                    console.log("Error creating the giftcard");
+                    return;
+               }
+               else {
+                   //Save the sessionToken in cookies
+                   $cookieStore.put("sessionToken", $scope.token);
 
-           //Save the sessionToken in cookies
-           $cookieStore.put("sessionToken", $scope.token);
-
-           //Send them to the links page
-           $location.path("/links");
+                   //Send them to the links page
+                   $location.path("/links");
+               }
+           });
 
        }
        else
