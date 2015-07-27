@@ -7,6 +7,10 @@
  * # Users
  * Service in the linkDumpApp.
  */
+
+ //For nodemon use http://localhost:3000/
+
+
 angular.module('linkDumpApp')
     .factory('Login', ['$resource', function($resource) {
 
