@@ -5,12 +5,6 @@ var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Session = mongoose.model('Session');
 
-router.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
 /* Log in user */
 router.post('/login', function(req, res, next) {
     //Find a user with the username requested. Select salt and password
