@@ -37,7 +37,7 @@ angular.module('linkDumpApp')
                }
                else {
                    //Save the sessionToken in cookies
-                   $cookieStore.put("sessionToken", $scope.token);
+                   $cookieStore.put("sessionToken", joinResponse.token);
 
                    //Send them to the links page
                    $location.path("/links");
