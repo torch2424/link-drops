@@ -14,7 +14,7 @@
 angular.module('linkDumpApp')
     .factory('Login', ['$resource', function($resource) {
 
-    return $resource( '/users/login',
+    return $resource( 'http://localhost:3000/users/login',
         { }, {
             submit: {
                 method: 'POST',
@@ -28,7 +28,7 @@ angular.module('linkDumpApp')
 angular.module('linkDumpApp')
     .factory('Join', ['$resource', function($resource) {
 
-    return $resource( '/users/join',
+    return $resource( 'http://localhost:3000/users/join',
         { }, {
             submit: {
                 method: 'POST',
