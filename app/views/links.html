@@ -1,1 +1,16 @@
-<p>YOU WERE LOGGED IN!!!!</p>
+<!-- add links here -->
+<form class = "card center">
+    <br>
+    <input class = "center" style = "width: 80%;" type = "text" name = "enterLink" placeholder="Enter a new link here">
+    <br>
+    <button style = "margin-top: 10px; font-weight: 550" class="waves-effect waves-light btn green darken-3 z-depth-2" ng-click = "submitInfo()">Enter</button>
+    <br>
+    <br>
+</form>
+
+<!-- ng repeat all of our links -->
+<ul>
+    <li ng-repeat="dump in dumps" class = "card center">
+        <a href="{{dump}}">{{dump}}</a>
+    </li>
+</ul>
