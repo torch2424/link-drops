@@ -8,13 +8,18 @@
  * Controller of the linkDumpApp
  */
 angular.module('linkDumpApp')
-  .controller('LinksCtrl', function ($scope, $sce) {
+  .controller('LinksCtrl', function ($scope, $sce, $cookies) {
+
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
 
+    //Get our sessions token
+    var sessionToken = $cookies.get("sessionToken");
+
+    //get our dumps
     $scope.dumps = [
         "https://github.com/expressjs/cors",
         "http://localhost:9000/#/links",

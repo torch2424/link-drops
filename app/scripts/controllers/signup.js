@@ -8,7 +8,7 @@
  * Controller of the linkDumpApp
  */
 angular.module('linkDumpApp')
-  .controller('SignupCtrl', function ($scope, $location, $cookieStore, Join) {
+  .controller('SignupCtrl', function ($scope, $location, $cookies, Join) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -37,7 +37,7 @@ angular.module('linkDumpApp')
                }
                else {
                    //Save the sessionToken in cookies
-                   $cookieStore.put("sessionToken", joinResponse.token);
+                   $cookies.put("sessionToken", joinResponse.token);
 
                    //Send them to the links page
                    $location.path("/links");
