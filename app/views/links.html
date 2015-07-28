@@ -14,9 +14,9 @@
         <li ng-repeat="dump in dumps" class = "card center" style="padding: 2%">
             <!-- display youtube video if it is a youtube link -->
             <div ng-show = "dump.indexOf('https://www.youtube.com/watch?v=') > -1">
-                <iframe width="90%" height="350px" ng-src="{{getYoutubeFrame(dump)}}" frameborder="0" allowfullscreen></iframe>
+                <iframe width="90%" height="350px" ng-src="{{getYoutubeFrame(dump.content)}}" frameborder="0" allowfullscreen></iframe>
             </div>
-            <a href="{{dump}}" style="font-size: 2.5vmin">{{dump}}</a>
+            <a href="{{dump.content}}" style="font-size: 2.5vmin">{{dump.content}}</a>
         </li>
     </ul>
 </div>

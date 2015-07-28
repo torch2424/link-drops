@@ -37,7 +37,7 @@ angular.module('linkDumpApp')
                 console.log(dumpResponse.msg);
             }
             else {
-                //Set scope.dumps to our dumps
+                //Get only the string
                 $scope.dumps = dumpResponse;
             }
         });
@@ -47,7 +47,7 @@ angular.module('linkDumpApp')
     $scope.getYoutubeFrame = function(theLink)
     {
         //Get the link on the 33 substring, and trust it
-        return $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + theLink.substring(32));
+        return $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + theLink.content.substring(32));
     }
 
     //Submit a dumped link
@@ -56,7 +56,7 @@ angular.module('linkDumpApp')
         //Our json we will submit to the backend
         var enterJson = {
             "token": sessionToken,
-            "content": $scope.eneteredLink
+            "content": $scope.enteredLink
         };
 
         //Save the link
