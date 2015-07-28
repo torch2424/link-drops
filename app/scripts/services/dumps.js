@@ -10,7 +10,7 @@
 angular.module('linkDumpApp')
 .factory('Dumps', ['$resource', function($resource) {
 
- return $resource('dumps/',
+ return $resource('http://localhost:3000/dumps/',
      { }, {
          get: {
              method: 'GET',
@@ -30,7 +30,7 @@ angular.module('linkDumpApp')
 angular.module('linkDumpApp')
 .factory('Dump', ['$resource', function($resource) {
 
- return $resource('dumps/:id',
+ return $resource('http://localhost:3000/dumps/:id',
      { id: '@id' }, {
          update: {
               method: 'PUT',
