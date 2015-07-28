@@ -13,10 +13,15 @@
     <ul>
         <li ng-repeat="dump in dumps" class = "card center" style="padding: 2%">
             <!-- display youtube video if it is a youtube link -->
-            <div ng-show = "dump.indexOf('https://www.youtube.com/watch?v=') > -1">
+            <div ng-show = "dump.content.indexOf('https://www.youtube.com/watch?v=') > -1">
                 <iframe width="90%" height="350px" ng-src="{{getYoutubeFrame(dump.content)}}" frameborder="0" allowfullscreen></iframe>
             </div>
             <a href="{{dump.content}}" style="font-size: 2.5vmin">{{dump.content}}</a>
+
+            <!-- add a delete button -->
+            <button style = "margin-top: 10px; font-weight: 550" class="waves-effect waves-light btn green darken-3 z-depth-2" ng-click = "removeLink(dump)">
+            <i class="material-icons">delete</i>
+        </button>
         </li>
     </ul>
 </div>

@@ -103,7 +103,7 @@ router.delete('/', function (req, res) {
             res.json({msg: "Session does not exist!",
                     errorid: "43"});
         } else {
-            Dump.findById( req.params.id, function ( err, dump ){
+            Dump.findById( req.query.id, function ( err, dump ){
                 if(err){
                     res.json({msg: "Couldn't search the database for dump!",
                             errorid: "779"});

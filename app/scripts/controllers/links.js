@@ -72,4 +72,30 @@ angular.module('linkDumpApp')
             }
         });
     }
+
+    //Remove a dumped link
+    $scope.removeLink = function(dump)
+    {
+        //Our json we will submit to the backend
+        var remJson = {
+            "token": sessionToken,
+            "id": dump._id
+        };
+
+        //Save the link
+        var remRes = Dumps.delete(remJson, function(){
+            if(remRes.errorid)
+            {
+                console.log(remJson);
+                console.log(remRes.msg);
+                return;
+            }
+            else {
+                //Re-get all ouf our links!
+                $scope.getDumps();
+            }
+        });
+    }
+
+
   });
