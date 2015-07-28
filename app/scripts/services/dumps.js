@@ -15,7 +15,7 @@ angular.module('linkDumpApp')
          get: {
              method: 'GET',
              params: {},
-             isArray: false
+             isArray: true
          },
          save: {
              method: 'POST',

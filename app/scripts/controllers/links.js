@@ -25,11 +25,16 @@ angular.module('linkDumpApp')
     //get our dumps
     $scope.getDumps = function()
     {
-        var dumpResponse = Dumps.get(sessionToken, function()
+        //Our json we will submit to the backend
+        var dumpJson = {
+            "token": sessionToken,
+        };
+
+        var dumpResponse = Dumps.get(dumpJson, function()
         {
             if(dumpResponse.errorid)
             {
-
+                console.log(dumpResponse.msg);
             }
             else {
                 //Set scope.dumps to our dumps
@@ -49,7 +54,22 @@ angular.module('linkDumpApp')
     $scope.submitLink = function ()
     {
         //Our json we will submit to the backend
-        
-        Dumps.save("")
+        var enterJson = {
+            "token": sessionToken,
+            "content": $scope.eneteredLink
+        };
+
+        //Save the link
+        var saveRes = Dumps.save(enterJson, function(){
+            if(saveRes.errorid)
+            {
+                console.log(saveRes.msg);
+                return;
+            }
+            else {
+                //Re-get all ouf our links!
+                $scope.getDumps();
+            }
+        });
     }
   });
