@@ -47,7 +47,7 @@ angular.module('linkDumpApp')
     $scope.getYoutubeFrame = function(theLink)
     {
         //Get the link on the 33 substring, and trust it
-        return $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + theLink.content.substring(32));
+        return $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + theLink.substring(32));
     }
 
     //Submit a dumped link
@@ -67,6 +67,9 @@ angular.module('linkDumpApp')
                 return;
             }
             else {
+                //Set enetered link back to null
+                $scope.enteredLink = "";
+
                 //Re-get all ouf our links!
                 $scope.getDumps();
             }
