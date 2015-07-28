@@ -1,20 +1,22 @@
-<!-- add links here -->
-<form class = "card center">
-    <br>
-    <input class = "center" style = "width: 80%;" type = "text" name = "enterLink" placeholder="Enter a new link here">
-    <br>
-    <button style = "margin-top: 10px; font-weight: 550" class="waves-effect waves-light btn green darken-3 z-depth-2" ng-click = "submitInfo()">Enter</button>
-    <br>
-    <br>
-</form>
+<div ng-init="getDumps()">
+    <!-- add links here -->
+    <form class = "card center">
+        <br>
+        <input class = "center" style = "width: 80%;" type = "text" name = "enterLink" placeholder="Enter a new link here" ng-model="enteredLink">
+        <br>
+        <button style = "margin-top: 10px; font-weight: 550" class="waves-effect waves-light btn green darken-3 z-depth-2" ng-click = "submitLink()">Enter</button>
+        <br>
+        <br>
+    </form>
 
-<!-- ng repeat all of our links -->
-<ul>
-    <li ng-repeat="dump in dumps" class = "card center" style="padding: 2%">
-        <!-- display youtube video if it is a youtube link -->
-        <div ng-show = "dump.indexOf('https://www.youtube.com/watch?v=') > -1">
-            <iframe width="90%" height="350px" ng-src="{{getYoutubeFrame(dump)}}" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <a href="{{dump}}" style="font-size: 2.5vmin">{{dump}}</a>
-    </li>
-</ul>
+    <!-- ng repeat all of our links -->
+    <ul>
+        <li ng-repeat="dump in dumps" class = "card center" style="padding: 2%">
+            <!-- display youtube video if it is a youtube link -->
+            <div ng-show = "dump.indexOf('https://www.youtube.com/watch?v=') > -1">
+                <iframe width="90%" height="350px" ng-src="{{getYoutubeFrame(dump)}}" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <a href="{{dump}}" style="font-size: 2.5vmin">{{dump}}</a>
+        </li>
+    </ul>
+</div>
