@@ -59,8 +59,6 @@ angular.module('linkDumpApp')
             "content": $scope.enteredLink
         };
 
-        console.log(enterJson);
-
         //Save the link
         var saveRes = Dumps.save(enterJson, function(){
             if(saveRes.errorid)
