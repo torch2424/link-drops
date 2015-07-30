@@ -29,7 +29,7 @@ angular.module('linkDumpApp')
         {
             if(loginResponse.errorid)
             {
-                 console.log("Error creating the giftcard");
+                 Materialize.toast(loginResponse.msg, 2000);
                  return;
             }
             else {
