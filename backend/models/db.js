@@ -35,7 +35,11 @@ var Session = new Schema({
         type: String,
         required: 'The User Id is required'
     },
-    token: String
+    token:
+    {
+        type: String,
+        required: 'The sessionToken is required'
+    }
 });
 
 mongoose.model( 'Dump', Dump );
