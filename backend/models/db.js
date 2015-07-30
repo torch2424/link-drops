@@ -30,7 +30,11 @@ var User = new Schema({
 });
 
 var Session = new Schema({
-    user_id: String,
+    user_id:
+    {
+        type: String,
+        required: 'The User Id is required'
+    },
     token: String
 });
 

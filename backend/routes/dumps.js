@@ -23,7 +23,13 @@ router.post('/', function(req, res, next) {
                 updated_at : Date.now()
             }).save(function( err, dump, count ){
                 //.save will save our new link object in the backend
+                if(err){
+                    res.json({msg: "Error saving the dump!",
+                            errorid: "778"});
+                }
+                else {
                 res.json(dump);
+                }
             });
         }
     });

@@ -62,11 +62,11 @@ router.post('/join', function(req, res, next) {
             //Create a unique hash from the provided password and salt
             var hash = crypto.pbkdf2Sync(req.body.password, salt, 10000, 512);
             //Create a new user with the assembled information
-            var user = new User({
+            var newUser = new User({
                 username: req.body.username.toLowerCase(),
                 password: hash,
                 salt: salt
-            }).save(function(err){
+            }).save(function(err, newUser){
                 if(err){
                     console.log("Error saving user to DB!");
                     res.json({msg: "Error saving user to DB!",
@@ -77,11 +77,10 @@ router.post('/join', function(req, res, next) {
                     //New session!
                     new Session(
                         {
-                            user_id: user._id,
+                            user_id: newUser._id,
                             token: token
                         }).save(function(err){
                             if(err){
-                                console.log("Error saving token to DB!");
                                 res.json({msg: "Error saving token to DB!",
                                         errorid: "667"});
                             } else {

@@ -59,6 +59,8 @@ angular.module('linkDumpApp')
             "content": $scope.enteredLink
         };
 
+        console.log(enterJson);
+
         //Save the link
         var saveRes = Dumps.save(enterJson, function(){
             if(saveRes.errorid)
@@ -84,6 +86,8 @@ angular.module('linkDumpApp')
             "token": sessionToken,
             "id": dump._id
         };
+
+        console.log(enterJson);
 
         //Save the link
         var remRes = Dumps.delete(remJson, function(){
