@@ -8,7 +8,7 @@
  * Controller of the linkDumpApp
  */
 angular.module('linkDumpApp')
-  .controller('NavCtrl', function ($scope, $location) {
+  .controller('NavCtrl', function ($scope, $location, $cookies) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -19,6 +19,19 @@ angular.module('linkDumpApp')
     $scope.isActive = function(route)
     {
        return route === $location.path();
-   }
-   
+    }
+
+    //Try to get our session token
+    $scope.isLoggedIn = function()
+    {
+        var sessionToken = $cookies.get("sessionToken");
+        if(sessionToken)
+        {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
   });

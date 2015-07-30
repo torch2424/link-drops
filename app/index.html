@@ -42,9 +42,9 @@
           <div class="collapse navbar-collapse" id="js-navbar-collapse" ng-controller="NavCtrl">
 
             <ul class="nav navbar-nav">
-              <li ng-class="{activeTab:isActive('/')}"><a class = "black-text" href="#/">Home</a></li>
-              <li ng-class="{activeTab:isActive('/signup')}"><a class = "black-text" ng-href="#/signup">Sign Up</a></li>
-              <li ng-class="{activeTab:isActive('/login')}"><a class = "black-text" ng-href="#/login">Log In</a></li>
+              <li ng-class="{activeTab:isActive('/')}" ng-hide = "isLoggedIn()"><a class = "black-text" href="#/">Home</a></li>
+              <li ng-class="{activeTab:isActive('/signup')}" ng-hide = "isLoggedIn()"><a class = "black-text" ng-href="#/signup">Sign Up</a></li>
+              <li ng-class="{activeTab:isActive('/login')}" ng-hide = "isLoggedIn()"><a class = "black-text" ng-href="#/login">Log In</a></li>
             </ul>
           </div>
         </div>
