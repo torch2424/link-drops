@@ -2,20 +2,36 @@ var mongoose = require( 'mongoose' );
 var Schema   = mongoose.Schema;
 
 var Dump = new Schema({
-    user_id    : String,
-    content    : String,
-    updated_at : Date
+    user_id:
+    {
+        type: String,
+        required: 'The User Id is required'
+    },
+    content:
+    {
+        type: String,
+        required: 'The Dump Content is required'
+    },
+    updated_at: Date
 });
 
 var User = new Schema({
-    username : String,
-    password : String,
-    salt     : String
+    username:
+    {
+        type: String,
+        required: 'The User Name is required'
+    },
+    password:
+    {
+        type: String,
+        required: 'The Password is required'
+    },
+    salt: String
 });
 
 var Session = new Schema({
-    user_id : String,
-    token   : String
+    user_id: String,
+    token: String
 });
 
 mongoose.model( 'Dump', Dump );
