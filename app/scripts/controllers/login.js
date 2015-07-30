@@ -29,7 +29,7 @@ angular.module('linkDumpApp')
         {
             if(loginResponse.errorid)
             {
-                 Materialize.toast(loginResponse.msg, 2000);
+                 Materialize.toast(loginResponse.msg, 3000);
                  return;
             }
             else {

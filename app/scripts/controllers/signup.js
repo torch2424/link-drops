@@ -32,7 +32,7 @@ angular.module('linkDumpApp')
            {
                if(joinResponse.errorid)
                {
-                    console.log("Error creating the giftcard");
+                    Materialize.toast(joinResponse.msg, 3000);
                     return;
                }
                else {
@@ -48,8 +48,7 @@ angular.module('linkDumpApp')
        else
        {
            //If they dont error to the users
-
-           alert("Your passwords dont match!");
+           Materialize.toast("Passwords do not match!", 3000);
        }
    }
 
