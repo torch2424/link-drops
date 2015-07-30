@@ -26,15 +26,12 @@ angular.module('linkDumpApp')
     {
         //Get the session token, and if it doesnt exists, return true
         var sessionToken = $cookies.get("sessionToken");
-        console.log(sessionToken);
         if(sessionToken != null && sessionToken.length > 1)
         {
-            console.log("true");
             return true;
         }
         else
         {
-            console.log("tasdsd");
             return false;
         }
 
