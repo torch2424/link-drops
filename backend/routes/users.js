@@ -8,7 +8,7 @@ var Session = mongoose.model('Session');
 /* Log in user */
 router.post('/login', function(req, res, next) {
     //Find a user with the username requested. Select salt and password
-    User.findOne({ username : req.body.username })
+    User.findOne({ username : req.body.username.toLowerCase() })
     .select('password salt')
     .exec(function(err, user) {
         if(err){
@@ -50,7 +50,7 @@ router.post('/login', function(req, res, next) {
 /* Join as a user */
 router.post('/join', function(req, res, next) {
     //Check if a user with that username already exists
-    User.findOne({ username : req.body.username })
+    User.findOne({ username : req.body.username.toLowerCase() })
     .select('_id')
     .exec(function(err, user) {
         if(user){
@@ -63,7 +63,7 @@ router.post('/join', function(req, res, next) {
             var hash = crypto.pbkdf2Sync(req.body.password, salt, 10000, 512);
             //Create a new user with the assembled information
             var user = new User({
-                username: req.body.username,
+                username: req.body.username.toLowerCase(),
                 password: hash,
                 salt: salt
             }).save(function(err){
