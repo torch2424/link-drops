@@ -87,8 +87,6 @@ angular.module('linkDumpApp')
             "id": dump._id
         };
 
-        console.log(enterJson);
-
         //Save the link
         var remRes = Dumps.delete(remJson, function(){
             if(remRes.errorid)
