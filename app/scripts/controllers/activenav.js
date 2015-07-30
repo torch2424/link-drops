@@ -24,14 +24,33 @@ angular.module('linkDumpApp')
     //Try to get our session token
     $scope.isLoggedIn = function()
     {
+        //Get the session token, and if it doesnt exists, return true
         var sessionToken = $cookies.get("sessionToken");
-        if(sessionToken)
+        console.log(sessionToken);
+        if(sessionToken != null && sessionToken.length > 1)
         {
+            console.log("true");
             return true;
         }
-        else {
+        else
+        {
+            console.log("tasdsd");
             return false;
         }
+
+    }
+
+    //Log out the user
+    $scope.logout = function()
+    {
+        //Set the session token to blank
+        $cookies.remove("sessionToken");
+
+        //Send the user back to home
+        $location.path("/");
+
+        //Also, called is logged in for nav links
+        $scope.isLoggedIn();
     }
 
   });

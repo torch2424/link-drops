@@ -36,6 +36,9 @@ angular.module('linkDumpApp')
                 //Save the sessionToken in cookies
                 $cookies.put("sessionToken", loginResponse.token);
 
+                //Thank user for joining
+                Materialize.toast("Welcome back!", 3000);
+
                 //Send them to the links page
                 $location.path("/links");
             }
