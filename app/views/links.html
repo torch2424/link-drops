@@ -2,10 +2,10 @@
     <!-- add links here -->
     <form class = "card center">
         <br>
-        <input class = "center" style = "width: 80%;" type = "text" name = "enterLink" placeholder="Enter a new link here" ng-model="enteredLink" ng-paste = "submitLink()">
+        <input class = "center" style = "width: 80%;" type = "text" name = "enterLink" placeholder="Enter a new link here." ng-model="enteredLink" ng-paste = "submitLink()">
         <br>
-        <button type = "submit" style = "margin-top: 10px; font-weight: 550" class="waves-effect waves-light btn green darken-3 z-depth-2" ng-hide = "!enteredLink" ng-click = "submitLink()">Dump!</button>
-        <br>
+        <p style = "padding-bottom: 5px" class = "grey-text lighten-5 center">If you enjoy typing links by hand, don't forget to press "Enter"</p>
+        <button type = "submit" style = "margin-top: 10px; font-weight: 550; display: none" class="waves-effect waves-light btn green darken-3 z-depth-2" ng-click = "submitLink()">Save</button>
         <br>
     </form>
 
