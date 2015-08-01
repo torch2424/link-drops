@@ -63,7 +63,7 @@ angular.module('linkDumpApp')
         var saveRes = Dumps.save(enterJson, function(){
             if(saveRes.errorid)
             {
-                console.log(saveRes.msg);
+                Materialize.toast(saveRes.msg);
                 return;
             }
             else {
@@ -89,8 +89,8 @@ angular.module('linkDumpApp')
         var remRes = Dumps.delete(remJson, function(){
             if(remRes.errorid)
             {
-                console.log(remJson);
-                console.log(remRes.msg);
+                Materialize.toast(remJson);
+                Materialize.toast(remRes.msg);
                 return;
             }
             else {
