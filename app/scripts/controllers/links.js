@@ -8,7 +8,7 @@
  * Controller of the linkDumpApp
  */
 angular.module('linkDumpApp')
-  .controller('LinksCtrl', function ($scope, $sce, $cookies, Dumps) {
+  .controller('LinksCtrl', function ($scope, $sce, $cookies, $timeout, Dumps) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -34,7 +34,7 @@ angular.module('linkDumpApp')
         {
             if(dumpResponse.errorid)
             {
-                console.log(dumpResponse.msg);
+                Materialize.toast(dumpResponse.msg, 3000);
             }
             else {
                 //Get only the string
@@ -53,27 +53,33 @@ angular.module('linkDumpApp')
     //Submit a dumped link
     $scope.submitLink = function ()
     {
-        //Our json we will submit to the backend
-        var enterJson = {
-            "token": sessionToken,
-            "content": $scope.enteredLink
-        };
+        //Need to set a slight timeout for ng paste
+        $timeout(function () {
+            //Our json we will submit to the backend
+            var enterJson = {
+                "token": sessionToken,
+                "content": $scope.enteredLink
+            };
 
-        //Save the link
-        var saveRes = Dumps.save(enterJson, function(){
-            if(saveRes.errorid)
-            {
-                Materialize.toast(saveRes.msg);
-                return;
-            }
-            else {
-                //Set enetered link back to null
-                $scope.enteredLink = "";
+            //Save the link
+            var saveRes = Dumps.save(enterJson, function(){
+                if(saveRes.errorid)
+                {
+                    Materialize.toast(saveRes.msg, 3000);
+                    return;
+                }
+                else {
+                    //Set enetered link back to null
+                    $scope.enteredLink = "";
 
-                //Re-get all ouf our links!
-                $scope.getDumps();
-            }
-        });
+                    //Inform user of the dump
+                    Materialize.toast("Dumped!", 3000);
+
+                    //Re-get all ouf our links!
+                    $scope.getDumps();
+                }
+            });
+        }, 1);
     }
 
     //Remove a dumped link
@@ -89,8 +95,7 @@ angular.module('linkDumpApp')
         var remRes = Dumps.delete(remJson, function(){
             if(remRes.errorid)
             {
-                Materialize.toast(remJson);
-                Materialize.toast(remRes.msg);
+                Materialize.toast(remRes.msg, 3000);
                 return;
             }
             else {
