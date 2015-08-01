@@ -4,7 +4,7 @@
         <br>
         <input class = "center" style = "width: 80%;" type = "text" name = "enterLink" placeholder="Enter a new link here." ng-model="enteredLink" ng-paste = "submitLink()">
         <br>
-        <p style = "padding-bottom: 5px" class = "grey-text lighten-5 center">If you enjoy typing links by hand, don't forget to press "Enter"</p>
+        <p style = "padding-bottom: 5px" class = "grey-text text-lighten-1 center">If you enjoy typing links by hand, don't forget to press "Enter"</p>
         <button type = "submit" style = "margin-top: 10px; font-weight: 550; display: none" class="waves-effect waves-light btn green darken-3 z-depth-2" ng-click = "submitLink()">Save</button>
         <br>
     </form>
@@ -21,7 +21,7 @@
 
             <br>
             <!-- Laste updated -->
-            <div class = "grey-text lighten-3" style = "text-align: right">
+            <div class = "grey-text text-lighten-1" style = "text-align: right">
                 <p style = "display: inline">Dumped at: </p>
                 <p style = "display: inline" ng-bind="dump.updated_at | date:'h:mm MM/dd/yyyy '"></p>
             </div>

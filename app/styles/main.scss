@@ -5,6 +5,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 // endbower
 
 $pageBGColor: #9575CD;
+$placeholderText: #bdbdbd;
 
 .browsehappy {
   margin: 0.2em 0;
@@ -16,6 +17,22 @@ $pageBGColor: #9575CD;
 body {
   padding: 0;
   background-color: $pageBGColor;
+}
+
+::-webkit-input-placeholder {
+   color: $placeholderText;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: $placeholderText;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: $placeholderText;
+}
+
+:-ms-input-placeholder {
+   color: $placeholderText;
 }
 
 /* active navigation tag */
