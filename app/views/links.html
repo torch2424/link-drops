@@ -4,7 +4,7 @@
         <br>
         <input class = "center" style = "width: 80%;" type = "text" name = "enterLink" placeholder="Enter a new link here" ng-model="enteredLink" ng-paste = "submitLink()">
         <br>
-        <button type = "submit" style = "margin-top: 10px; font-weight: 550" class="waves-effect waves-light btn green darken-3 z-depth-2" ng-click = "submitLink()">Dump!</button>
+        <button type = "submit" style = "margin-top: 10px; font-weight: 550" class="waves-effect waves-light btn green darken-3 z-depth-2" ng-hide = "!enteredLink" ng-click = "submitLink()">Dump!</button>
         <br>
         <br>
     </form>
@@ -19,8 +19,15 @@
             </div>
             <a href="{{dump.content}}" style="font-size: 2.5vmin;vertical-align: -webkit-baseline-middle;">{{dump.content}}</a>
 
+            <br>
+            <!-- Laste updated -->
+            <div class = "grey-text lighten-3" style = "text-align: right">
+                <p style = "display: inline">Dumped at: </p>
+                <p style = "display: inline" ng-bind="dump.updated_at | date:'h:mm MM/dd/yyyy '"></p>
+            </div>
+            <br>
             <!-- add a delete button -->
-            <button style = "margin-top: 10px; font-weight: 550" class="waves-effect waves-light btn green darken-3 z-depth-2" ng-click = "removeLink(dump)">
+            <button style = "font-weight: 550" class="waves-effect waves-light btn green darken-3 z-depth-2" ng-click = "removeLink(dump)">
             <i class="material-icons">delete</i>
         </button>
         </li>
