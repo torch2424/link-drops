@@ -44,6 +44,11 @@ angular
         controller: 'LinksCtrl',
         controllerAs: 'links'
       })
+      .when('/myAccount', {
+        templateUrl: 'views/myaccount.html',
+        controller: 'MyaccountCtrl',
+        controllerAs: 'myAccount'
+      })
       .otherwise({
         redirectTo: '/'
       });
