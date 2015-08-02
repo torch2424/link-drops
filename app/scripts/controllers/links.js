@@ -8,7 +8,7 @@
  * Controller of the linkDumpApp
  */
 angular.module('linkDumpApp')
-  .controller('LinksCtrl', function ($scope, $sce, $cookies, $timeout, Dumps) {
+  .controller('LinksCtrl', function ($scope, $sce, $cookies, $timeout, Dumps, $location) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -42,6 +42,9 @@ angular.module('linkDumpApp')
             }
         });
     }
+
+    //Get external page url
+    
 
     //Get a sce trusted iframe youtube link
     $scope.getYoutubeFrame = function(theLink)
