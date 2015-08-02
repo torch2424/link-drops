@@ -43,9 +43,6 @@ angular.module('linkDumpApp')
         });
     }
 
-    //Get external page url
-    
-
     //Get a sce trusted iframe youtube link
     $scope.getYoutubeFrame = function(theLink)
     {
