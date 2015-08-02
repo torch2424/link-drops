@@ -94,4 +94,26 @@ router.post('/join', function(req, res, next) {
     });
 });
 
+
+/* Check if a session token is valid */
+router.get('/session', function(req, res, next) {
+    Session.findOne({ token : req.query.token })
+    .select('user_id')
+    .exec(function(err, session) {
+        if(err){
+            res.json({msg: "Couldn't search the database for session!",
+                    errorid: "778"});
+        } else if(!session){
+            res.json({msg: "Session does not exist!",
+                    errorid: "43"});
+        }
+        else {
+            //Then the user exists, and the session token is valid!
+            res.json({
+                valid: "true"
+            });
+        }
+    });
+});
+
 module.exports = router;

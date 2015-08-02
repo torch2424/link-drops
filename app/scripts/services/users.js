@@ -38,3 +38,17 @@ angular.module('linkDumpApp')
 
         } );
 }]);
+
+angular.module('linkDumpApp')
+    .factory('Session', ['$resource', function($resource) {
+
+    return $resource( 'http://localhost:3000/users/session',
+        { }, {
+            validate: {
+                method: 'Get',
+                params: {},
+                isArray: false
+            }
+
+        } );
+}]);

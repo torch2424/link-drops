@@ -43,7 +43,7 @@ angular.module('linkDumpApp')
                    Materialize.toast("Welcome to linkDump!", 3000);
 
                    //Send them to the links page
-                   $location.path("/links");
+                   $location.path("/dumps");
                }
            });
 
