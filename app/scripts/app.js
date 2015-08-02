@@ -39,12 +39,12 @@ angular
         controller: 'LoginCtrl',
         controllerAs: 'login'
       })
-      .when('/links', {
+      .when('/dumps', {
         templateUrl: 'views/links.html',
         controller: 'LinksCtrl',
         controllerAs: 'links'
       })
-      .when('/myAccount', {
+      .when('/myaccount', {
         templateUrl: 'views/myaccount.html',
         controller: 'MyaccountCtrl',
         controllerAs: 'myAccount'
