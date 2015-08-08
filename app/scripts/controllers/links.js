@@ -47,7 +47,14 @@ angular.module('linkDumpApp')
     $scope.getYoutubeFrame = function(theLink)
     {
         //Get the link on the 33 substring, and trust it
-        return $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + theLink.substring(32));
+        return $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + theLink.split("https://www.youtube.com/watch?v=")[1]);
+    }
+
+    //Get a sce trusted iframe vimeo link
+    $scope.getVimeoFrame = function(theLink)
+    {
+        //Get the link on the 33 substring, and trust it
+        return $sce.trustAsResourceUrl("https://player.vimeo.com/video/" + theLink.split("https://vimeo.com/")[1] + "?color=ffffff&title=0&portrait=0&badge=0");
     }
 
     //Submit a dumped link

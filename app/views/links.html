@@ -13,10 +13,17 @@
     <ul>
         <!-- using track by to avoid a double appearing links bug when scope is updated -->
         <li ng-repeat="dump in dumps | orderBy:'-updated_at':reverse track by dump.updated_at" class = "card center" style="padding: 2%">
+
             <!-- display youtube video if it is a youtube link -->
             <!-- Use ng-if not ng-show, as ng show will simply hide this, where we dont want to even create it -->
             <div ng-if = "dump.content.indexOf('https://www.youtube.com/watch?v=') > -1">
                 <iframe width="90%" height="350px" ng-src="{{getYoutubeFrame(dump.content)}}" frameborder="0" allowfullscreen></iframe>
+            </div>
+
+            <!-- display vimeo video if it is a youtube link -->
+            <!-- Use ng-if not ng-show, as ng show will simply hide this, where we dont want to even create it -->
+            <div ng-if = "dump.content.indexOf('https://vimeo.com/') > -1">
+                <iframe width="90%" height="350px" ng-src="{{getVimeoFrame(dump.content)}}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
             </div>
 
             <img ng-src="{{dump.content | favicon}}" alt="Dump Icon" style = "vertical-align: -webkit-baseline-middle;width: 16px; height: 16px">
