@@ -22,6 +22,11 @@ angular.module('linkDumpApp')
     //inititalizes our dumps
     $scope.dumps;
 
+    //Initialize soundcloud
+    SC.initialize({
+        client_id: 'YOUR_CLIENT_ID'
+    });
+
     //get our dumps
     $scope.getDumps = function()
     {
@@ -55,6 +60,32 @@ angular.module('linkDumpApp')
     {
         //Get the link on the 33 substring, and trust it
         return $sce.trustAsResourceUrl("https://player.vimeo.com/video/" + theLink.split("https://vimeo.com/")[1] + "?color=ffffff&title=0&portrait=0&badge=0");
+    }
+
+    //get a sce trusted soundcloud thingy
+    $scope.getSoundCloud = function(theLink)
+    {
+        //Did this worng use this
+        //https://developers.soundcloud.com/docs/api/guide#playing
+
+        console.log('sc-widget-' + theLink);
+        //Got from the soundcloud docs https://developers.soundcloud.com/blog/html5-widget-api
+        var widgetIframe = document.getElementById('sc-widget-' + theLink);
+        var widget       = SC.Widget(widgetIframe);
+        var newSoundUrl = theLink;
+
+        //trust the link
+        $sce.trustAsResourceUrl(newSoundUrl);
+
+        widget.bind(SC.Widget.Events.READY, function() {
+             // load new widget
+             widget.bind(SC.Widget.Events.FINISH, function() {
+                   widget.load(newSoundUrl, {
+                     //show the artwork
+                     //show_artwork: false
+                   });
+             });
+         });
     }
 
     //Submit a dumped link
