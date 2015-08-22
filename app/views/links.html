@@ -28,8 +28,9 @@
 
             <!-- display soundcloud if it is a soundcloud link -->
             <!-- Use ng-if not ng-show, as ng show will simply hide this, where we dont want to even create it -->
-            <div ng-if = "dump.content.indexOf('https://soundcloud.com/') > -1" ng-init="getSoundCloud(dump.content)">
-                <iframe id="sc-widget-{{dump.content}}" width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1848538&show_artwork=true">
+            <div ng-if = "dump.content.indexOf('https://soundcloud.com/') > -1">
+                <iframe id = "scWidget-{{dump.content}}" width="100%" height="400" scrolling="no"
+                ng-init="getSoundCloud(dump.content)" frameborder="no">
                 </iframe>
             </div>
 

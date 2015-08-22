@@ -24,7 +24,7 @@ angular.module('linkDumpApp')
 
     //Initialize soundcloud
     SC.initialize({
-        client_id: 'YOUR_CLIENT_ID'
+        client_id: 'b9513e908ef7793171225f04e87cf362'
     });
 
     //get our dumps
@@ -65,27 +65,18 @@ angular.module('linkDumpApp')
     //get a sce trusted soundcloud thingy
     $scope.getSoundCloud = function(theLink)
     {
-        //Did this worng use this
+        //Used this
         //https://developers.soundcloud.com/docs/api/guide#playing
 
-        console.log('sc-widget-' + theLink);
-        //Got from the soundcloud docs https://developers.soundcloud.com/blog/html5-widget-api
-        var widgetIframe = document.getElementById('sc-widget-' + theLink);
-        var widget       = SC.Widget(widgetIframe);
-        var newSoundUrl = theLink;
+        SC.get('/resolve', { url: theLink}, function(track) {
 
-        //trust the link
-        $sce.trustAsResourceUrl(newSoundUrl);
+            //Get the document
+            var element = document.getElementById("scWidget-" + theLink);
 
-        widget.bind(SC.Widget.Events.READY, function() {
-             // load new widget
-             widget.bind(SC.Widget.Events.FINISH, function() {
-                   widget.load(newSoundUrl, {
-                     //show the artwork
-                     //show_artwork: false
-                   });
-             });
-         });
+            element.src = $sce.trustAsResourceUrl("https://w.soundcloud.com/player/?url=https%3A" +
+            track.uri.substring(track.uri.indexOf("//api.soundcloud.com")) +
+            "&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true");
+        });
     }
 
     //Submit a dumped link
