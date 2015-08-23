@@ -34,8 +34,17 @@
                 </iframe>
             </div>
 
+            <!-- display bandcamp video if it is a bc link -->
+            <!-- Use ng-if not ng-show, as ng show will simply hide this, where we dont want to even create it -->
+            <div ng-if = "dump.content.indexOf('.bandcamp.com/') > -1" ng-init = "getBandcamp(dump.content)">
+            </div>
+
             <img ng-src="{{dump.content | favicon}}" alt="Dump Icon" style = "vertical-align: -webkit-baseline-middle;width: 16px; height: 16px">
-            <a href="{{dump.content}}" style="font-size: 2.5vmin;vertical-align: -webkit-baseline-middle;">{{dump.content}}</a>
+            <a id = "linkTitle-{{dump.content}}" href="{{dump.content}}"
+            style="font-size: 2.5vmin;vertical-align: -webkit-baseline-middle;"
+            ng-init = "getTitle(dump.content)">
+            {{dump.content}}
+            </a>
 
             <br>
             <!-- Laste updated -->

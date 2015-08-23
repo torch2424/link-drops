@@ -8,7 +8,7 @@
  * Controller of the linkDumpApp
  */
 angular.module('linkDumpApp')
-  .controller('LinksCtrl', function ($scope, $sce, $cookies, $timeout, Dumps, $location) {
+  .controller('LinksCtrl', function ($scope, $sce, $cookies, $timeout, Dumps, $location, $http) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -26,6 +26,9 @@ angular.module('linkDumpApp')
     SC.initialize({
         client_id: 'b9513e908ef7793171225f04e87cf362'
     });
+
+    //our embedly key
+    var embedlyKey = '680e3b4e813144b898e6f88bb4d9b145';
 
     //get our dumps
     $scope.getDumps = function()
@@ -45,6 +48,23 @@ angular.module('linkDumpApp')
                 //Get only the string
                 $scope.dumps = dumpResponse;
             }
+        });
+    }
+
+    //Get the title of a link (Using embedly)
+    $scope.getTitle = function(theLink)
+    {
+        //Get the response from embedly
+        $http.get("http://api.embed.ly/1/extract?key=" + embedlyKey + "&url=" + theLink)
+        .then(function (response) {
+            //Our response from embedly
+
+            $scope.response = response;
+
+            //Get the document
+            var element = document.getElementById("linkTitle-" + theLink);
+
+             element.innerHTML = response.data.title;
         });
     }
 
@@ -76,6 +96,17 @@ angular.module('linkDumpApp')
             element.src = $sce.trustAsResourceUrl("https://w.soundcloud.com/player/?url=https%3A" +
             track.uri.substring(track.uri.indexOf("//api.soundcloud.com")) +
             "&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true");
+        });
+    }
+
+    //Get a sce trusted embedly bandcamp
+    $scope.getBandcamp = function(theLink)
+    {
+        //Get the response from embedly
+        $http.get("http://api.embed.ly/1/extract?key=" + embedlyKey + "&url=" + theLink)
+        .then(function (response) {
+            //Our response from embedly
+            console.log(response);
         });
     }
 
