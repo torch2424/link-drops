@@ -36,7 +36,7 @@
 
             <!-- display bandcamp video if it is a bc link -->
             <!-- Use ng-if not ng-show, as ng show will simply hide this, where we dont want to even create it -->
-            <div ng-if = "dump.content.indexOf('.bandcamp.com/') > -1" ng-init = "getBandcamp(dump.content)">
+            <div ng-if = "dump.content.indexOf('.bandcamp.com/') > -1" id = "bandcamp-{{dump.content}}" ng-init = "getBandcamp(dump.content)">
             </div>
 
             <img ng-src="{{dump.content | favicon}}" alt="Dump Icon" style = "vertical-align: -webkit-baseline-middle;width: 16px; height: 16px">
@@ -52,11 +52,13 @@
                 <p style = "display: inline">Dumped at: </p>
                 <p style = "display: inline" ng-bind="dump.updated_at | date:'h:mm MM/dd/yyyy '"></p>
             </div>
-            <br>
-            <!-- add a delete button -->
-            <button style = "font-weight: 550" class="waves-effect waves-light btn green darken-3 z-depth-2" ng-click = "removeLink(dump)">
+            <!-- add a delete button, going to just use a small link -->
+            <!-- <button style = "font-weight: 550" class="waves-effect waves-light btn green darken-3 z-depth-2" ng-click = "removeLink(dump)">
             <i class="material-icons">delete</i>
-        </button>
+            </button> -->
+            <div class = "grey-text text-lighten-1" style = "text-align: right">
+                <a class = "grey-text text-lighten-1" ng-click = "removeLink(dump)"><p style = "display: inline">Delete Dump</p></a>
+            </div>
         </li>
     </ul>
 </div>

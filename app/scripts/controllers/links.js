@@ -57,10 +57,6 @@ angular.module('linkDumpApp')
         //Get the response from embedly
         $http.get("http://api.embed.ly/1/extract?key=" + embedlyKey + "&url=" + theLink)
         .then(function (response) {
-            //Our response from embedly
-
-            $scope.response = response;
-
             //Get the document
             var element = document.getElementById("linkTitle-" + theLink);
 
@@ -106,7 +102,10 @@ angular.module('linkDumpApp')
         $http.get("http://api.embed.ly/1/extract?key=" + embedlyKey + "&url=" + theLink)
         .then(function (response) {
             //Our response from embedly
-            console.log(response);
+            //Get the document
+            var element = document.getElementById("bandcamp-" + theLink);
+
+             element.innerHTML = $sce.trustAsHtml(response.data.media.html);
         });
     }
 
@@ -161,6 +160,9 @@ angular.module('linkDumpApp')
             else {
                 //Re-get all ouf our links!
                 $scope.getDumps();
+
+                //Inform user
+                Materialize.toast("Deleted " + dump.content + "!", 3000);
             }
         });
     }
