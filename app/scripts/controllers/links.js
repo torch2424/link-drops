@@ -112,33 +112,41 @@ angular.module('linkDumpApp')
     //Submit a dumped link
     $scope.submitLink = function ()
     {
-        //Need to set a slight timeout for ng paste
-        $timeout(function () {
-            //Our json we will submit to the backend
-            var enterJson = {
-                "token": sessionToken,
-                "content": $scope.enteredLink
-            };
+        //First need to see if it is a valid url
+        if($scope.linkForm.linkInput.$valid)
+        {
+            //Need to set a slight timeout for ng paste
+            $timeout(function () {
+                //Our json we will submit to the backend
+                var enterJson = {
+                    "token": sessionToken,
+                    "content": $scope.enteredLink
+                };
 
-            //Save the link
-            var saveRes = Dumps.save(enterJson, function(){
-                if(saveRes.errorid)
-                {
-                    Materialize.toast(saveRes.msg, 3000);
-                    return;
-                }
-                else {
-                    //Set enetered link back to null
-                    $scope.enteredLink = "";
+                //Save the link
+                var saveRes = Dumps.save(enterJson, function(){
+                    if(saveRes.errorid)
+                    {
+                        Materialize.toast(saveRes.msg, 3000);
+                        return;
+                    }
+                    else {
+                        //Set enetered link back to null
+                        $scope.enteredLink = "";
 
-                    //Inform user of the dump
-                    Materialize.toast("Dumped!", 3000);
+                        //Inform user of the dump
+                        Materialize.toast("Dumped!", 3000);
 
-                    //Re-get all ouf our links!
-                    $scope.getDumps();
-                }
-            });
-        }, 1);
+                        //Re-get all ouf our links!
+                        $scope.getDumps();
+                    }
+                });
+            }, 1);
+        }
+        //it is not a valid url
+        else {
+            //Materialize.toast("Please enter a valid URL!", 3000);
+        }
     }
 
     //Remove a dumped link

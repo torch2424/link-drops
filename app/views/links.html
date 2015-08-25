@@ -1,10 +1,10 @@
 <div ng-init="getDumps()">
     <!-- add links here -->
-    <form class = "card center">
+    <form name = "linkForm" class = "card center">
         <br>
-        <input class = "center" style = "width: 80%;" type = "text" name = "enterLink" placeholder="Enter a new link here." ng-model="enteredLink" ng-paste = "submitLink()">
+        <input type = "url" name = "linkInput" class = "center" style = "width: 80%;" name = "enterLink" placeholder="Enter a new link here." ng-model="enteredLink" ng-paste = "submitLink()">
         <br>
-        <p style = "padding-bottom: 5px" class = "grey-text text-lighten-1 center">If you enjoy typing links by hand, don't forget to press "Enter"</p>
+        <p style = "padding-bottom: 5px" class = "grey-text text-lighten-1 center">If you enjoy typing links by hand, don't forget to add " http:// " or " https:// " and press "Enter"</p>
         <button type = "submit" style = "margin-top: 10px; font-weight: 550; display: none" class="waves-effect waves-light btn green darken-3 z-depth-2" ng-click = "submitLink()">Save</button>
         <br>
     </form>
