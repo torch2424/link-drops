@@ -10,7 +10,7 @@
     </form>
 
     <!-- ng repeat all of our links -->
-    <ul>
+    <ul class = "columns">
         <!-- using track by to avoid a double appearing links bug when scope is updated -->
         <li ng-repeat="dump in dumps | orderBy:'-updated_at':reverse track by dump.updated_at" class = "card center" style="padding: 2%">
 
