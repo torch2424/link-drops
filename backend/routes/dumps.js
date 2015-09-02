@@ -56,7 +56,7 @@ router.get('/', function(req, res, next) {
 
 
 //Update a link
-router.put('/:linkId', function (req, res) {
+router.put('/:id', function (req, res) {
     Session.findOne({ token : req.query.token })
     .select('user_id')
     .exec(function(err, session) {
@@ -96,7 +96,7 @@ router.put('/:linkId', function (req, res) {
 //DELETE
 //Using the ORM (object relational mapping) which is mongoose
 //it will find a link by it's mongoose id, and remove it from the backend
-router.delete('/', function (req, res) {
+router.delete('/:id', function (req, res) {
     Session.findOne({ token : req.query.token })
     .select('user_id')
     .exec(function(err, session) {
@@ -108,7 +108,7 @@ router.delete('/', function (req, res) {
                     errorid: "43"});
         } else {
             Dump.findOne({
-                _id: req.query.id,
+                _id: req.params.id,
                 user_id: session.user_id
             }, function ( err, dump ){
                 if(err){
