@@ -67,7 +67,10 @@ router.put('/:linkId', function (req, res) {
             res.json({msg: "Session does not exist!",
                     errorid: "43"});
         } else {
-            Dump.findById( req.params.id, function ( err, dump ){
+            Dump.findOne({
+                _id: req.params.id,
+                user_id: session.user_id
+            }, function ( err, dump ){
                 if(err){
                     res.json({msg: "Couldn't search the database for dump!",
                             errorid: "779"});
@@ -75,20 +78,15 @@ router.put('/:linkId', function (req, res) {
                     res.json({msg: "Dump does not exist!",
                             errorid: "44"});
                 } else {
-                    if(session.user_id == dump.user_id){
-                        //Simply change the variables of think
-                        dump.content = req.body.content;
-                        dump.updated_at = Date.now();
+                    //Simply change the variables of think
+                    dump.content = req.body.content;
+                    dump.updated_at = Date.now();
 
-                        //Save the modified
-                        dump.save(function( err, dump, count ){
-                           //.save will save our new link object in the backend
-                          res.json(dump);
-                        });
-                    } else {
-                        res.json({msg: "User does not own dump!",
-                                errorid: "999"});
-                    }
+                    //Save the modified
+                    dump.save(function( err, dump, count ){
+                       //.save will save our new link object in the backend
+                      res.json(dump);
+                    });
                 }
             });
         }
@@ -109,7 +107,10 @@ router.delete('/', function (req, res) {
             res.json({msg: "Session does not exist!",
                     errorid: "43"});
         } else {
-            Dump.findById( req.query.id, function ( err, dump ){
+            Dump.findOne({
+                _id: req.query.id,
+                user_id: session.user_id
+            }, function ( err, dump ){
                 if(err){
                     res.json({msg: "Couldn't search the database for dump!",
                             errorid: "779"});
@@ -117,14 +118,9 @@ router.delete('/', function (req, res) {
                     res.json({msg: "Dump does not exist!",
                             errorid: "44"});
                 } else {
-                    if(session.user_id == dump.user_id){
-                        dump.remove( function ( err, dump ){
-                            res.json(dump);
-                        });
-                    } else {
-                        res.json({msg: "User does not own dump!",
-                                errorid: "999"});
-                    }
+                    dump.remove( function ( err, dump ){
+                        res.json(dump);
+                    });
                 }
             });
 
