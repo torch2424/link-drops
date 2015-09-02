@@ -22,6 +22,9 @@ angular.module('linkDumpApp')
     //inititalizes our dumps
     $scope.dumps;
 
+    //Inititalize searching
+    $scope.findInput = false;
+
     //Initialize soundcloud
     SC.initialize({
         client_id: 'b9513e908ef7793171225f04e87cf362'
@@ -116,7 +119,7 @@ angular.module('linkDumpApp')
             if($scope.dumps[i].content == $scope.enteredLink)
             {
                 Materialize.toast("Link already exists!", 3000);
-                
+
                 //Set the input back to empty
                 $scope.enteredLink = "";
 

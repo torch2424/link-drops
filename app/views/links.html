@@ -6,7 +6,18 @@
         <br>
         <p style = "padding-bottom: 5px" class = "grey-text text-lighten-1 center">If you enjoy typing links by hand, don't forget to add " http:// " or " https:// " and press "Enter"</p>
         <button type = "submit" style = "margin-top: 10px; font-weight: 550; display: none" class="waves-effect waves-light btn green darken-3 z-depth-2" ng-click = "submitLink()">Save</button>
-        <br>
+
+        <div class = "grey-text text-lighten-1 center">
+            <a class = "grey-text text-lighten-1" ng-click = "findInput = true"><p style = "display: inline">Find...</p></a>
+        </div>
+
+        <br ng-show = "!findInput">
+
+        <div  ng-show = "findInput">
+            <input type = "text" class = "center" style = "width: 80%;" name = "enterFind" placeholder="What are you looking for?" ng-model="enteredFind">
+            <br>
+        </div>
+
     </form>
 
     <!-- ng repeat all of our links -->
