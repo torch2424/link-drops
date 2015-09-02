@@ -14,7 +14,7 @@
     <div class = "columns">
         <ul>
             <!-- using track by to avoid a double appearing links bug when scope is updated -->
-            <li ng-repeat="dump in dumps | orderBy:'-updated_at':reverse track by dump.updated_at" class = "card center" style="padding: 2%">
+            <li ng-repeat="dump in dumps | orderBy:'-updated_at':reverse track by dump.updated_at" class = "center card-panel" style="padding: 2%">
 
                 <!-- display youtube video if it is a youtube link -->
                 <!-- Use ng-if not ng-show, as ng show will simply hide this, where we dont want to even create it -->
