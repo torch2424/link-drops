@@ -4,6 +4,9 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "materialize/sass/materialize.scss";
 // endbower
 
+//imports of our other files
+@import "animate";
+
 $pageBGColor: #9575CD;
 $placeholderText: #bdbdbd;
 
