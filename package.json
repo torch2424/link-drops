@@ -36,5 +36,8 @@
   },
   "scripts": {
     "test": "grunt test"
+  },
+  "dependencies": {
+    "lazyloadjs": "^3.2.1"
   }
 }
