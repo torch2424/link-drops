@@ -14,7 +14,7 @@
         <br ng-show = "!findInput">
 
         <div  ng-show = "findInput">
-            <input type = "text" class = "center" style = "width: 80%;" name = "enterFind" placeholder="What are you looking for?" ng-model="enteredFind" ng-keydown = "getFiltered()">
+            <input type = "text" class = "center" style = "width: 80%;" name = "enterFind" placeholder="What are you looking for?" ng-model="enteredFind">
             <br>
         </div>
 
@@ -25,7 +25,7 @@
     <div class = "columns">
         <ul>
             <!-- using track by to avoid a double appearing links bug when scope is updated -->
-            <li ng-repeat="dump in filteredDumps | orderBy:'-updated_at':reverse track by dump.updated_at" class = "center card-panel" style="padding: 2%">
+            <li ng-repeat="dump in dumps | orderBy:'-updated_at':reverse track by dump.updated_at" ng-show="([dump] | filter:enteredFind).length > 0" class = "center card-panel" style="padding: 2%">
 
                 <!-- display youtube video if it is a youtube link -->
                 <!-- Use ng-if not ng-show, as ng show will simply hide this, where we dont want to even create it -->
