@@ -8,7 +8,7 @@
  * Controller of the linkDumpApp
  */
 angular.module('linkDumpApp')
-  .controller('LinksCtrl', function ($scope, $sce, $cookies, $timeout, Dumps, $location, $http) {
+  .controller('LinksCtrl', function ($scope, $sce, $cookies, $timeout, Dumps, $location, $http, $filter) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -50,8 +50,17 @@ angular.module('linkDumpApp')
             else {
                 //Get only the string
                 $scope.dumps = dumpResponse;
+
+                //Get our dumps without a filter
+                $scope.filteredDumps = $filter('filter')($scope.dumps, $scope.enteredFind);
             }
         });
+    }
+
+    //get our filtered dumps
+    $scope.getFiltered = function()
+    {
+        $scope.filteredDumps = $filter('filter')($scope.dumps, $scope.enteredFind);
     }
 
     //Get the title of a link (Using embedly)
