@@ -33,7 +33,7 @@ module.exports = function(config) {
       'bower_components/angular-touch/angular-touch.js',
       'bower_components/materialize/bin/materialize.js',
       'bower_components/angular-favicon/angular-favicon.js',
-      'bower_components/lazyloadjs/build/lazyload.js',
+      'bower_components/lazysizes/lazysizes.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",
