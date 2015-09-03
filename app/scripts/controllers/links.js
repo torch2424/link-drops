@@ -55,7 +55,7 @@ angular.module('linkDumpApp')
     }
 
     //Get the title of a link (Using embedly)
-    $scope.getTitle = function(theLink)
+    $scope.getTitle = function(theLink, index)
     {
         //Get the response from embedly
         $http.get("http://api.embed.ly/1/extract?key=" + embedlyKey + "&url=" + theLink)
@@ -64,6 +64,9 @@ angular.module('linkDumpApp')
             var element = document.getElementById("linkTitle-" + theLink);
 
              element.innerHTML = response.data.title;
+
+             //set the title attribute of the dump
+             $scope.dumps[$scope.dumps.length - index - 1].title = response.data.title;
         });
     }
 
