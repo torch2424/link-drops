@@ -72,6 +72,24 @@ body {
     max-width: $pageWidth;
 }
 
+//our cards
+.card {
+    background-color:  $cardBG;
+}
+
+.card-panel {
+    @extend .card;
+}
+
+//our buttons
+.btn-large {
+    background-color: $buttonBG;
+
+    &:hover {
+        background-color: $buttonBGHover;
+    }
+}
+
 //link colors (Same as background)
 a {
     color: $linkText;
@@ -81,7 +99,7 @@ a {
 .footerText {
     padding-top: 15px;
     color: $pageText;
-    border-top: 2px solid $navBG;
+    border-top: 1px solid $navBG;
 }
 
 /* Responsive: Portrait tablets and up */
