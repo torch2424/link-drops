@@ -42,6 +42,11 @@ body {
     background-color: $navBG;
     border-color: $navBG;
     color: $navText;
+    border-radius: 5px;
+}
+
+.activeTab {
+    background-color: $navActiveTab !important;
 }
 
 .navText {
@@ -53,16 +58,12 @@ body {
     border-color: $navBG !important;
 
     &:hover {
-        background-color: $navActiveTab !important;
+        @extend .activeTab;
     }
 
     &:focus {
-        background-color: $navActiveTab !important;
+        @extend .activeTab;
     }
-}
-
-.activeTab {
-    background-color: $navActiveTab;
 }
 
 //Container overrides
@@ -74,6 +75,13 @@ body {
 //link colors (Same as background)
 a {
     color: $linkText;
+}
+
+//The footer
+.footerText {
+    padding-top: 15px;
+    color: $pageText;
+    border-top: 2px solid $navBG;
 }
 
 /* Responsive: Portrait tablets and up */
