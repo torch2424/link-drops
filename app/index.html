@@ -25,7 +25,7 @@
 
     <!-- Add your site or application content here -->
     <div class="header">
-      <div class="navbar navbar-default grey lighten-2 z-depth-1" role="navigation">
+      <div class="navbar navbar-default mainNav" role="navigation">
         <div class="container">
           <div class="navbar-header">
 
@@ -36,18 +36,18 @@
               <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand black-text">linkDump.</a>
+            <a class="navbar-brand navText">linkDump.</a>
           </div>
 
           <div class="collapse navbar-collapse" id="js-navbar-collapse" ng-controller="NavCtrl">
 
             <ul class="nav navbar-nav">
-              <li ng-class="{activeTab:isActive('/')}" ng-hide = "isLoggedIn()"><a class = "black-text" href="#/">Home</a></li>
-              <li ng-class="{activeTab:isActive('/signup')}" ng-hide = "isLoggedIn()"><a class = "black-text" ng-href="#/signup">Sign Up</a></li>
-              <li ng-class="{activeTab:isActive('/login')}" ng-hide = "isLoggedIn()"><a class = "black-text" ng-href="#/login">Log In</a></li>
-              <li ng-class="{activeTab:isActive('/dumps')}" ng-show = "isLoggedIn()"><a class = "black-text" ng-href="#/dumps">Dumps</a></li>
-              <li ng-class="{activeTab:isActive('/myaccount')}" ng-show = "isLoggedIn()"><a class = "black-text" ng-href="#/myaccount">My Account</a></li>
-              <li ng-show = "isLoggedIn()"><a class = "black-text" ng-click = "logout()" href="#/">Log Out</a></li>
+              <li ng-class="{activeTab:isActive('/')}" ng-hide = "isLoggedIn()"><a class = "navText" href="#/">Home</a></li>
+              <li ng-class="{activeTab:isActive('/signup')}" ng-hide = "isLoggedIn()"><a class = "navText" ng-href="#/signup">Sign Up</a></li>
+              <li ng-class="{activeTab:isActive('/login')}" ng-hide = "isLoggedIn()"><a class = "navText" ng-href="#/login">Log In</a></li>
+              <li ng-class="{activeTab:isActive('/dumps')}" ng-show = "isLoggedIn()"><a class = "navText" ng-href="#/dumps">Dumps</a></li>
+              <li ng-class="{activeTab:isActive('/myaccount')}" ng-show = "isLoggedIn()"><a class = "navText" ng-href="#/myaccount">My Account</a></li>
+              <li ng-show = "isLoggedIn()"><a class = "navText" ng-click = "logout()" href="#/">Log Out</a></li>
             </ul>
           </div>
         </div>

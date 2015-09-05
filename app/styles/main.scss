@@ -32,9 +32,32 @@ body {
    color: $placeholderText;
 }
 
-/* active navigation tag */
+//Our navbar
+.mainNav {
+    background-color: $navBG;
+    border-color: $navBG;
+    color: $navText;
+}
+
+.navText {
+        color: $navText !important;
+}
+
+.navbar-toggle {
+    background-color: $navBG;
+    border-color: $navBG !important;
+
+    &:hover {
+        background-color: $navActiveTab !important;
+    }
+
+    &:focus {
+        background-color: $navActiveTab !important;
+    }
+}
+
 .activeTab {
-    background-color: #eceff1;
+    background-color: $navActiveTab;
 }
 
 //Container overrides
