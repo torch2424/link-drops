@@ -79,6 +79,15 @@ body {
 
 .card-panel {
     @extend .card;
+
+    overflow: inherit;
+
+    //Our embeds for our links
+    iframe {
+        //Wanted to add some border, but didnt really look that good haha
+        //Also soundcloud was NOT having borders
+        //border-radius: 2px !important;
+    }
 }
 
 //our buttons
