@@ -54,6 +54,17 @@ angular.module('linkDumpApp')
         });
     }
 
+    //Show the find input
+    $scope.showFind = function() {
+        if($scope.findInput) {
+            $scope.findInput = false;
+            $scope.enteredFind = "";
+        }
+        else {
+            $scope.findInput = true;
+        }
+    }
+
     //Get the title of a link (Using embedly)
     $scope.getTitle = function(theLink, index)
     {

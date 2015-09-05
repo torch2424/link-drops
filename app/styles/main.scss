@@ -97,6 +97,22 @@ body {
     &:hover {
         background-color: $buttonBGHover;
     }
+
+    &:focus {
+        background-color: $buttonBGHover;
+    }
+}
+
+.btn {
+    background-color: $buttonBG;
+
+    &:hover {
+        background-color: $buttonBGHover;
+    }
+
+    &:focus {
+        background-color: $buttonBGHover;
+    }
 }
 
 //link colors (Same as background)

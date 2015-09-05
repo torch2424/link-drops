@@ -8,7 +8,11 @@
         <button type = "submit" style = "margin-top: 10px; font-weight: 550; display: none" class="waves-effect waves-light btn green darken-3 z-depth-2" ng-click = "submitLink()">Save</button>
 
         <div class = "grey-text text-lighten-1 center">
-            <a class = "grey-text text-lighten-1" ng-click = "findInput = true"><p style = "display: inline">Find...</p></a>
+            <button style = "margin-right: 10px; font-weight: 550"
+            class="waves-effect waves-light btn z-depth-1"
+            ng-click = "showFind()">
+            Find...
+            </button>
         </div>
 
         <br ng-show = "!findInput">
