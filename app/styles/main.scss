@@ -39,7 +39,7 @@ body {
 
 //Container overrides
 .container {
-    width: 90%;
+    width: 95%;
 }
 
 /* Responsive: Portrait tablets and up */
@@ -52,11 +52,10 @@ body {
       -moz-column-count: 3; /* Firefox */
       column-count: 3;
 
-      -webkit-column-width: 250px;
-      -moz-column-width: 250px;
-      column-width: 250px;
+      -webkit-column-width: 400px;
+      -moz-column-width: 400px;
+      column-width: 500px;
       column-gap: 15px;
-      column-width:      500px;
 
     //Fix the missing content
     ul {
@@ -75,7 +74,7 @@ body {
 
   //Container overrides
   .container {
-      width: 90%;
+      width: 95%;
   }
-  
+
 }
