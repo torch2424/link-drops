@@ -9,10 +9,15 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "default";
 @import "animate";
 
+//Some content variables
+$pageWidth: 92%;
+$columnWidth: 500px;
+
 //Our Body Styles
 body {
   padding: 0;
   background-color: $pageBGColor;
+  color: $pageText;
 }
 
 //Placeholder text color throughout the page
@@ -62,7 +67,13 @@ body {
 
 //Container overrides
 .container {
-    width: 95%;
+    width: $pageWidth;
+    max-width: $pageWidth;
+}
+
+//link colors (Same as background)
+a {
+    color: $linkText;
 }
 
 /* Responsive: Portrait tablets and up */
@@ -75,9 +86,9 @@ body {
       -moz-column-count: 3; /* Firefox */
       column-count: 3;
 
-      -webkit-column-width: 400px;
-      -moz-column-width: 400px;
-      column-width: 500px;
+      -webkit-column-width: $columnWidth;
+      -moz-column-width: $columnWidth;
+      column-width: $columnWidth;
       column-gap: 15px;
 
     //Fix the missing content
@@ -97,7 +108,11 @@ body {
 
   //Container overrides
   .container {
-      width: 95%;
+      width: $pageWidth;
+      max-width: $pageWidth;
   }
 
 }
+
+//Our quickfixes
+@import "quickFixes";
