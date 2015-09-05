@@ -38,13 +38,13 @@
                 <!-- display youtube video if it is a youtube link -->
                 <!-- Use ng-if not ng-show, as ng show will simply hide this, where we dont want to even create it -->
                 <div ng-if = "dump.content.indexOf('https://www.youtube.com/watch?v=') > -1">
-                    <iframe width="90%" height="350px" ng-src="{{getYoutubeFrame(dump.content)}}" frameborder="0" allowfullscreen></iframe>
+                    <iframe id = "youtube-{{dump.content}}" in-view = "$inview &&  !dump.lazyEmbed && getYoutubeFrame($index)" width="90%" height="350px" frameborder="0" allowfullscreen></iframe>
                 </div>
 
                 <!-- display vimeo video if it is a vimeo link -->
                 <!-- Use ng-if not ng-show, as ng show will simply hide this, where we dont want to even create it -->
                 <div ng-if = "dump.content.indexOf('https://vimeo.com/') > -1">
-                    <iframe width="90%" height="350px" ng-src="{{getVimeoFrame(dump.content)}}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    <iframe id = "vimeo-{{dump.content}}" in-view = "$inview &&  !dump.lazyEmbed && getVimeoFrame($index)" width="90%" height="350px" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                 </div>
 
                 <!-- display soundcloud if it is a soundcloud link -->
@@ -57,7 +57,9 @@
 
                 <!-- display bandcamp video if it is a bc link -->
                 <!-- Use ng-if not ng-show, as ng show will simply hide this, where we dont want to even create it -->
-                <div ng-if = "dump.content.indexOf('.bandcamp.com/') > -1" id = "bandcamp-{{dump.content}}" in-view = "$inview && !dump.lazyEmbed && getBandcamp($index)">
+                <div ng-if = "dump.content.indexOf('.bandcamp.com/') > -1"
+                    id = "bandcamp-{{dump.content}}"
+                    in-view = "$inview && !dump.lazyEmbed && getBandcamp($index)">
                 </div>
 
                 <img ng-src="{{dump.content | favicon}}" alt="Dump Icon" style = "vertical-align: -webkit-baseline-middle;width: 16px; height: 16px">

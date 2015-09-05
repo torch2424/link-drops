@@ -33,6 +33,14 @@ angular.module('linkDumpApp')
     //our embedly key
     var embedlyKey = '680e3b4e813144b898e6f88bb4d9b145';
 
+    //To get the correct things to fire the in viewport, wait a second and then scroll to the top
+    $timeout(function() {
+        if(window.scrollY == 0 && window.scrollX == 0)
+        {
+            window.scrollTo(0, 1);
+        }
+    }, 2000);
+
     //get our dumps
     $scope.getDumps = function()
     {
@@ -88,17 +96,37 @@ angular.module('linkDumpApp')
     }
 
     //Get a sce trusted iframe youtube link
-    $scope.getYoutubeFrame = function(theLink)
+    $scope.getYoutubeFrame = function(index)
     {
+
+        //Get the index in the order that we need it
+        index = $scope.dumps.length - index - 1;
+
+        //Get the document
+        var element = document.getElementById("youtube-" + $scope.dumps[index].content);
+
         //Get the link on the 33 substring, and trust it
-        return $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + theLink.split("https://www.youtube.com/watch?v=")[1]);
+        element.src = $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + $scope.dumps[index].content.split("https://www.youtube.com/watch?v=")[1]);
+
+        // say the dump has been lazy loaded
+        $scope.dumps[index].lazyEmbed = true;
     }
 
     //Get a sce trusted iframe vimeo link
-    $scope.getVimeoFrame = function(theLink)
+    $scope.getVimeoFrame = function(index)
     {
+
+        //Get the index in the order that we need it
+        index = $scope.dumps.length - index - 1;
+
+        //Get the document
+        var element = document.getElementById("vimeo-" + $scope.dumps[index].content);
+
         //Get the link on the 33 substring, and trust it
-        return $sce.trustAsResourceUrl("https://player.vimeo.com/video/" + theLink.split("https://vimeo.com/")[1] + "?color=ffffff&title=0&portrait=0&badge=0");
+        element.src = $sce.trustAsResourceUrl("https://player.vimeo.com/video/" + $scope.dumps[index].content.split("https://vimeo.com/")[1] + "?color=ffffff&title=0&portrait=0&badge=0");
+
+        // say the dump has been lazy loaded
+        $scope.dumps[index].lazyEmbed = true;
     }
 
     //get a sce trusted soundcloud thingy
