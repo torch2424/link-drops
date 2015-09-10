@@ -98,9 +98,6 @@ angular.module('linkDumpApp')
 
              //set the title attribute of the dump
              $scope.dumps[index].title = response.data.title;
-
-             //say we lazy loaded it
-             $scope.dumps[index].lazyTitle = true;
         });
     }
 

@@ -64,7 +64,7 @@
                 <img ng-src="{{dump.content | favicon}}" alt="Dump Icon" style = "vertical-align: -webkit-baseline-middle;width: 16px; height: 16px">
                 <a id = "linkTitle-{{dump.content}}" href="{{dump.content}}" target="_blank"
                 style="vertical-align: -webkit-baseline-middle;"
-                in-view = "$inview &&  !dump.lazyTitle && getTitle($index)">
+                ng-init = "getTitle($index)">
                 {{dump.content}}
                 </a>
 
