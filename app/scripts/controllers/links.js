@@ -70,6 +70,15 @@ angular.module('linkDumpApp')
         }
         else {
             $scope.findInput = true;
+
+            //To get the correct things to fire the in viewport, wait a second and then scroll to the top
+            $timeout(function() {
+                if(window.scrollY == 0 && window.scrollX == 0)
+                {
+                    //focus on the field
+                    document.getElementById('findInput').focus();
+                }
+            }, 300);
         }
     }
 
