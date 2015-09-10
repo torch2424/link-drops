@@ -14,7 +14,7 @@
 angular.module('linkDumpApp')
     .factory('Login', ['$resource', function($resource) {
 
-    return $resource( window.location.protocol + "//" + window.location.hostname + ':3000/users/login',
+    return $resource( window.location.protocol + "//" + apiBase + '/users/login',
         { }, {
             submit: {
                 method: 'POST',
@@ -28,7 +28,7 @@ angular.module('linkDumpApp')
 angular.module('linkDumpApp')
     .factory('Join', ['$resource', function($resource) {
 
-    return $resource( window.location.protocol + "//" + window.location.hostname + ':3000/users/join',
+    return $resource( window.location.protocol + "//" + apiBase + '/users/join',
         { }, {
             submit: {
                 method: 'POST',
@@ -42,7 +42,7 @@ angular.module('linkDumpApp')
 angular.module('linkDumpApp')
     .factory('Session', ['$resource', function($resource) {
 
-    return $resource( window.location.protocol + "//" + window.location.hostname + ':3000/users/session',
+    return $resource( window.location.protocol + "//" + apiBase + '/users/session',
         { }, {
             validate: {
                 method: 'Get',

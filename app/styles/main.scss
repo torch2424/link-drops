@@ -13,6 +13,10 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 $pageWidth: 92%;
 $columnWidth: 500px;
 
+/**************************
+    GENERAL STYLES
+**************************/
+
 //Our Body Styles
 body {
   padding: 0;
@@ -126,6 +130,58 @@ a {
     color: $pageText;
     border-top: 1px solid $navBG;
 }
+
+/**************************
+    SPECIFIC STYLES
+**************************/
+.homeCard {
+    padding-bottom: 25px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.homeTagLine {
+    padding-bottom: 25px;
+}
+
+.homeLogText {
+    padding-bottom: 10px;
+}
+
+.homeSignUp {
+    margin-right: 10px;
+    font-weight: 600;
+}
+
+.homeLogIn {
+    margin-left: 10px;
+    font-weight: 600;
+}
+
+.authCard {
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+}
+
+.authTitle {
+    padding-bottom: 10px;
+}
+
+.authIcons {
+    font-size: 40px;
+    vertical-align: top;
+}
+
+.authInput {
+    width: 40% !important;
+}
+
+.authButton {
+    margin-top: 25px;
+    margin-left: 10px;
+    font-weight: 600;
+}
+
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {

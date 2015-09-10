@@ -1,17 +1,17 @@
-<div style = "padding-bottom: 25px;margin-bottom: 25px" class="card center grey lighten-3 z-depth-3">
-    <h1 style = "padding-bottom: 10px" class = "grey-text text-darken-4">Log In!</h1>
+<div class="card center authCard grey lighten-3 z-depth-3">
+    <h1 class = "authTitle grey-text text-darken-4">Log In!</h1>
 
     <form>
-        <i style = "font-size: 40px; vertical-align: top" class="material-icons prefix">account_circle</i>
-        <input style = "width: 50%" class = "center" placeholder="Username" type="text" class="validate" ng-model = "login.username">
+        <i class="authIcons material-icons prefix">account_circle</i>
+        <input class = "authInput center" placeholder="Username" type="text" class="validate" ng-model = "login.username">
         <br>
-        <i style = "font-size: 40px; vertical-align: top" class="material-icons prefix">vpn_key</i>
-        <input style = "width: 50%" class = "center" type = "password" placeholder="Password" type="text" class="validate" ng-model = "login.password">
+        <i class="authIcons material-icons prefix">vpn_key</i>
+        <input class = "authInput center" type = "password" placeholder="Password" type="text" class="validate" ng-model = "login.password">
         <br>
 
 
         <!-- finish and Sign Up -->
         <br>
-        <button type="submit" style = "margin-top: 25px; margin-left: 10px; font-weight: 600" class="waves-effect waves-light btn-large z-depth-2" ng-click = "submitInfo()">Log In</button>
+        <button type="submit" class="authButton waves-effect waves-light btn-large z-depth-2" ng-click = "submitInfo()">Log In</button>
     </form>
 </div>

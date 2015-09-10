@@ -10,7 +10,7 @@
 angular.module('linkDumpApp')
 .factory('Dumps', ['$resource', function($resource) {
 
- return $resource(window.location.protocol + "//" + window.location.hostname + ':3000/dumps/',
+ return $resource(window.location.protocol + "//" + apiBase + '/dumps/',
      { }, {
          get: {
              method: 'GET',
@@ -30,7 +30,7 @@ angular.module('linkDumpApp')
 angular.module('linkDumpApp')
 .factory('Dump', ['$resource', function($resource) {
 
- return $resource(window.location.protocol + "//" + window.location.hostname + ':3000/dumps/:id',
+ return $resource(window.location.protocol + "//" + apiBase + '/dumps/:id',
      { id: '@id' }, {
          update: {
               method: 'PUT',
