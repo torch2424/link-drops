@@ -1,12 +1,29 @@
 <div ng-init="getDumps()">
     <!-- add links here -->
-    <form name = "linkForm" class = "card center">
+    <form name = "linkForm" class = "card center animated fadeIn">
         <br>
-        <input type = "url" name = "linkInput" class = "center" style = "width: 80%;" name = "enterLink" placeholder="Enter a new link here." ng-model="enteredLink" ng-paste = "submitLink()">
+        <input type = "url" name = "linkInput" class = "center linkInput" placeholder="Enter a new link here." ng-model="enteredLink" ng-paste = "submitLink()">
         <br>
-        <p style = "padding-bottom: 5px" class = "grey-text text-lighten-1 center">If you enjoy typing links by hand, don't forget to add " http:// " or " https:// " and press "Enter"</p>
-        <button type = "submit" style = "margin-top: 10px; font-weight: 550; display: none" class="waves-effect waves-light btn green darken-3 z-depth-2" ng-click = "submitLink()">Save</button>
-        <br>
+        <p class = "grey-text text-lighten-1 center linkInstructions">If you enjoy typing links by hand, don't forget to add " http:// " or " https:// " and press "Enter"</p>
+
+        <!--This button is required for form submission -->
+        <button type = "submit" style = "display: none" ng-click="submitLink()"></button>
+
+        <div class = "grey-text text-lighten-1 center" ng-show = "!findInput">
+            <button class="waves-effect waves-light btn z-depth-1 findButton"
+            ng-click = "showFind()">
+            Find...
+            </button>
+        </div>
+
+        <br ng-show = "!findInput">
+
+        <div  ng-show = "findInput">
+            <input id = "findInput" type = "text" class = "center"
+            name = "enterFind" placeholder="What are you looking for?"
+            ng-model="enteredFind">
+        </div>
+
     </form>
 
     <!-- ng repeat all of our links -->
@@ -14,53 +31,43 @@
     <div class = "columns">
         <ul>
             <!-- using track by to avoid a double appearing links bug when scope is updated -->
-            <li ng-repeat="dump in dumps | orderBy:'-updated_at':reverse track by dump.updated_at" class = "center card-panel" style="padding: 2%">
+            <li ng-repeat="dump in dumps |
+            orderBy:'-updated_at':reverse track by dump.updated_at"
+            ng-show="([dump] | filter:enteredFind).length > 0"
+            class = "center card-panel animated fadeIn linkCard">
 
-                <!-- display youtube video if it is a youtube link -->
-                <!-- Use ng-if not ng-show, as ng show will simply hide this, where we dont want to even create it -->
-                <div ng-if = "dump.content.indexOf('https://www.youtube.com/watch?v=') > -1">
-                    <iframe width="90%" height="350px" ng-src="{{getYoutubeFrame(dump.content)}}" frameborder="0" allowfullscreen></iframe>
+                <!-- Display Media Embeds (Bandcamp, Youtube, Vimeo, etc... -->
+                <div ng-if = "(dump.content.indexOf('.bandcamp.com/') > -1)
+                    || (dump.content.indexOf('https://www.youtube.com/watch?v=') > -1)
+                    || (dump.content.indexOf('https://vimeo.com/') > -1)"
+                    id = "embed-{{dump.content}}"
+                    in-view = "$inview && !dump.lazyEmbed && getEmbed($index)">
                 </div>
 
-                <!-- display vimeo video if it is a vimeo link -->
-                <!-- Use ng-if not ng-show, as ng show will simply hide this, where we dont want to even create it -->
-                <div ng-if = "dump.content.indexOf('https://vimeo.com/') > -1">
-                    <iframe width="90%" height="350px" ng-src="{{getVimeoFrame(dump.content)}}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                </div>
-
-                <!-- display soundcloud if it is a soundcloud link -->
-                <!-- Use ng-if not ng-show, as ng show will simply hide this, where we dont want to even create it -->
+                <!-- display soundcloud if it is a soundcloud link (Using their own api) -->
                 <div ng-if = "dump.content.indexOf('https://soundcloud.com/') > -1">
                     <iframe id = "scWidget-{{dump.content}}" width="100%" height="400" scrolling="no"
-                    ng-init="getSoundCloud(dump.content)" frameborder="no">
+                    in-view = "$inview &&  !dump.lazyEmbed && getSoundCloud($index)" frameborder="no">
                     </iframe>
                 </div>
 
-                <!-- display bandcamp video if it is a bc link -->
-                <!-- Use ng-if not ng-show, as ng show will simply hide this, where we dont want to even create it -->
-                <div ng-if = "dump.content.indexOf('.bandcamp.com/') > -1" id = "bandcamp-{{dump.content}}" ng-init = "getBandcamp(dump.content)">
-                </div>
-
-                <img ng-src="{{dump.content | favicon}}" alt="Dump Icon" style = "vertical-align: -webkit-baseline-middle;width: 16px; height: 16px">
-                <a id = "linkTitle-{{dump.content}}" href="{{dump.content}}" target="_blank"
-                style="font-size: 2.5vmin;vertical-align: -webkit-baseline-middle;"
-                ng-init = "getTitle(dump.content)">
+                <!-- Get our favicon and link title -->
+                <img ng-src="{{dump.content | favicon}}" alt="Drop Icon" class = "dropFavicon">
+                <a id = "linkTitle-{{dump.content}}"
+                href="{{dump.content}}" target="_blank"
+                class = "dropURL"
+                ng-init = "getTitle($index)">
                 {{dump.content}}
                 </a>
 
                 <br>
-                <!-- Laste updated -->
-                <div class = "grey-text text-lighten-1" style = "text-align: right">
-                    <p style = "display: inline">Dumped at: </p>
-                    <p style = "display: inline" ng-bind="dump.updated_at | date:'h:mm MM/dd/yyyy '"></p>
+                <!-- Last updated -->
+                <div class = "grey-text text-lighten-1 linkSubTextContainer">
+                    <p class = "dumpedAtText">Dropped at: </p>
+                    <p class = "dumpedAtText" ng-bind="dump.updated_at | date:'h:mm MM/dd/yyyy '"></p>
+                    <a class = "grey-text text-lighten-1" ng-click = "removeLink(dump)"><p>Delete Dump</p></a>
                 </div>
-                <!-- add a delete button, going to just use a small link -->
-                <!-- <button style = "font-weight: 550" class="waves-effect waves-light btn green darken-3 z-depth-2" ng-click = "removeLink(dump)">
-                <i class="material-icons">delete</i>
-                </button> -->
-                <div class = "grey-text text-lighten-1" style = "text-align: right">
-                    <a class = "grey-text text-lighten-1" ng-click = "removeLink(dump)"><p style = "display: inline">Delete Dump</p></a>
-                </div>
+
             </li>
         </ul>
     </div>

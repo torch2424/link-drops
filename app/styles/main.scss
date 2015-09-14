@@ -4,21 +4,27 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "materialize/sass/materialize.scss";
 // endbower
 
-$pageBGColor: #9575CD;
-$placeholderText: #bdbdbd;
+//imports of our other files
+@import "colors";
+@import "default";
+@import "animate";
 
-.browsehappy {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
-}
+//Some content variables
+$pageWidth: 92%;
+$columnWidth: 500px;
 
+/**************************
+    GENERAL STYLES
+**************************/
+
+//Our Body Styles
 body {
   padding: 0;
   background-color: $pageBGColor;
+  color: $pageText;
 }
 
+//Placeholder text color throughout the page
 ::-webkit-input-placeholder {
    color: $placeholderText;
 }
@@ -35,112 +41,202 @@ body {
    color: $placeholderText;
 }
 
-/* active navigation tag */
+//Our navbar
+.mainNav {
+    background-color: $navBG;
+    border-color: $navBG;
+    color: $navText;
+    border-radius: 5px;
+}
+
 .activeTab {
-    background-color: #eceff1;
+    background-color: $navActiveTab !important;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-  padding-left: 15px;
-  padding-right: 15px;
+.navText {
+        color: $navText !important;
 }
 
-/* Custom page header */
-.header {
-  border-bottom: 1px solid #e5e5e5;
-  margin-bottom: 10px;
+.navbar-toggle {
+    background-color: $navBG;
+    border-color: $navBG !important;
 
-  /* Make the masthead heading the same height as the navigation */
-  h3 {
-    margin-top: 0;
-    margin-bottom: 0;
-    line-height: 40px;
-    padding-bottom: 19px;
-  }
-}
+    &:hover {
+        @extend .activeTab;
+    }
 
-/* Overriding header */
-.header {
-    border-bottom: none;
-}
-
-/* Custom page footer */
-.footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
-}
-
-.container-narrow > hr {
-  margin: 30px 0;
-}
-
-/* Main marketing message and sign up button */
-.jumbotron {
-  text-align: center;
-  border-bottom: 1px solid #e5e5e5;
-
-  .btn {
-    font-size: 21px;
-    padding: 14px 24px;
-  }
-}
-
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
-
-  p + h4 {
-    margin-top: 28px;
-  }
+    &:focus {
+        @extend .activeTab;
+    }
 }
 
 //Container overrides
 .container {
-    width: 90%;
-    max-width: none;
+    width: $pageWidth;
+    max-width: $pageWidth;
 }
+
+//our cards
+.card {
+    background-color:  $cardBG;
+}
+
+.card-panel {
+    @extend .card;
+
+    overflow: inherit;
+
+    //Our embeds for our links
+    iframe {
+        //Wanted to add some border, but didnt really look that good haha
+        //Also soundcloud was NOT having borders
+        //border-radius: 2px !important;
+    }
+}
+
+//our buttons
+.btn-large {
+    background-color: $buttonBG;
+
+    &:hover {
+        background-color: $buttonBGHover;
+    }
+
+    &:focus {
+        background-color: $buttonBGHover;
+    }
+}
+
+.btn {
+    background-color: $buttonBG;
+
+    &:hover {
+        background-color: $buttonBGHover;
+    }
+
+    &:focus {
+        background-color: $buttonBGHover;
+    }
+}
+
+//link colors (Same as background)
+a {
+    color: $linkText;
+}
+
+//The footer
+.footerText {
+    padding-top: 15px;
+    color: $pageText;
+    border-top: 1px solid $navBG;
+}
+
+/**************************
+    SPECIFIC STYLES
+**************************/
+.homeCard {
+    padding-bottom: 25px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.homeTagLine {
+    padding-bottom: 25px;
+}
+
+.homeLogText {
+    padding-bottom: 10px;
+}
+
+.homeSignUp {
+    margin-right: 10px;
+    font-weight: 600;
+}
+
+.homeLogIn {
+    margin-left: 10px;
+    font-weight: 600;
+}
+
+.authCard {
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+}
+
+.authTitle {
+    padding-bottom: 10px;
+}
+
+.authIcons {
+    font-size: 40px;
+    vertical-align: top;
+}
+
+.authInput {
+    width: 40% !important;
+}
+
+.authButton {
+    margin-top: 25px;
+    margin-left: 10px;
+    font-weight: 600;
+}
+
+.linkInput {
+    width: 80%;
+}
+
+.linkInstructions {
+    padding-bottom: 5px;
+}
+
+.findButton {
+    margin-right: 10px;
+    font-weight: 550;
+}
+
+.findInput {
+    width: 80%;
+    height: 40px;
+}
+
+.linkCard {
+    padding: 2%;
+}
+
+.dropFavicon {
+    vertical-align: -webkit-baseline-middle;
+    width: 16px;
+    height: 16px;
+}
+
+.dropURL {
+    vertical-align: -webkit-baseline-middle;
+}
+
+.linkSubTextContainer {
+    text-align: right;
+}
+
+.dumpedAtText {
+    display: inline !important;
+}
+
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
-
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
 
   //multiple responsive card columnds
   .columns {
       //Columns stuff
       -webkit-column-count: 3; /* Chrome, Safari, Opera */
-    -moz-column-count: 3; /* Firefox */
-    column-count: 3;
+      -moz-column-count: 3; /* Firefox */
+      column-count: 3;
 
-    -webkit-column-width: 250px;
-     -moz-column-width: 250px;
-          column-width: 250px;
-
-    column-gap: 15px;
-
-
-     column-width:      500px;
+      -webkit-column-width: $columnWidth;
+      -moz-column-width: $columnWidth;
+      column-width: $columnWidth;
+      column-gap: 15px;
 
     //Fix the missing content
     ul {
@@ -159,7 +255,11 @@ body {
 
   //Container overrides
   .container {
-      width: 90%;
-      max-width: none;
+      width: $pageWidth;
+      max-width: $pageWidth;
   }
+
 }
+
+//Our quickfixes
+@import "quickFixes";

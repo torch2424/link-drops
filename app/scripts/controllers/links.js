@@ -10,25 +10,32 @@
 angular.module('linkDumpApp')
   .controller('LinksCtrl', function ($scope, $sce, $cookies, $timeout, Dumps, $location, $http) {
 
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-
     //Get our sessions token
     var sessionToken = $cookies.get("sessionToken");
 
     //inititalizes our dumps
     $scope.dumps;
 
+    //Inititalize searching
+    $scope.findInput = false;
+
     //Initialize soundcloud
     SC.initialize({
         client_id: 'b9513e908ef7793171225f04e87cf362'
     });
 
+    //Our main scraper will be noembed, since it is free and open soruce
+    //With embedly as a backup to keep costs low
     //our embedly key
-    var embedlyKey = '680e3b4e813144b898e6f88bb4d9b145';
+    var embedlyKey = '1ac8190e5c2940a99a5ffde29e389e72';
+
+    //To get the correct things to fire the in viewport, wait a second and then scroll to the top
+    $timeout(function() {
+        if(window.scrollY == 0 && window.scrollX == 0)
+        {
+            window.scrollTo(0, 1);
+        }
+    }, 2000);
 
     //get our dumps
     $scope.getDumps = function()
@@ -51,61 +58,122 @@ angular.module('linkDumpApp')
         });
     }
 
-    //Get the title of a link (Using embedly)
-    $scope.getTitle = function(theLink)
+    //Show the find input
+    $scope.showFind = function() {
+        if($scope.findInput) {
+            $scope.findInput = false;
+            $scope.enteredFind = "";
+        }
+        else {
+            $scope.findInput = true;
+
+            //To get the correct things to fire the in viewport, wait a second and then scroll to the top
+            $timeout(function() {
+                if(window.scrollY == 0 && window.scrollX == 0)
+                {
+                    //focus on the field
+                    document.getElementById('findInput').focus();
+                }
+            }, 300);
+        }
+    }
+
+    //Get the title of a link
+    $scope.getTitle = function(index)
     {
-        //Get the response from embedly
-        $http.get("http://api.embed.ly/1/extract?key=" + embedlyKey + "&url=" + theLink)
+        //Get the index in the order that we need it
+        index = $scope.dumps.length - index - 1;
+
+        //Get the response from noembed
+        $http.get("https://noembed.com/embed?url=" + $scope.dumps[index].content)
         .then(function (response) {
-            //Get the document
-            var element = document.getElementById("linkTitle-" + theLink);
 
-             element.innerHTML = response.data.title;
-        });
-    }
+            //Check for no error
+            if(!response.data.error)
+            {
+                //Get the document
+                var element = document.getElementById("linkTitle-" + $scope.dumps[index].content);
 
-    //Get a sce trusted iframe youtube link
-    $scope.getYoutubeFrame = function(theLink)
-    {
-        //Get the link on the 33 substring, and trust it
-        return $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + theLink.split("https://www.youtube.com/watch?v=")[1]);
-    }
+                 element.innerHTML = response.data.title;
 
-    //Get a sce trusted iframe vimeo link
-    $scope.getVimeoFrame = function(theLink)
-    {
-        //Get the link on the 33 substring, and trust it
-        return $sce.trustAsResourceUrl("https://player.vimeo.com/video/" + theLink.split("https://vimeo.com/")[1] + "?color=ffffff&title=0&portrait=0&badge=0");
-    }
+                 //set the title attribute of the dump
+                 $scope.dumps[index].title = response.data.title;
+            }
+            else {
+                //Get the title from embedly
+                $http.get("http://api.embed.ly/1/extract?key=" + embedlyKey + "&url=" + $scope.dumps[index].content)
+                .then(function (response) {
+                    //Our response from embedly
+                    //Get the document
+                    var element = document.getElementById("linkTitle-" + $scope.dumps[index].content);
 
-    //get a sce trusted soundcloud thingy
-    $scope.getSoundCloud = function(theLink)
-    {
-        //Used this
-        //https://developers.soundcloud.com/docs/api/guide#playing
+                     element.innerHTML = response.data.title;
 
-        SC.get('/resolve', { url: theLink}, function(track) {
+                     //set the title attribute of the dump
+                     $scope.dumps[index].title = response.data.title;
+                });
+            }
 
-            //Get the document
-            var element = document.getElementById("scWidget-" + theLink);
-
-            element.src = $sce.trustAsResourceUrl("https://w.soundcloud.com/player/?url=https%3A" +
-            track.uri.substring(track.uri.indexOf("//api.soundcloud.com")) +
-            "&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true");
         });
     }
 
     //Get a sce trusted embedly bandcamp
-    $scope.getBandcamp = function(theLink)
+    $scope.getEmbed = function(index)
     {
-        //Get the response from embedly
-        $http.get("http://api.embed.ly/1/extract?key=" + embedlyKey + "&url=" + theLink)
-        .then(function (response) {
-            //Our response from embedly
-            //Get the document
-            var element = document.getElementById("bandcamp-" + theLink);
+        //Get the index in the order that we need it
+        index = $scope.dumps.length - index - 1;
 
-             element.innerHTML = $sce.trustAsHtml(response.data.media.html);
+        //Get the response from noembed
+        $http.get("https://noembed.com/embed?url=" + $scope.dumps[index].content + "&nowrap=on")
+        .then(function (response) {
+
+            //Check for no error
+            if(!response.data.error)
+            {
+                //Get the document
+                var element = document.getElementById("embed-" + $scope.dumps[index].content);
+
+                 element.innerHTML = $sce.trustAsHtml(response.data.html);
+                 // say the dump has been lazy loaded
+                 $scope.dumps[index].lazyEmbed = true;
+            }
+            else {
+                //Get the response from embedly
+                $http.get("http://api.embed.ly/1/oembed?key=" + embedlyKey + "&url=" + $scope.dumps[index].content)
+                .then(function (response) {
+                    //Our response from embedly
+                    //Get the document
+                    var element = document.getElementById("embed-" + $scope.dumps[index].content);
+
+                     element.innerHTML = $sce.trustAsHtml(response.data.html);
+                     // say the dump has been lazy loaded
+                     $scope.dumps[index].lazyEmbed = true;
+                });
+            }
+        });
+    }
+
+    //get a sce trusted soundcloud thingy
+    $scope.getSoundCloud = function(index)
+    {
+        //Used this
+        //https://developers.soundcloud.com/docs/api/guide#playing
+
+        //Get the index in the order that we need it
+        index = $scope.dumps.length - index - 1;
+
+        SC.get('/resolve', { url: $scope.dumps[index].content}, function(track) {
+
+            //Get the document
+            var element = document.getElementById("scWidget-" + $scope.dumps[index].content);
+
+            element.src = $sce.trustAsResourceUrl("https://w.soundcloud.com/player/?url=https%3A" +
+            track.uri.substring(track.uri.indexOf("//api.soundcloud.com")) +
+            "&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true");
+
+            // say the dump has been lazy loaded
+            $scope.dumps[index].lazyEmbed = true;
+
         });
     }
 
@@ -116,7 +184,7 @@ angular.module('linkDumpApp')
             if($scope.dumps[i].content == $scope.enteredLink)
             {
                 Materialize.toast("Link already exists!", 3000);
-                
+
                 //Set the input back to empty
                 $scope.enteredLink = "";
 
@@ -167,7 +235,7 @@ angular.module('linkDumpApp')
     }
         //it is not a valid url
         else {
-            //Materialize.toast("Please enter a valid URL!", 3000);
+            //Toast here the error
         }
     }
 
@@ -188,6 +256,7 @@ angular.module('linkDumpApp')
                 return;
             }
             else {
+
                 //Re-get all ouf our links!
                 $scope.getDumps();
 
