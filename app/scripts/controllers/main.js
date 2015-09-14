@@ -8,7 +8,7 @@
  * Controller of the linkDumpApp
  */
 angular.module('linkDumpApp')
-  .controller('MainCtrl', function ($scope, $location, $cookies, Session) {
+  .controller('MainCtrl', function($scope, $location, $cookies, Session) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -16,28 +16,26 @@ angular.module('linkDumpApp')
       'Karma'
     ];
 
-    $scope.autoLogin = function()
-    {
-        //First check if there is a sessionToken in the cookies
-        var sessionToken = $cookies.get("sessionToken");
-        //If it exists, validate
-        if(sessionToken)
-        {
-            //create json
-            var submitJson = {
-                "token" : sessionToken
-            };
+    $scope.autoLogin = function() {
+      //First check if there is a sessionToken in the cookies
+      var sessionToken = $cookies.get("sessionToken");
+      //If it exists, validate
+      if (sessionToken) {
+        //create json
+        var data = {
+          "token": sessionToken
+        };
 
-            //Validate
-            var submit = Session.validate(submitJson, function() {
-                //Dont spit out any errors, just try to autologin
-                if(!submit.errorid)
-                {
-                    //send them to the links page
-                    $location.path("/dumps");
-                }
-            });
-        }
+        //Validate
+        Session.validate(data,
+          function(data, status) {
+            //Session is valid! Redirect.
+            $location.path("/dumps");
+          },
+          function(data, status) {
+            //Session is not valid!
+          });
+      }
     }
 
   });
