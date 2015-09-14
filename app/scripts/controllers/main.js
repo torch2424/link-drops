@@ -24,18 +24,17 @@ angular.module('linkDumpApp')
         if(sessionToken)
         {
             //create json
-            var submitJson = {
+            var data = {
                 "token" : sessionToken
             };
 
             //Validate
-            var submit = Session.validate(submitJson, function() {
-                //Dont spit out any errors, just try to autologin
-                if(!submit.errorid)
-                {
-                    //send them to the links page
-                    $location.path("/dumps");
-                }
+            Session.validate(data,
+            function(data, status) {
+                //Session is valid! Redirect.
+                $location.path("/dumps");
+            }, function(data, status) {
+                //Session is not valid!
             });
         }
     }
