@@ -31,7 +31,7 @@ angular.module('linkDumpApp')
             $cookies.put("sessionToken", data.token);
 
             //Thank user for joining
-            Materialize.toast("Welcome to linkDump!", 3000);
+            Materialize.toast("Welcome to linkDrops!", 3000);
 
             //Send them to the links page
             $location.path("/dumps");
