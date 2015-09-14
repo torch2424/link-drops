@@ -182,6 +182,46 @@ a {
     font-weight: 600;
 }
 
+.linkInput {
+    width: 80%;
+}
+
+.linkInstructions {
+    padding-bottom: 5px;
+}
+
+.findButton {
+    margin-right: 10px;
+    font-weight: 550;
+}
+
+.findInput {
+    width: 80%;
+    height: 40px;
+}
+
+.linkCard {
+    padding: 2%;
+}
+
+.dropFavicon {
+    vertical-align: -webkit-baseline-middle;
+    width: 16px;
+    height: 16px;
+}
+
+.dropURL {
+    vertical-align: -webkit-baseline-middle;
+}
+
+.linkSubTextContainer {
+    text-align: right;
+}
+
+.dumpedAtText {
+    display: inline;
+}
+
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
