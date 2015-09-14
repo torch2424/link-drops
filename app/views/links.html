@@ -53,10 +53,10 @@
 
                 <!-- Get our favicon and link title -->
                 <img ng-src="{{dump.content | favicon}}" alt="Drop Icon" class = "dropFavicon">
-                <a id = "linkTitle-{{dump.content}}"
+                <a id = "linkTitle-{{$index}}"
                 href="{{dump.content}}" target="_blank"
                 class = "dropURL"
-                ng-init = "getTitle($index)">
+                ng-init = "getTitle(dump, $index)">
                 {{dump.content}}
                 </a>
 

@@ -78,22 +78,16 @@ angular.module('linkDumpApp')
     }
 
     //Get the title of a link
-    $scope.getTitle = function(index) {
-      //Get the index in the order that we need it
-      index = $scope.dumps.length - index - 1;
+    $scope.getTitle = function(dump, index) {
 
       //Get the response from noembed
-      $http.get("http://dev.kondeo.com/api/title-scraper.php?q=" + $scope.dumps[index].content)
+      $http.get("http://dev.kondeo.com/api/title-scraper.php?q=" + dump.content)
         .then(function(response) {
 
             //Get the document
-            var element = document.getElementById("linkTitle-" + $scope.dumps[index].content);
+            var element = document.getElementById("linkTitle-" + index);
 
             element.innerHTML = response.data.title;
-
-            //set the title attribute of the dump
-            $scope.dumps[index].title = response.data.title;
-
         });
     }
 
@@ -196,8 +190,6 @@ angular.module('linkDumpApp')
 
                 //Add new dump to dump array
                 $scope.dumps.unshift(data);
-                //Get new title
-                $scope.getTitle($scope.dumps.length - 1);
               },
               function(err) {
                 Materialize.toast(err.data.msg, 3000);
