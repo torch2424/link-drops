@@ -47,8 +47,14 @@ angular.module('linkDumpApp')
         function(data, status) {
           $scope.dumps = data;
         },
-        function(data, status) {
-          Materialize.toast(data.msg, 3000);
+        function(err) {
+          if (err.status == 401) {
+            //Session is invalid! Redirect.
+            $location.path("/");
+          } else {
+            //Something else happened
+            Materialize.toast(err.data.msg, 3000);
+          }
         }
       );
     }
@@ -77,11 +83,9 @@ angular.module('linkDumpApp')
       index = $scope.dumps.length - index - 1;
 
       //Get the response from noembed
-      $http.get("https://noembed.com/embed?url=" + $scope.dumps[index].content)
+      $http.get("http://dev.kondeo.com/api/title-scraper.php?q=" + $scope.dumps[index].content)
         .then(function(response) {
 
-          //Check for no error
-          if (!response.data.error) {
             //Get the document
             var element = document.getElementById("linkTitle-" + $scope.dumps[index].content);
 
@@ -89,20 +93,6 @@ angular.module('linkDumpApp')
 
             //set the title attribute of the dump
             $scope.dumps[index].title = response.data.title;
-          } else {
-            //Get the title from embedly
-            $http.get("http://api.embed.ly/1/extract?key=" + embedlyKey + "&url=" + $scope.dumps[index].content)
-              .then(function(response) {
-                //Our response from embedly
-                //Get the document
-                var element = document.getElementById("linkTitle-" + $scope.dumps[index].content);
-
-                element.innerHTML = response.data.title;
-
-                //set the title attribute of the dump
-                $scope.dumps[index].title = response.data.title;
-              });
-          }
 
         });
     }
@@ -209,8 +199,8 @@ angular.module('linkDumpApp')
                 //Get new title
                 $scope.getTitle($scope.dumps.length - 1);
               },
-              function(data, status) {
-                Materialize.toast(data.msg, 3000);
+              function(err) {
+                Materialize.toast(err.data.msg, 3000);
               });
           }
         }, 1);
@@ -239,8 +229,8 @@ angular.module('linkDumpApp')
         //Inform user
         Materialize.toast("Deleted " + data.content + "!", 3000);
 
-      }, function(data, status) {
-        Materialize.toast(data.msg, 3000);
+      }, function(err) {
+        Materialize.toast(err.data.msg, 3000);
       });;
     }
 
