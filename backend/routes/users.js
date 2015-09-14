@@ -116,19 +116,17 @@ router.get('/session', function(req, res, next) {
     .select('user_id')
     .exec(function(err, session) {
       if (err) {
-        res.json({
-          msg: "Couldn't search the database for session!",
-          errorid: "778"
+        res.status(500).json({
+          msg: "Couldn't search the database for session!"
         });
       } else if (!session) {
-        res.json({
-          msg: "Session does not exist!",
-          errorid: "43"
+        res.status(401).json({
+          msg: "Session is not valid!"
         });
       } else {
         //Then the user exists, and the session token is valid!
-        res.json({
-          valid: "true"
+        res.status(200).json({
+            token: req.query.token
         });
       }
     });
