@@ -10,12 +10,6 @@
 angular.module('linkDumpApp')
   .controller('LinksCtrl', function ($scope, $sce, $cookies, $timeout, Dumps, $location, $http) {
 
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-
     //Get our sessions token
     var sessionToken = $cookies.get("sessionToken");
 
@@ -31,7 +25,7 @@ angular.module('linkDumpApp')
     });
 
     //our embedly key
-    var embedlyKey = '680e3b4e813144b898e6f88bb4d9b145';
+    var embedlyKey = '1ac8190e5c2940a99a5ffde29e389e72';
 
     //To get the correct things to fire the in viewport, wait a second and then scroll to the top
     $timeout(function() {
@@ -101,38 +95,25 @@ angular.module('linkDumpApp')
         });
     }
 
-    //Get a sce trusted iframe youtube link
-    $scope.getYoutubeFrame = function(index)
+    //Get a sce trusted embedly bandcamp
+    $scope.getEmbed = function(index)
     {
-
         //Get the index in the order that we need it
         index = $scope.dumps.length - index - 1;
 
-        //Get the document
-        var element = document.getElementById("youtube-" + $scope.dumps[index].content);
 
-        //Get the link on the 33 substring, and trust it
-        element.src = $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + $scope.dumps[index].content.split("https://www.youtube.com/watch?v=")[1]);
+        //Get the response from embedly
+        $http.get("http://api.embed.ly/1/oembed?key=" + embedlyKey + "&url=" + $scope.dumps[index].content)
+        .then(function (response) {
+            //Our response from embedly
+            //Get the document
+            var element = document.getElementById("embed-" + $scope.dumps[index].content);
 
-        // say the dump has been lazy loaded
-        $scope.dumps[index].lazyEmbed = true;
-    }
-
-    //Get a sce trusted iframe vimeo link
-    $scope.getVimeoFrame = function(index)
-    {
-
-        //Get the index in the order that we need it
-        index = $scope.dumps.length - index - 1;
-
-        //Get the document
-        var element = document.getElementById("vimeo-" + $scope.dumps[index].content);
-
-        //Get the link on the 33 substring, and trust it
-        element.src = $sce.trustAsResourceUrl("https://player.vimeo.com/video/" + $scope.dumps[index].content.split("https://vimeo.com/")[1] + "?color=ffffff&title=0&portrait=0&badge=0");
-
-        // say the dump has been lazy loaded
-        $scope.dumps[index].lazyEmbed = true;
+                         console.log(response);
+             element.innerHTML = $sce.trustAsHtml(response.data.html);
+             // say the dump has been lazy loaded
+             $scope.dumps[index].lazyEmbed = true;
+        });
     }
 
     //get a sce trusted soundcloud thingy
@@ -156,27 +137,6 @@ angular.module('linkDumpApp')
             // say the dump has been lazy loaded
             $scope.dumps[index].lazyEmbed = true;
 
-        });
-    }
-
-    //Get a sce trusted embedly bandcamp
-    $scope.getBandcamp = function(index)
-    {
-        //Get the index in the order that we need it
-        index = $scope.dumps.length - index - 1;
-
-
-        //Get the response from embedly
-        $http.get("http://api.embed.ly/1/extract?key=" + embedlyKey + "&url=" + $scope.dumps[index].content)
-        .then(function (response) {
-            //Our response from embedly
-            //Get the document
-            var element = document.getElementById("bandcamp-" + $scope.dumps[index].content);
-
-             element.innerHTML = $sce.trustAsHtml(response.data.media.html);
-
-             // say the dump has been lazy loaded
-             $scope.dumps[index].lazyEmbed = true;
         });
     }
 
@@ -238,7 +198,7 @@ angular.module('linkDumpApp')
     }
         //it is not a valid url
         else {
-            //Materialize.toast("Please enter a valid URL!", 3000);
+            //Toast here the error
         }
     }
 
@@ -259,6 +219,7 @@ angular.module('linkDumpApp')
                 return;
             }
             else {
+
                 //Re-get all ouf our links!
                 $scope.getDumps();
 
