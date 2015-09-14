@@ -204,8 +204,10 @@ angular.module('linkDumpApp')
                 //Inform user of the dump
                 Materialize.toast("Dumped!", 3000);
 
-                //Re-get all ouf our links!
-                $scope.getDumps();
+                //Add new dump to dump array
+                $scope.dumps.unshift(data);
+                //Get new title
+                $scope.getTitle($scope.dumps.length - 1);
               },
               function(data, status) {
                 Materialize.toast(data.msg, 3000);
@@ -227,10 +229,12 @@ angular.module('linkDumpApp')
         "id": dump._id
       };
 
+      var index = $scope.dumps.indexOf(dump);
+
       //Save the link
       Dump.delete(remJson, function(data, status) {
-        //Re-get all ouf our links!
-        $scope.getDumps();
+        //Splice off dump we dont want
+        $scope.dumps.splice(index, 1);
 
         //Inform user
         Materialize.toast("Deleted " + data.content + "!", 3000);
