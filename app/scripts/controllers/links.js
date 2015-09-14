@@ -72,9 +72,9 @@ angular.module('linkDumpApp')
     }
 
     //Get the title of a link
-    $scope.getTitle = function(dump) {
+    $scope.getTitle = function(index) {
       //Get the index in the order that we need it
-      var index = $scope.dumps.indexOf(dump);
+      index = $scope.dumps.length - index - 1;
 
       //Get the response from noembed
       $http.get("https://noembed.com/embed?url=" + $scope.dumps[index].content)
@@ -206,6 +206,8 @@ angular.module('linkDumpApp')
 
                 //Add new dump to dump array
                 $scope.dumps.unshift(data);
+                //Get new title
+                $scope.getTitle($scope.dumps.length - 1);
               },
               function(data, status) {
                 Materialize.toast(data.msg, 3000);
