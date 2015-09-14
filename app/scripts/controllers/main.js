@@ -32,7 +32,7 @@ angular.module('linkDumpApp')
             //Session is valid! Redirect.
             $location.path("/dumps");
           },
-          function(data, status) {
+          function(err) {
             //Session is not valid!
           });
       }

@@ -36,7 +36,7 @@ angular.module('linkDumpApp')
             //Send them to the links page
             $location.path("/dumps");
           },
-          function(err, status) {
+          function(err) {
             Materialize.toast(err.data.msg, 3000);
           });
 

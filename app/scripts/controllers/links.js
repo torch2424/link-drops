@@ -47,7 +47,7 @@ angular.module('linkDumpApp')
         function(data, status) {
           $scope.dumps = data;
         },
-        function(err, status) {
+        function(err) {
           if (err.status == 401) {
             //Session is invalid! Redirect.
             $location.path("/");
@@ -213,7 +213,7 @@ angular.module('linkDumpApp')
                 //Re-get all ouf our links!
                 $scope.getDumps();
               },
-              function(err, status) {
+              function(err) {
                 Materialize.toast(err.data.msg, 3000);
               });
           }
@@ -241,7 +241,7 @@ angular.module('linkDumpApp')
         //Inform user
         Materialize.toast("Deleted " + data.content + "!", 3000);
 
-      }, function(err, status) {
+      }, function(err) {
         Materialize.toast(err.data.msg, 3000);
       });;
     }
