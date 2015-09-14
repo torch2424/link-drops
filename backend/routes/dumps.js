@@ -12,14 +12,12 @@ router.post('/', function(req, res, next) {
     .select('user_id')
     .exec(function(err, session) {
       if (err) {
-        res.json({
-          msg: "Couldn't search the database for session!",
-          errorid: "778"
+        res.status(500).json({
+          msg: "Couldn't search the database for session!"
         });
       } else if (!session) {
-        res.json({
-          msg: "Session does not exist!",
-          errorid: "43"
+        res.status(401).json({
+          msg: "Session is not valid!"
         });
       } else {
         new Dump({
@@ -30,12 +28,11 @@ router.post('/', function(req, res, next) {
         }).save(function(err, dump, count) {
           //.save will save our new link object in the backend
           if (err) {
-            res.json({
-              msg: "Error saving the dump!",
-              errorid: "778"
+            res.status(500).json({
+              msg: "Error saving the dump!"
             });
           } else {
-            res.json(dump);
+            res.status(201).json(dump);
           }
         });
       }
@@ -50,20 +47,18 @@ router.get('/', function(req, res, next) {
     .select('user_id')
     .exec(function(err, session) {
       if (err) {
-        res.json({
-          msg: "Couldn't search the database for session!",
-          errorid: "778"
+        res.status(500).json({
+          msg: "Couldn't search the database for session!"
         });
       } else if (!session) {
-        res.json({
-          msg: "Session does not exist!",
-          errorid: "43"
+        res.status(401).json({
+          msg: "Session is not valid!"
         });
       } else {
         Dump.find({
           user_id: session.user_id
         }, function(err, dumps, count) {
-          res.json(dumps);
+          res.status(200).json(dumps);
         });
       }
     });
@@ -78,14 +73,12 @@ router.put('/:id', function(req, res) {
     .select('user_id')
     .exec(function(err, session) {
       if (err) {
-        res.json({
-          msg: "Couldn't search the database for session!",
-          errorid: "778"
+        res.status(500).json({
+          msg: "Couldn't search the database for session!"
         });
       } else if (!session) {
-        res.json({
-          msg: "Session does not exist!",
-          errorid: "43"
+        res.status(401).json({
+          msg: "Session is not valid!"
         });
       } else {
         Dump.findOne({
@@ -93,14 +86,12 @@ router.put('/:id', function(req, res) {
           user_id: session.user_id
         }, function(err, dump) {
           if (err) {
-            res.json({
-              msg: "Couldn't search the database for dump!",
-              errorid: "779"
+            res.status(500).json({
+              msg: "Couldn't search the database for dump!"
             });
           } else if (!dump) {
-            res.json({
-              msg: "Dump does not exist!",
-              errorid: "44"
+            res.status(404).json({
+              msg: "Dump does not exist!"
             });
           } else {
             //Simply change the variables of think
@@ -110,7 +101,7 @@ router.put('/:id', function(req, res) {
             //Save the modified
             dump.save(function(err, dump, count) {
               //.save will save our new link object in the backend
-              res.json(dump);
+              res.status(200).json(dump);
             });
           }
         });
@@ -128,14 +119,12 @@ router.delete('/:id', function(req, res) {
     .select('user_id')
     .exec(function(err, session) {
       if (err) {
-        res.json({
-          msg: "Couldn't search the database for session!",
-          errorid: "778"
+        res.status(500).json({
+          msg: "Couldn't search the database for session!"
         });
       } else if (!session) {
-        res.json({
-          msg: "Session does not exist!",
-          errorid: "43"
+        res.status(401).json({
+          msg: "Session is not valid!"
         });
       } else {
         Dump.findOne({
@@ -143,18 +132,16 @@ router.delete('/:id', function(req, res) {
           user_id: session.user_id
         }, function(err, dump) {
           if (err) {
-            res.json({
-              msg: "Couldn't search the database for dump!",
-              errorid: "779"
+            res.status(500).json({
+              msg: "Couldn't search the database for dump!"
             });
           } else if (!dump) {
-            res.json({
-              msg: "Dump does not exist!",
-              errorid: "44"
+            res.status(404).json({
+              msg: "Dump does not exist!"
             });
           } else {
             dump.remove(function(err, dump) {
-              res.json(dump);
+              res.status(200).json(dump);
             });
           }
         });

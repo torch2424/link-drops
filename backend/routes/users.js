@@ -14,14 +14,12 @@ router.post('/login', function(req, res, next) {
     .select('password salt')
     .exec(function(err, user) {
       if (err) {
-        res.json({
-          msg: "Couldn't search the database for user!",
-          errorid: "777"
+        res.status(500).json({
+          msg: "Couldn't search the database for user!"
         });
       } else if (!user) {
-        res.json({
-          msg: "Username does not exist!",
-          errorid: "23"
+        res.status(401).json({
+          msg: "Username does not exist!"
         });
       } else {
         //Hash the requested password and salt
@@ -37,21 +35,19 @@ router.post('/login', function(req, res, next) {
           }).save(function(err) {
             if (err) {
               console.log("Error saving token to DB!");
-              res.json({
-                msg: "Error saving token to DB!",
-                errorid: "667"
+              res.status(500).json({
+                msg: "Error saving token to DB!"
               });
             } else {
               //All good, give the user their token
-              res.json({
+              res.status(200).json({
                 token: token
               });
             }
           });
         } else {
-          res.json({
-            msg: "Password is incorrect!",
-            errorid: "32"
+          res.status(401).json({
+            msg: "Password is incorrect!"
           });
         }
       }
@@ -67,9 +63,8 @@ router.post('/join', function(req, res, next) {
     .select('_id')
     .exec(function(err, user) {
       if (user) {
-        res.json({
-          msg: "Username already exists!",
-          errorid: "22"
+        res.status(406).json({
+          msg: "Username already exists!"
         });
       } else {
         //Create a random salt
@@ -84,9 +79,8 @@ router.post('/join', function(req, res, next) {
         }).save(function(err, newUser) {
           if (err) {
             console.log("Error saving user to DB!");
-            res.json({
-              msg: "Error saving user to DB!",
-              errorid: "666"
+            res.status(500).json({
+              msg: "Error saving user to DB!"
             });
           } else {
             //Create a random token
@@ -97,13 +91,12 @@ router.post('/join', function(req, res, next) {
               token: token
             }).save(function(err) {
               if (err) {
-                res.json({
-                  msg: "Error saving token to DB!",
-                  errorid: "667"
+                res.status(500).json({
+                  msg: "Error saving token to DB!"
                 });
               } else {
                 //All good, give the user their token
-                res.json({
+                res.status(201).json({
                   token: token
                 });
               }
