@@ -24,6 +24,8 @@ angular.module('linkDumpApp')
         client_id: 'b9513e908ef7793171225f04e87cf362'
     });
 
+    //Our main scraper will be noembed, since it is free and open soruce
+    //With embedly as a backup to keep costs low
     //our embedly key
     var embedlyKey = '1ac8190e5c2940a99a5ffde29e389e72';
 
@@ -76,22 +78,42 @@ angular.module('linkDumpApp')
         }
     }
 
-    //Get the title of a link (Using embedly)
+    //Get the title of a link
     $scope.getTitle = function(index)
     {
         //Get the index in the order that we need it
         index = $scope.dumps.length - index - 1;
 
-        //Get the response from embedly
-        $http.get("http://api.embed.ly/1/extract?key=" + embedlyKey + "&url=" + $scope.dumps[index].content)
+        //Get the response from noembed
+        $http.get("https://noembed.com/embed?url=" + $scope.dumps[index].content)
         .then(function (response) {
-            //Get the document
-            var element = document.getElementById("linkTitle-" + $scope.dumps[index].content);
 
-             element.innerHTML = response.data.title;
+            //Check for no error
+            if(!response.data.error)
+            {
+                //Get the document
+                var element = document.getElementById("linkTitle-" + $scope.dumps[index].content);
 
-             //set the title attribute of the dump
-             $scope.dumps[index].title = response.data.title;
+                 element.innerHTML = response.data.title;
+
+                 //set the title attribute of the dump
+                 $scope.dumps[index].title = response.data.title;
+            }
+            else {
+                //Get the title from embedly
+                $http.get("http://api.embed.ly/1/extract?key=" + embedlyKey + "&url=" + $scope.dumps[index].content)
+                .then(function (response) {
+                    //Our response from embedly
+                    //Get the document
+                    var element = document.getElementById("linkTitle-" + $scope.dumps[index].content);
+
+                     element.innerHTML = response.data.title;
+
+                     //set the title attribute of the dump
+                     $scope.dumps[index].title = response.data.title;
+                });
+            }
+
         });
     }
 
@@ -101,18 +123,33 @@ angular.module('linkDumpApp')
         //Get the index in the order that we need it
         index = $scope.dumps.length - index - 1;
 
-
-        //Get the response from embedly
-        $http.get("http://api.embed.ly/1/oembed?key=" + embedlyKey + "&url=" + $scope.dumps[index].content)
+        //Get the response from noembed
+        $http.get("https://noembed.com/embed?url=" + $scope.dumps[index].content + "&nowrap=on")
         .then(function (response) {
-            //Our response from embedly
-            //Get the document
-            var element = document.getElementById("embed-" + $scope.dumps[index].content);
 
-                         console.log(response);
-             element.innerHTML = $sce.trustAsHtml(response.data.html);
-             // say the dump has been lazy loaded
-             $scope.dumps[index].lazyEmbed = true;
+            //Check for no error
+            if(!response.data.error)
+            {
+                //Get the document
+                var element = document.getElementById("embed-" + $scope.dumps[index].content);
+
+                 element.innerHTML = $sce.trustAsHtml(response.data.html);
+                 // say the dump has been lazy loaded
+                 $scope.dumps[index].lazyEmbed = true;
+            }
+            else {
+                //Get the response from embedly
+                $http.get("http://api.embed.ly/1/oembed?key=" + embedlyKey + "&url=" + $scope.dumps[index].content)
+                .then(function (response) {
+                    //Our response from embedly
+                    //Get the document
+                    var element = document.getElementById("embed-" + $scope.dumps[index].content);
+
+                     element.innerHTML = $sce.trustAsHtml(response.data.html);
+                     // say the dump has been lazy loaded
+                     $scope.dumps[index].lazyEmbed = true;
+                });
+            }
         });
     }
 
