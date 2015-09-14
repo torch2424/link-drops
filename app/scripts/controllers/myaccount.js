@@ -8,12 +8,12 @@
  * Controller of the linkDumpApp
  */
 angular.module('linkDumpApp')
-  .controller('MyaccountCtrl', function () {
+  .controller('MyaccountCtrl', function() {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
-    
+
   });

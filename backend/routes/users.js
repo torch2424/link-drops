@@ -126,7 +126,7 @@ router.get('/session', function(req, res, next) {
       } else {
         //Then the user exists, and the session token is valid!
         res.status(200).json({
-            token: req.query.token
+          token: req.query.token
         });
       }
     });
