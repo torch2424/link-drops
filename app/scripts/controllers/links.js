@@ -77,11 +77,9 @@ angular.module('linkDumpApp')
       index = $scope.dumps.length - index - 1;
 
       //Get the response from noembed
-      $http.get("https://noembed.com/embed?url=" + $scope.dumps[index].content)
+      $http.get("http://dev.kondeo.com/api/title-scraper.php?q=" + $scope.dumps[index].content)
         .then(function(response) {
 
-          //Check for no error
-          if (!response.data.error) {
             //Get the document
             var element = document.getElementById("linkTitle-" + $scope.dumps[index].content);
 
@@ -89,20 +87,6 @@ angular.module('linkDumpApp')
 
             //set the title attribute of the dump
             $scope.dumps[index].title = response.data.title;
-          } else {
-            //Get the title from embedly
-            $http.get("http://api.embed.ly/1/extract?key=" + embedlyKey + "&url=" + $scope.dumps[index].content)
-              .then(function(response) {
-                //Our response from embedly
-                //Get the document
-                var element = document.getElementById("linkTitle-" + $scope.dumps[index].content);
-
-                element.innerHTML = response.data.title;
-
-                //set the title attribute of the dump
-                $scope.dumps[index].title = response.data.title;
-              });
-          }
 
         });
     }
