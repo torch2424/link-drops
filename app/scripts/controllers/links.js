@@ -47,8 +47,8 @@ angular.module('linkDumpApp')
         function(data, status) {
           $scope.dumps = data;
         },
-        function(data, status) {
-          Materialize.toast(data.msg, 3000);
+        function(err, status) {
+          Materialize.toast(err.data.msg, 3000);
         }
       );
     }
@@ -207,8 +207,8 @@ angular.module('linkDumpApp')
                 //Re-get all ouf our links!
                 $scope.getDumps();
               },
-              function(data, status) {
-                Materialize.toast(data.msg, 3000);
+              function(err, status) {
+                Materialize.toast(err.data.msg, 3000);
               });
           }
         }, 1);
@@ -235,8 +235,8 @@ angular.module('linkDumpApp')
         //Inform user
         Materialize.toast("Deleted " + data.content + "!", 3000);
 
-      }, function(data, status) {
-        Materialize.toast(data.msg, 3000);
+    }, function(err, status) {
+        Materialize.toast(err.data.msg, 3000);
       });;
     }
 
