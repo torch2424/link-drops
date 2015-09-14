@@ -8,7 +8,7 @@
  * Controller of the linkDumpApp
  */
 angular.module('linkDumpApp')
-  .controller('LinksCtrl', function ($scope, $sce, $cookies, $timeout, Dumps, $location, $http) {
+  .controller('LinksCtrl', function ($scope, $sce, $cookies, $timeout, Dumps, Dump, $location, $http) {
 
     //Get our sessions token
     var sessionToken = $cookies.get("sessionToken");
@@ -249,7 +249,7 @@ angular.module('linkDumpApp')
         };
 
         //Save the link
-        var remRes = Dumps.delete(remJson, function(){
+        var remRes = Dump.delete(remJson, function(){
             if(remRes.errorid)
             {
                 Materialize.toast(remRes.msg, 3000);
