@@ -124,7 +124,7 @@ angular.module('linkDumpApp')
         index = $scope.dumps.length - index - 1;
 
         //Get the response from noembed
-        $http.get("https://noembed.com/embed?url=" + $scope.dumps[index].content)
+        $http.get("https://noembed.com/embed?url=" + $scope.dumps[index].content + "&nowrap=on")
         .then(function (response) {
 
             //Check for no error
