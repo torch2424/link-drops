@@ -25,23 +25,18 @@ angular.module('linkDumpApp')
     $scope.submitInfo = function ()
     {
         //Signup the user, and save their session token
-        var loginResponse = Login.submit($scope.login, function()
-        {
-            if(loginResponse.errorid)
-            {
-                 Materialize.toast(loginResponse.msg, 3000);
-                 return;
-            }
-            else {
-                //Save the sessionToken in cookies
-                $cookies.put("sessionToken", loginResponse.token);
+        Login.submit($scope.login,
+        function(data, status) {
+            //Save the sessionToken in cookies
+            $cookies.put("sessionToken", data.token);
 
-                //Thank user for joining
-                Materialize.toast("Welcome back!", 3000);
+            //Thank user for joining
+            Materialize.toast("Welcome back!", 3000);
 
-                //Send them to the links page
-                $location.path("/dumps");
-            }
+            //Send them to the links page
+            $location.path("/dumps");
+        }, function(data, status) {
+            Materialize.toast(data.msg, 3000);
         });
     }
 

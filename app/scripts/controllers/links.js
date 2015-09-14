@@ -45,17 +45,13 @@ angular.module('linkDumpApp')
             "token": sessionToken,
         };
 
-        var dumpResponse = Dumps.get(dumpJson, function()
-        {
-            if(dumpResponse.errorid)
-            {
-                Materialize.toast(dumpResponse.msg, 3000);
-            }
-            else {
-                //Get only the string
-                $scope.dumps = dumpResponse;
-            }
-        });
+        Dumps.get(dumpJson,
+        function(data, status) {
+            $scope.dumps = data;
+        }, function(data, status) {
+            Materialize.toast(data.msg, 3000);
+        }
+    );
     }
 
     //Show the find input
@@ -213,22 +209,18 @@ angular.module('linkDumpApp')
                         };
 
                         //Save the link
-                        var saveRes = Dumps.save(enterJson, function(){
-                            if(saveRes.errorid)
-                            {
-                                Materialize.toast(saveRes.msg, 3000);
-                                return;
-                            }
-                            else {
-                                //Set enetered link back to null
-                                $scope.enteredLink = "";
+                        Dumps.save(enterJson,
+                        function(data, status) {
+                            //Set enetered link back to null
+                            $scope.enteredLink = "";
 
-                                //Inform user of the dump
-                                Materialize.toast("Dumped!", 3000);
+                            //Inform user of the dump
+                            Materialize.toast("Dumped!", 3000);
 
-                                //Re-get all ouf our links!
-                                $scope.getDumps();
-                            }
+                            //Re-get all ouf our links!
+                            $scope.getDumps();
+                        }, function(data, status) {
+                            Materialize.toast(data.msg, 3000);
                         });
                 }
         }, 1);
@@ -249,21 +241,16 @@ angular.module('linkDumpApp')
         };
 
         //Save the link
-        var remRes = Dump.delete(remJson, function(){
-            if(remRes.errorid)
-            {
-                Materialize.toast(remRes.msg, 3000);
-                return;
-            }
-            else {
+        Dump.delete(remJson, function(data, status) {
+            //Re-get all ouf our links!
+            $scope.getDumps();
 
-                //Re-get all ouf our links!
-                $scope.getDumps();
+            //Inform user
+            Materialize.toast("Deleted " + data.content + "!", 3000);
 
-                //Inform user
-                Materialize.toast("Deleted " + dump.content + "!", 3000);
-            }
-        });
+        }, function(data, status) {
+            Materialize.toast(data.msg, 3000);
+        });;
     }
 
 
