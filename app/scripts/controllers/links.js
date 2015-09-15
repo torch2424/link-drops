@@ -192,7 +192,7 @@ angular.module('linkDumpApp')
                 $scope.enteredLink = "";
 
                 //Inform user of the dump
-                Materialize.toast("Dumped!", 3000);
+                Materialize.toast("Dropped!", 3000);
 
                 //Re-get all ouf our links!
                 $scope.getDumps();

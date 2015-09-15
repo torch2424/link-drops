@@ -2,7 +2,7 @@
     <!-- add links here -->
     <form name = "linkForm" class = "card center animated fadeIn">
         <br>
-        <input type = "url" name = "linkInput" class = "center linkInput" placeholder="Enter a new link here." ng-model="enteredLink" ng-paste = "submitLink()">
+        <input type = "url" name = "linkInput" class = "center linkInput" placeholder="Drop a new link here." ng-model="enteredLink" ng-paste = "submitLink()">
         <br>
         <p class = "grey-text text-lighten-1 center linkInstructions">If you enjoy typing links by hand, don't forget to add " http:// " or " https:// " and press "Enter"</p>
 
@@ -65,7 +65,7 @@
                 <div class = "grey-text text-lighten-1 linkSubTextContainer">
                     <p class = "dumpedAtText">Dropped at: </p>
                     <p class = "dumpedAtText" ng-bind="dump.updated_at | date:'h:mm MM/dd/yyyy '"></p>
-                    <a class = "grey-text text-lighten-1" ng-click = "removeLink(dump)"><p>Delete Dump</p></a>
+                    <a class = "grey-text text-lighten-1" ng-click = "removeLink(dump)"><p>Delete Drop</p></a>
                 </div>
 
             </li>
