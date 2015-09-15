@@ -39,9 +39,13 @@
                 <!-- Use our Fallbacks (NoEmbed And then Embedly), Display Media Embeds (Bandcamp, Youtube, Vimeo, etc... -->
                 <div ng-if = "(dump.content.indexOf('https://www.youtube.com/watch?v=') > -1)
                     || (dump.content.indexOf('http://www.amazon.com/gp/product/') > -1)
-                    || (dump.content.indexOf('https://vimeo.com/') > -1)
                     || (dump.content.indexOf('https://soundcloud.com/') > -1)
                     || (dump.content.indexOf('.bandcamp.com/') > -1)
+                    || (dump.content.indexOf('https://instagram.com/p/') > -1)
+                    || (dump.content.indexOf('https://vine.co/v/') > -1)
+                    || (dump.content.indexOf('https://vine.co/v/') > -1)
+                    || (dump.content.indexOf('wikipedia.org/wiki/') > -1)
+                    || (dump.content.indexOf('https://twitter.com/') > -1 && dump.content.indexOf('/status/') > -1 )
                     || (dump.content.indexOf('https://gist.github.com/') > -1)"
                     id = "embed-{{dump.content}}"
                     in-view = "$inview && !dump.lazyEmbed && getEmbed(dump)">
