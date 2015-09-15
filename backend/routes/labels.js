@@ -27,7 +27,8 @@ router.post('/', function(req, res, next) {
         }, {
           $setOnInsert: {
             user_id: session.user_id,
-            content: req.body.link
+            content: req.body.link,
+            updated_at: Date.now()
           }
         }, {
           new: true,
