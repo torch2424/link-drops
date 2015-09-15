@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Dump = mongoose.model('Dump');
+var Label = mongoose.model('Label');
 var Session = mongoose.model('Session');
 
 //Create a new link
@@ -57,11 +58,41 @@ router.get('/', function(req, res, next) {
       } else {
         Dump.find({
           user_id: session.user_id
-        }, function(err, dumps, count) {
-          res.status(200).json(dumps);
+        }).lean().exec(function(err, dumps, count) {
+          if (err) {
+            res.status(500).json({
+              msg: "Couldn't search the database for dumps!"
+            });
+          } else {
+            getLabels(dumps, 0);
+          }
         });
       }
     });
+
+  function getLabels(dumps, counter) {
+    Label.find({
+      dumps: dumps[counter]._id
+    }).lean().exec(function(err, labels) {
+      if (err) {
+        res.status(500).json({
+          msg: "Couldn't search the database for labels!"
+        });
+      } else {
+        dumps[counter].labels = labels;
+
+        if (counter == dumps.length - 1) {
+          finish(dumps);
+        } else {
+          getLabels(dumps, counter + 1);
+        }
+      }
+    });
+  }
+
+  function finish(dumps) {
+    res.status(200).json(dumps);
+  }
 });
 
 
