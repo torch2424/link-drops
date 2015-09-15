@@ -199,12 +199,12 @@ angular.module('linkDumpApp')
 
     //Submit a dumped link
     $scope.submitLabel = function(dump) {
-        var data = {
+        var payload = {
             "token": sessionToken,
             "link": dump.content,
             "title": dump.newLabel
         }
-        Labels.save(data, function(){
+        Labels.save(payload, function(data, status){
             var index = $scope.dumps.indexOf(dump);
             $scope.dumps[index].labels.push(data);
         }, function(err){
