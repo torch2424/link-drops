@@ -207,6 +207,7 @@ angular.module('linkDumpApp')
         Labels.save(payload, function(data, status){
             var index = $scope.dumps.indexOf(dump);
             $scope.dumps[index].labels.push(data);
+            dump.newLabel = "";
         }, function(err){
             Materialize.toast(err.data.msg, 3000);
         });
