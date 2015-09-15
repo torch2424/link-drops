@@ -41,22 +41,22 @@
                     || (dump.content.indexOf('https://www.youtube.com/watch?v=') > -1)
                     || (dump.content.indexOf('https://vimeo.com/') > -1)"
                     id = "embed-{{dump.content}}"
-                    in-view = "$inview && !dump.lazyEmbed && getEmbed($index)">
+                    in-view = "$inview && !dump.lazyEmbed && getEmbed(dump)">
                 </div>
 
                 <!-- display soundcloud if it is a soundcloud link (Using their own api) -->
                 <div ng-if = "dump.content.indexOf('https://soundcloud.com/') > -1">
                     <iframe id = "scWidget-{{dump.content}}" width="100%" height="400" scrolling="no"
-                    in-view = "$inview &&  !dump.lazyEmbed && getSoundCloud($index)" frameborder="no">
+                    in-view = "$inview &&  !dump.lazyEmbed && getSoundCloud(dump)" frameborder="no">
                     </iframe>
                 </div>
 
                 <!-- Get our favicon and link title -->
                 <img ng-src="{{dump.content | favicon}}" alt="Drop Icon" class = "dropFavicon">
-                <a id = "linkTitle-{{dump.content}}"
+                <a id = "linkTitle-{{$index}}"
                 href="{{dump.content}}" target="_blank"
                 class = "dropURL"
-                ng-init = "getTitle($index)">
+                ng-init = "getTitle(dump, $index)">
                 {{dump.content}}
                 </a>
 

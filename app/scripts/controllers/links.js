@@ -78,79 +78,67 @@ angular.module('linkDumpApp')
     }
 
     //Get the title of a link
-    $scope.getTitle = function(index) {
-      //Get the index in the order that we need it
-      index = $scope.dumps.length - index - 1;
+    $scope.getTitle = function(dump, index) {
 
       //Get the response from noembed
-      $http.get("http://dev.kondeo.com/api/title-scraper.php?q=" + $scope.dumps[index].content)
+      $http.get("http://dev.kondeo.com/api/title-scraper.php?q=" + dump.content)
         .then(function(response) {
 
             //Get the document
-            var element = document.getElementById("linkTitle-" + $scope.dumps[index].content);
+            var element = document.getElementById("linkTitle-" + index);
 
             element.innerHTML = response.data.title;
-
-            //set the title attribute of the dump
-            $scope.dumps[index].title = response.data.title;
-
         });
     }
 
     //Get a sce trusted embedly bandcamp
-    $scope.getEmbed = function(index) {
-      //Get the index in the order that we need it
-      index = $scope.dumps.length - index - 1;
-
+    $scope.getEmbed = function(dump) {
       //Get the response from noembed
-      $http.get("https://noembed.com/embed?url=" + $scope.dumps[index].content + "&nowrap=on")
+      $http.get("https://noembed.com/embed?url=" + dump.content + "&nowrap=on")
         .then(function(response) {
 
           //Check for no error
           if (!response.data.error) {
             //Get the document
-            var element = document.getElementById("embed-" + $scope.dumps[index].content);
+            var element = document.getElementById("embed-" + dump.content);
 
             element.innerHTML = $sce.trustAsHtml(response.data.html);
             // say the dump has been lazy loaded
-            $scope.dumps[index].lazyEmbed = true;
+            dump.lazyEmbed = true;
           } else {
             //Get the response from embedly
-            $http.get("http://api.embed.ly/1/oembed?key=" + embedlyKey + "&url=" + $scope.dumps[index].content)
+            $http.get("http://api.embed.ly/1/oembed?key=" + embedlyKey + "&url=" + dump.content)
               .then(function(response) {
                 //Our response from embedly
                 //Get the document
-                var element = document.getElementById("embed-" + $scope.dumps[index].content);
+                var element = document.getElementById("embed-" + dump.content);
 
                 element.innerHTML = $sce.trustAsHtml(response.data.html);
                 // say the dump has been lazy loaded
-                $scope.dumps[index].lazyEmbed = true;
+                dump.lazyEmbed = true;
               });
           }
         });
     }
 
     //get a sce trusted soundcloud thingy
-    $scope.getSoundCloud = function(index) {
+    $scope.getSoundCloud = function(dump) {
       //Used this
       //https://developers.soundcloud.com/docs/api/guide#playing
 
-      //Get the index in the order that we need it
-      index = $scope.dumps.length - index - 1;
-
       SC.get('/resolve', {
-        url: $scope.dumps[index].content
+        url: dump.content
       }, function(track) {
 
         //Get the document
-        var element = document.getElementById("scWidget-" + $scope.dumps[index].content);
+        var element = document.getElementById("scWidget-" + dump.content);
 
         element.src = $sce.trustAsResourceUrl("https://w.soundcloud.com/player/?url=https%3A" +
           track.uri.substring(track.uri.indexOf("//api.soundcloud.com")) +
           "&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true");
 
         // say the dump has been lazy loaded
-        $scope.dumps[index].lazyEmbed = true;
+        dump.lazyEmbed = true;
 
       });
     }
@@ -194,8 +182,8 @@ angular.module('linkDumpApp')
                 //Inform user of the dump
                 Materialize.toast("Dropped!", 3000);
 
-                //Re-get all ouf our links!
-                $scope.getDumps();
+                //Add new dump to dump array
+                $scope.dumps.unshift(data);
               },
               function(err) {
                 Materialize.toast(err.data.msg, 3000);
@@ -217,10 +205,12 @@ angular.module('linkDumpApp')
         "id": dump._id
       };
 
+      var index = $scope.dumps.indexOf(dump);
+
       //Save the link
       Dump.delete(remJson, function(data, status) {
-        //Re-get all ouf our links!
-        $scope.getDumps();
+        //Splice off dump we dont want
+        $scope.dumps.splice(index, 1);
 
         //Inform user
         Materialize.toast("Deleted " + data.content + "!", 3000);
