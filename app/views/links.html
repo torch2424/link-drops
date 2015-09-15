@@ -36,24 +36,11 @@
             ng-show="([dump] | filter:enteredFind).length > 0"
             class = "center card-panel animated fadeIn linkCard">
 
-            <!-- display youtube if it is a youtube link (Using their own api) -->
-            <div ng-if = "dump.content.indexOf('https://youtube.com/watch?v=') > -1">
-                <iframe id = "youtube-{{dump.content}}" width="100%" height="400" scrolling="no"
-                in-view = "$inview &&  !dump.lazyEmbed && getYoutube(dump)" frameborder="no">
-                </iframe>
-            </div>
-
-                <!-- display soundcloud if it is a soundcloud link (Using their own api) -->
-                <div ng-if = "dump.content.indexOf('https://soundcloud.com/') > -1">
-                    <iframe id = "scWidget-{{dump.content}}" width="100%" height="400" scrolling="no"
-                    in-view = "$inview &&  !dump.lazyEmbed && getSoundCloud(dump)" frameborder="no">
-                    </iframe>
-                </div>
-
                 <!-- Use our Fallbacks, Display Media Embeds (Bandcamp, Youtube, Vimeo, etc... -->
                 <div ng-if = "(dump.content.indexOf('.bandcamp.com/') > -1)
                     || (dump.content.indexOf('https://www.youtube.com/watch?v=') > -1)
                     || (dump.content.indexOf('https://vimeo.com/') > -1)
+                    || (dump.content.indexOf('https://soundcloud.com/') > -1)
                     || (dump.content.indexOf('http://www.amazon.com/gp/product/') > -1)"
                     id = "embed-{{dump.content}}"
                     in-view = "$inview && !dump.lazyEmbed && getEmbed(dump)">

@@ -19,10 +19,11 @@ angular.module('linkDumpApp')
     //Inititalize searching
     $scope.findInput = false;
 
-    //Initialize soundcloud
-    SC.initialize({
-      client_id: 'b9513e908ef7793171225f04e87cf362'
-    });
+    //Initialize soundcloud, now using no embed
+    // used this guide https://developers.soundcloud.com/docs/api/guide#playing
+    // SC.initialize({
+    //   client_id: 'b9513e908ef7793171225f04e87cf362'
+    // });
 
     //Our main scraper will be noembed, since it is free and open soruce
     //With embedly as a backup to keep costs low
@@ -91,49 +92,6 @@ angular.module('linkDumpApp')
         });
     }
 
-    //get a sce trusted youtube thingy
-    $scope.getYoutube = function(dump) {
-      //Used this https://developers.google.com/youtube/player_parameters?hl=en
-
-      SC.get('/resolve', {
-        url: dump.content
-      }, function(track) {
-
-        //Get the document
-        var element = document.getElementById("scWidget-" + dump.content);
-
-        element.src = $sce.trustAsResourceUrl("https://w.soundcloud.com/player/?url=https%3A" +
-          track.uri.substring(track.uri.indexOf("//api.soundcloud.com")) +
-          "&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true");
-
-        // say the dump has been lazy loaded
-        dump.lazyEmbed = true;
-
-      });
-    }
-
-    //get a sce trusted soundcloud thingy
-    $scope.getSoundCloud = function(dump) {
-      //Used this
-      //https://developers.soundcloud.com/docs/api/guide#playing
-
-      SC.get('/resolve', {
-        url: dump.content
-      }, function(track) {
-
-        //Get the document
-        var element = document.getElementById("scWidget-" + dump.content);
-
-        element.src = $sce.trustAsResourceUrl("https://w.soundcloud.com/player/?url=https%3A" +
-          track.uri.substring(track.uri.indexOf("//api.soundcloud.com")) +
-          "&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true");
-
-        // say the dump has been lazy loaded
-        dump.lazyEmbed = true;
-
-      });
-    }
-
     //Get a sce trusted embedly bandcamp
     $scope.getEmbed = function(dump) {
       //Get the response from noembed
@@ -162,6 +120,13 @@ angular.module('linkDumpApp')
               });
           }
         });
+    }
+
+    //Function to get a url parameter by it's name
+    function getParameterByName(name, url) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(url);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
 
     //Check if a link already exists
