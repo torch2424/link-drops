@@ -172,7 +172,13 @@ router.delete('/:id', function(req, res) {
             });
           } else {
             dump.remove(function(err, dump) {
-              res.status(200).json(dump);
+                if(err){
+                    res.status(500).json({
+                        msg: "Couldn't delete dump from database"
+                    });
+                } else {
+                    res.status(200).json(dump);
+                }
             });
           }
         });
