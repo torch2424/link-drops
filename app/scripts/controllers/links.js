@@ -197,6 +197,11 @@ angular.module('linkDumpApp')
       }
     }
 
+    //Submit a dumped link
+    $scope.submitLabel = function() {
+        alert("test")
+    }
+
     //Remove a dumped link
     $scope.removeLink = function(dump) {
       //Our json we will submit to the backend
