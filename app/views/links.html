@@ -63,7 +63,7 @@
                 <br>
                 <!-- Sharing/Categories -->
                 <div class = "grey-text text-lighten-1 linkSubTextLeftContainer">
-                    <p ng-repeat="label in dump.labels" class = "linkSubText"><a class="grey-text text-lighten-1" href="">{{label.title}}</a> </p>
+                    <p ng-repeat="label in dump.labels" class = "linkSubText"><img src="images/x.png" class="linkLabelDelete"><a class="linkLabelText grey-text text-lighten-1" href="">{{label.title}}</a> </p>
                     <br />
                     <form>
                         <input class="linkSubTextInput" type="text" ng-model="dump.newLabel"></input>
