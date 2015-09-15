@@ -98,7 +98,7 @@ router.get('/', function(req, res, next) {
 });
 
 //Delete a label
-router.delete('/:id', function(req, res) {
+router.delete('/:labelId', function(req, res) {
   Session.findOne({
       token: req.query.token
     })
@@ -113,24 +113,26 @@ router.delete('/:id', function(req, res) {
           msg: "Session is not valid!"
         });
       } else {
-        Label.findOne({
-          _id: req.params.id,
-          user_id: session.user_id
-        }, function(err, label) {
-          if (err) {
-            res.status(500).json({
-              msg: "Couldn't search the database for label!"
-            });
-          } else if (!label) {
-            res.status(404).json({
-              msg: "Label does not exist!"
-            });
-          } else {
-            label.remove(function(err, label) {
+        Label.findOneAndUpdate({
+            _id: req.params.labelId,
+            user_id: session.user_id
+          }, {
+              $pull: { 'dumps': req.query.dumpId }
+          }, {
+              new: true
+          }, function(err, label) {
+            if (err) {
+              res.status(500).json({
+                msg: "Couldn't search the database for label!"
+              });
+            } else if (!label) {
+              res.status(404).json({
+                msg: "Label does not exist!"
+              });
+            } else {
               res.status(200).json(label);
-            });
-          }
-        });
+            }
+          });
 
       }
     });
