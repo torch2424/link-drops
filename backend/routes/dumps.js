@@ -172,13 +172,30 @@ router.delete('/:id', function(req, res) {
             });
           } else {
             dump.remove(function(err, dump) {
-                if(err){
+              if (err) {
+                res.status(500).json({
+                  msg: "Couldn't delete dump from database"
+                });
+              } else {
+                Label.find({
+                  user_id: session.user_id,
+                  dumps: req.params.id
+                }).select("_id").exec(function(err, labels) {
+                  if (err) {
                     res.status(500).json({
-                        msg: "Couldn't delete dump from database"
+                      msg: "Couldn't search the database for labels!"
                     });
-                } else {
+                  } else if (!labels) {
                     res.status(200).json(dump);
-                }
+                  } else {
+                      var ids = [];
+                      for(var i = 0; i < labels.length; i++){
+                          ids[i] = labels[i]._id;
+                      }
+                      
+                  }
+                });
+              }
             });
           }
         });
