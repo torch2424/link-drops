@@ -130,7 +130,17 @@ router.delete('/:labelId', function(req, res) {
                 msg: "Label does not exist!"
               });
             } else {
-              res.status(200).json(label);
+                if(label.dumps.length == 0){
+                    label.remove(function(data){
+                        res.status(200).json(data);
+                    }, function(err){
+                        res.status(500).json({
+                          msg: "Couldn't remove empty label from database!"
+                        });
+                    });
+                } else {
+                    res.status(200).json(label);
+                }
             }
           });
 
