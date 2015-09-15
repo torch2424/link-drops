@@ -36,12 +36,13 @@
             ng-show="([dump] | filter:enteredFind).length > 0"
             class = "center card-panel animated fadeIn linkCard">
 
-                <!-- Use our Fallbacks, Display Media Embeds (Bandcamp, Youtube, Vimeo, etc... -->
-                <div ng-if = "(dump.content.indexOf('.bandcamp.com/') > -1)
-                    || (dump.content.indexOf('https://www.youtube.com/watch?v=') > -1)
+                <!-- Use our Fallbacks (NoEmbed And then Embedly), Display Media Embeds (Bandcamp, Youtube, Vimeo, etc... -->
+                <div ng-if = "(dump.content.indexOf('https://www.youtube.com/watch?v=') > -1)
+                    || (dump.content.indexOf('http://www.amazon.com/gp/product/') > -1)
                     || (dump.content.indexOf('https://vimeo.com/') > -1)
                     || (dump.content.indexOf('https://soundcloud.com/') > -1)
-                    || (dump.content.indexOf('http://www.amazon.com/gp/product/') > -1)"
+                    || (dump.content.indexOf('.bandcamp.com/') > -1)
+                    || (dump.content.indexOf('https://gist.github.com/') > -1)"
                     id = "embed-{{dump.content}}"
                     in-view = "$inview && !dump.lazyEmbed && getEmbed(dump)">
                 </div>
