@@ -61,9 +61,7 @@ router.post('/', function(req, res, next) {
                     msg: "Couldn't add to the database!"
                   });
                 } else {
-                  res.status(201).json({
-                    msg: "Done"
-                  });
+                  res.status(201).json(label);
                 }
               });
           }
