@@ -214,11 +214,19 @@ a {
     vertical-align: -webkit-baseline-middle;
 }
 
-.linkSubTextContainer {
-    text-align: right;
+.linkSubTextLeftContainer {
+    padding-top: 5px;
+    text-align: left;
+    float: left;
 }
 
-.dumpedAtText {
+.linkSubTextRightContainer {
+    padding-top: 5px;
+    text-align: right;
+    float:right;
+}
+
+.linkSubText {
     display: inline !important;
 }
 
