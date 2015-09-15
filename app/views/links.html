@@ -64,6 +64,11 @@
                 <!-- Sharing/Categories -->
                 <div class = "grey-text text-lighten-1 linkSubTextLeftContainer">
                     <p ng-repeat="label in dump.labels" class = "linkSubText"><a class="grey-text text-lighten-1" href="">{{label.title}}</a> </p>
+                    <br />
+                    <form>
+                        <input class="linkSubTextInput" type="text"></input>
+                        <button type = "submit" style = "display: none" ng-click="submitCategory()"></button>
+                    </form>
                 </div>
                 <!-- Last updated -->
                 <div class = "grey-text text-lighten-1 linkSubTextRightContainer">
