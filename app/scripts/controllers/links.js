@@ -204,7 +204,7 @@ angular.module('linkDumpApp')
             "link": dump.content,
             "title": dump.newLabel
         }
-        Labels.save(payload, function(data, status){
+        Labels.save(payload, function(data){
             var index = $scope.dumps.indexOf(dump);
             $scope.dumps[index].labels.push(data);
             dump.newLabel = "";
@@ -214,7 +214,18 @@ angular.module('linkDumpApp')
     }
 
     $scope.removeLabel = function(dump, label){
-
+        var payload = {
+            "token": sessionToken,
+            "dumpId": dump._id,
+            "id": label._id
+        }
+        Label.delete(payload, function(data){
+            var i1 = $scope.dumps.indexOf(dump);
+            var i2 = $scope.dumps[i1].labels.indexOf(label);
+            $scope.dumps[i1].labels.splice(i2, 1);
+        }, function(err){
+            Materialize.toast(err.data.msg, 3000);
+        });
     }
 
     //Remove a dumped link
