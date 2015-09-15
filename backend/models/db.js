@@ -16,19 +16,17 @@ var Dump = new Schema({
 var Label = new Schema({
     user_id: {
         type: String,
-        required: 'The User Id is required'
+        required: 'The User Id is required',
         ref: 'User'
     },
     title: {
         type: String,
         required: 'The category title is required'
     },
-    dump_ids: [
-        dump_id: {
-            type: String,
-            ref: 'Dump'
-        }
-    ]
+    dumps: [{
+        type: String,
+        ref: 'Dump'
+    }]
 })
 
 var User = new Schema({
