@@ -8,7 +8,7 @@
  * Controller of the linkDumpApp
  */
 angular.module('linkDumpApp')
-  .controller('LinksCtrl', function($scope, $sce, $cookies, $timeout, Dumps, Dump, $location, $http) {
+  .controller('LinksCtrl', function($scope, $sce, $cookies, $timeout, Dumps, Dump, Labels, $location, $http) {
 
     //Get our sessions token
     var sessionToken = $cookies.get("sessionToken");
@@ -198,8 +198,18 @@ angular.module('linkDumpApp')
     }
 
     //Submit a dumped link
-    $scope.submitLabel = function() {
-        alert("test")
+    $scope.submitLabel = function(dump) {
+        var data = {
+            "token": sessionToken,
+            "link": dump.content,
+            "title": dump.newLabel
+        }
+        Labels.save(data, function(){
+            var index = $scope.dumps.indexOf(dump);
+            $scope.dumps[index].labels.push(data);
+        }, function(err){
+            Materialize.toast(err.data.msg, 3000);
+        });
     }
 
     //Remove a dumped link

@@ -66,8 +66,8 @@
                     <p ng-repeat="label in dump.labels" class = "linkSubText"><a class="grey-text text-lighten-1" href="">{{label.title}}</a> </p>
                     <br />
                     <form>
-                        <input class="linkSubTextInput" type="text" ng-model="labelInput"></input>
-                        <button type = "submit" style = "display: none" ng-click="submitLabel()"></button>
+                        <input class="linkSubTextInput" type="text" ng-model="dump.newLabel"></input>
+                        <button type = "submit" style = "display: none" ng-click="submitLabel(dump)"></button>
                     </form>
                 </div>
                 <!-- Last updated -->
