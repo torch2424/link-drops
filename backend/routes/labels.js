@@ -45,7 +45,7 @@ router.post('/', function(req, res, next) {
           } else {
             Label.findOneAndUpdate({
                 user_id: session.user_id,
-                title: req.body.title
+                title: req.body.title.toLowerCase()
               }, {
                 $addToSet: {
                   "dumps": dump._id
