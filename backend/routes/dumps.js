@@ -58,7 +58,7 @@ router.get('/', function(req, res, next) {
       } else {
         Dump.find({
           user_id: session.user_id
-        }).lean().exec(function(err, dumps, count) {
+        }).sort('-updated_at').lean().exec(function(err, dumps, count) {
           if (err) {
             res.status(500).json({
               msg: "Couldn't search the database for dumps!"
