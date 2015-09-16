@@ -180,7 +180,7 @@ router.delete('/:id', function(req, res) {
                 Label.find({
                   user_id: session.user_id,
                   dumps: req.params.id
-                }).select("_id").exec(function(err, labels) {
+                }).select("_id").lean().exec(function(err, labels) {
                   if (err) {
                     res.status(500).json({
                       msg: "Couldn't search the database for labels!"
@@ -188,11 +188,31 @@ router.delete('/:id', function(req, res) {
                   } else if (!labels) {
                     res.status(200).json(dump);
                   } else {
-                      var ids = [];
-                      for(var i = 0; i < labels.length; i++){
-                          ids[i] = labels[i]._id;
-                      }
-                      
+                    res.status(200).json(dump);
+                    for (var i = 0; i < labels.length; i++) {
+                      Label.findByIdAndUpdate(
+                        labels[i]._id, {
+                        $pull: {
+                          dumps: dump._id
+                        }
+                      }, {
+                        new: true
+                      }).exec(function(err, label) {
+                        if (err) {
+                          console.log({
+                            msg: "Couldn't search the database for labels during delete!"
+                          });
+                        } else {
+                          if (label.dumps.length == 0) {
+                            label.remove(function(err, label) {
+                              console.log({
+                                msg: "Couldn't delete empty label!"
+                              });
+                            });
+                          }
+                        }
+                      });
+                    }
                   }
                 });
               }
