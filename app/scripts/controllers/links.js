@@ -213,6 +213,11 @@ angular.module('linkDumpApp')
       });
     }
 
+    $scope.filterLabel = function(label){
+        $scope.enteredFind = label.title;
+        $scope.findInput = true;
+    }
+
     $scope.removeLabel = function(dump, label) {
       var payload = {
         "token": sessionToken,
