@@ -14,7 +14,7 @@ angular.module('linkDumpApp')
     var sessionToken = $cookies.get("sessionToken");
 
     //inititalizes our dumps
-    $scope.dumps;
+    $scope.dumps = [];
 
     //Inititalize searching
     $scope.findInput = false;
@@ -84,10 +84,10 @@ angular.module('linkDumpApp')
       $http.get("http://dev.kondeo.com/api/title-scraper.php?q=" + dump.content)
         .then(function(response) {
 
-            //Get the document
-            var element = document.getElementById("linkTitle-" + index);
+          //Get the document
+          var element = document.getElementById("linkTitle-" + index);
 
-            element.innerHTML = response.data.title;
+          element.innerHTML = response.data.title;
         });
     }
 
@@ -199,33 +199,33 @@ angular.module('linkDumpApp')
 
     //Submit a dumped link
     $scope.submitLabel = function(dump) {
-        var payload = {
-            "token": sessionToken,
-            "link": dump.content,
-            "title": dump.newLabel
-        }
-        Labels.save(payload, function(data){
-            var index = $scope.dumps.indexOf(dump);
-            $scope.dumps[index].labels.push(data);
-            dump.newLabel = "";
-        }, function(err){
-            Materialize.toast(err.data.msg, 3000);
-        });
+      var payload = {
+        "token": sessionToken,
+        "link": dump.content,
+        "title": dump.newLabel
+      }
+      Labels.save(payload, function(data) {
+        var index = $scope.dumps.indexOf(dump);
+        $scope.dumps[index].labels.push(data);
+        dump.newLabel = "";
+      }, function(err) {
+        Materialize.toast(err.data.msg, 3000);
+      });
     }
 
-    $scope.removeLabel = function(dump, label){
-        var payload = {
-            "token": sessionToken,
-            "dumpId": dump._id,
-            "id": label._id
-        }
-        Label.delete(payload, function(data){
-            var i1 = $scope.dumps.indexOf(dump);
-            var i2 = $scope.dumps[i1].labels.indexOf(label);
-            $scope.dumps[i1].labels.splice(i2, 1);
-        }, function(err){
-            Materialize.toast(err.data.msg, 3000);
-        });
+    $scope.removeLabel = function(dump, label) {
+      var payload = {
+        "token": sessionToken,
+        "dumpId": dump._id,
+        "id": label._id
+      }
+      Label.delete(payload, function(data) {
+        var i1 = $scope.dumps.indexOf(dump);
+        var i2 = $scope.dumps[i1].labels.indexOf(label);
+        $scope.dumps[i1].labels.splice(i2, 1);
+      }, function(err) {
+        Materialize.toast(err.data.msg, 3000);
+      });
     }
 
     //Remove a dumped link
