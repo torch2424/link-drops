@@ -236,13 +236,12 @@ angular.module('linkDumpApp')
         "id": dump._id
       };
 
+      //Splice off dump we dont want
       var index = $scope.dumps.indexOf(dump);
+      $scope.dumps.splice(index, 1);
 
       //Save the link
       Dump.delete(remJson, function(data, status) {
-        //Splice off dump we dont want
-        $scope.dumps.splice(index, 1);
-
         //Inform user
         Materialize.toast("Deleted " + data.content + "!", 3000);
 
