@@ -28,13 +28,12 @@
 
     <!-- ng repeat all of our links -->
     <!-- outer div for columns -->
-    <div class = "columns">
+    <div class = "columns animated fadeIn">
         <ul>
-            <!-- using track by to avoid a double appearing links bug when scope is updated -->
-            <li ng-repeat="dump in dumps |
-            orderBy:'-updated_at':reverse track by dump.updated_at"
+            <li
+            ng-repeat="dump in dumps track by dump._id"
             ng-show="([dump] | filter:enteredFind).length > 0"
-            class = "center card-panel animated fadeIn linkCard">
+            class = "center card-panel linkCard">
 
                 <!-- Display Media Embeds (Bandcamp, Youtube, Vimeo, etc... -->
                 <div ng-if = "(dump.content.indexOf('.bandcamp.com/') > -1)
