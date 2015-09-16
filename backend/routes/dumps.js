@@ -33,6 +33,8 @@ router.post('/', function(req, res, next) {
               msg: "Error saving the dump!"
             });
           } else {
+            dump = dump.toObject();
+            dump.labels = [];
             res.status(201).json(dump);
           }
         });
