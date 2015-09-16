@@ -197,6 +197,28 @@ angular.module('linkDumpApp')
       }
     }
 
+    //Remove a dumped link
+    $scope.removeLink = function(dump) {
+      //Our json we will submit to the backend
+      var remJson = {
+        "token": sessionToken,
+        "id": dump._id
+      };
+
+      //Splice off dump we dont want
+      var index = $scope.dumps.indexOf(dump);
+      $scope.dumps.splice(index, 1);
+
+      //Save the link
+      Dump.delete(remJson, function(data, status) {
+        //Inform user
+        Materialize.toast("Deleted " + data.content + "!", 3000);
+
+      }, function(err) {
+        Materialize.toast(err.data.msg, 3000);
+      });;
+    }
+
     //Submit a dumped link
     $scope.submitLabel = function(dump) {
       var payload = {
@@ -232,28 +254,4 @@ angular.module('linkDumpApp')
         Materialize.toast(err.data.msg, 3000);
       });
     }
-
-    //Remove a dumped link
-    $scope.removeLink = function(dump) {
-      //Our json we will submit to the backend
-      var remJson = {
-        "token": sessionToken,
-        "id": dump._id
-      };
-
-      //Splice off dump we dont want
-      var index = $scope.dumps.indexOf(dump);
-      $scope.dumps.splice(index, 1);
-
-      //Save the link
-      Dump.delete(remJson, function(data, status) {
-        //Inform user
-        Materialize.toast("Deleted " + data.content + "!", 3000);
-
-      }, function(err) {
-        Materialize.toast(err.data.msg, 3000);
-      });;
-    }
-
-
   });
