@@ -85,13 +85,14 @@ body {
 body > .container {
     margin-top: 50px;
     padding-top: 15px;
-    position: absolute;
+    position: fixed;
+    right: 0;
     left: 0;
     top: 0;
     bottom: 0;
     overflow: auto;
     width: $pageWidth;
-    max-width: $pageWidth;
+    max-width: none;
 }
 
 //our cards
