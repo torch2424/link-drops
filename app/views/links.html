@@ -28,13 +28,12 @@
 
     <!-- ng repeat all of our links -->
     <!-- outer div for columns -->
-    <div class = "columns">
+    <div class = "columns animated fadeIn">
         <ul>
-            <!-- using track by to avoid a double appearing links bug when scope is updated -->
-            <li ng-repeat="dump in dumps |
-            orderBy:'-updated_at':reverse track by dump.updated_at"
+            <li
+            ng-repeat="dump in dumps track by dump._id"
             ng-show="([dump] | filter:enteredFind).length > 0"
-            class = "center card-panel animated fadeIn linkCard">
+            class = "center card-panel linkCard">
 
                 <!-- Display Media Embeds (Bandcamp, Youtube, Vimeo, etc... -->
                 <div ng-if = "(dump.content.indexOf('.bandcamp.com/') > -1)
@@ -61,10 +60,19 @@
                 </a>
 
                 <br>
+                <!-- Sharing/Categories -->
+                <div class = "grey-text text-lighten-1 linkSubTextLeftContainer">
+                    <p ng-repeat="label in dump.labels" class = "linkSubText"><img src="images/x.png" class="linkLabelDelete" ng-click="removeLabel(dump, label)"><a class="linkLabelText grey-text text-lighten-1" ng-click="filterLabel(label)">{{label.title}}</a> </p>
+                    <br />
+                    <form>
+                        <input class="linkSubTextInput" type="text" ng-model="dump.newLabel"></input>
+                        <button type = "submit" style = "display: none" ng-click="submitLabel(dump)"></button>
+                    </form>
+                </div>
                 <!-- Last updated -->
-                <div class = "grey-text text-lighten-1 linkSubTextContainer">
-                    <p class = "dumpedAtText">Dropped at: </p>
-                    <p class = "dumpedAtText" ng-bind="dump.updated_at | date:'h:mm MM/dd/yyyy '"></p>
+                <div class = "grey-text text-lighten-1 linkSubTextRightContainer">
+                    <p class = "linkSubText">Dropped at: </p>
+                    <p class = "linkSubText" ng-bind="dump.updated_at | date:'h:mm MM/dd/yyyy '"></p>
                     <a class = "grey-text text-lighten-1" ng-click = "removeLink(dump)"><p>Delete Drop</p></a>
                 </div>
 

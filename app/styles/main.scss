@@ -85,13 +85,14 @@ body {
 body > .container {
     margin-top: 50px;
     padding-top: 15px;
-    position: absolute;
+    position: fixed;
+    right: 0;
     left: 0;
     top: 0;
     bottom: 0;
     overflow: auto;
     width: $pageWidth;
-    max-width: $pageWidth;
+    max-width: none;
 }
 
 //our cards
@@ -220,6 +221,7 @@ a {
 
 .linkCard {
     padding: 2%;
+    padding-bottom: 0;
 }
 
 .dropFavicon {
@@ -232,12 +234,34 @@ a {
     vertical-align: -webkit-baseline-middle;
 }
 
-.linkSubTextContainer {
-    text-align: right;
+.linkSubTextLeftContainer {
+    padding-top: 5px;
+    text-align: left;
+    float: left;
 }
 
-.dumpedAtText {
+.linkSubTextRightContainer {
+    padding-top: 5px;
+    text-align: right;
+    float:right;
+}
+
+.linkSubText {
     display: inline !important;
+}
+
+.linkSubTextInput {
+    height: 16px !important;
+}
+
+.linkLabelDelete {
+    height: 12px;
+    width: auto;
+    margin-right: 2px;
+}
+
+.linkLabelText {
+    margin-right: 5px;
 }
 
 
