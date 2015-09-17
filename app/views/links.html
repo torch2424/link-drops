@@ -58,6 +58,28 @@
                     <img id = "img-{{dump.content}}" />
                 </div>
 
+                <!-- KickStarter -->
+                <div ng-if = "(dump.content.indexOf('https://www.kickstarter.com/projects/') > -1)"
+                    in-view = "$inview && !dump.lazyEmbed && getKickStarter(dump)">
+                    <iframe
+                    id = "kick-{{dump.content}}"
+                    width="auto" height="360"
+                    frameborder="0" scrolling="no">
+                    </iframe>
+                </div>
+
+                <!-- Spotify -->
+                <div
+                ng-if = "(dump.content.indexOf('https://play.spotify.com/') > -1)
+                    || (dump.content.indexOf('https://play.spotify.com/') > -1)"
+                    in-view = "$inview && !dump.lazyEmbed && getSpotify(dump)">
+                    <iframe
+                    id = "spotify-{{dump.content}}"
+                    width="auto" height="360"
+                    frameborder="0" scrolling="no">
+                    </iframe>
+                </div>
+
                 <!-- Get our favicon and link title -->
                 <img ng-src="{{dump.content | favicon}}" alt="Drop Icon" class = "dropFavicon">
                 <a id = "linkTitle-{{$index}}"

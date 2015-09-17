@@ -109,14 +109,32 @@ angular.module('linkDumpApp')
     }
 
     //Embed an image link
-    $scope.getImage = function() {
-        //Get the document
-        var element = document.getElementById("img-" + dump.content);
+    $scope.getImage = function(dump) {
 
-        element.src = $sce.trustAsResourceUrl(dump.content);
+        //pass through the function
+        elemUrl("img", dump);
+    }
 
-        // say the dump has been lazy loaded
-        dump.lazyEmbed = true;
+    //Embed a Kickstarter thing
+    $scope.getKickStarter = function(dump) {
+
+        //Get the embed url
+        var kickUrl = dump.content.split("?")[0] + "/widget/card.html?v=2";
+
+        //pass through the function
+        elemUrl("kick", dump, kickUrl);
+    }
+
+    //Embed a spotify (artist, albulm, track) thing
+    $scope.getSpotify = function(dump) {
+
+        //Get the spotify link type and id , last 2 out of 5 elemnts
+        var splitUrl = dump.content.split("/");
+
+        //pass through the function
+        elemUrl("spotify", dump,
+        "https://embed.spotify.com/?uri=spotify:"
+        + splitUrl[3] + ":" +splitUrl[4]);
     }
 
     //get a sce trusted soundcloud thingy
@@ -128,17 +146,28 @@ angular.module('linkDumpApp')
         url: dump.content
       }, function(track) {
 
-        //Get the document
-        var element = document.getElementById("scWidget-" + dump.content);
+          //pass through the function
+          elemUrl("scWidget", dump,
+      "https://w.soundcloud.com/player/?url=https%3A" +
+        track.uri.substring(track.uri.indexOf("//api.soundcloud.com")) +
+        "&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true");
 
-        element.src = $sce.trustAsResourceUrl("https://w.soundcloud.com/player/?url=https%3A" +
-          track.uri.substring(track.uri.indexOf("//api.soundcloud.com")) +
-          "&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true");
+      });
+    }
+
+    function elemUrl(id, dump, url) {
+        //Get the document
+        var element = document.getElementById( id + "-" + dump.content);
+
+        if(!url) {
+            url = dump.content;
+        }
+
+        //Set the element src
+        element.src = $sce.trustAsResourceUrl(url);
 
         // say the dump has been lazy loaded
         dump.lazyEmbed = true;
-
-      });
     }
 
     //Check if a link already exists
