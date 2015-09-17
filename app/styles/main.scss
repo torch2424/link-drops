@@ -10,7 +10,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "animate";
 
 //Some content variables
-$pageWidth: 92%;
+$pageWidth: auto;
 $columnWidth: 500px;
 
 /**************************
@@ -20,6 +20,8 @@ $columnWidth: 500px;
 //Our Body Styles
 body {
   padding: 0;
+  overflow:hidden;
+  height: 100%;
   background-color: $pageBGColor;
   color: $pageText;
 }
@@ -42,11 +44,20 @@ body {
 }
 
 //Our navbar
+.header {
+    padding: 0px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+}
+
 .mainNav {
     background-color: $navBG;
     border-color: $navBG;
     color: $navText;
-    border-radius: 5px;
+    border-radius: 0px;
 }
 
 .activeTab {
@@ -71,9 +82,17 @@ body {
 }
 
 //Container overrides
-.container {
+body > .container {
+    margin-top: 50px;
+    padding-top: 15px;
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    overflow: auto;
     width: $pageWidth;
-    max-width: $pageWidth;
+    max-width: none;
 }
 
 //our cards
@@ -202,6 +221,7 @@ a {
 
 .linkCard {
     padding: 2%;
+    padding-bottom: 0;
 }
 
 .dropFavicon {
@@ -214,12 +234,34 @@ a {
     vertical-align: -webkit-baseline-middle;
 }
 
-.linkSubTextContainer {
-    text-align: right;
+.linkSubTextLeftContainer {
+    padding-top: 5px;
+    text-align: left;
+    float: left;
 }
 
-.dumpedAtText {
+.linkSubTextRightContainer {
+    padding-top: 5px;
+    text-align: right;
+    float:right;
+}
+
+.linkSubText {
     display: inline !important;
+}
+
+.linkSubTextInput {
+    height: 16px !important;
+}
+
+.linkLabelDelete {
+    height: 12px;
+    width: auto;
+    margin-right: 2px;
+}
+
+.linkLabelText {
+    margin-right: 5px;
 }
 
 
