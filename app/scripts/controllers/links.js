@@ -8,27 +8,25 @@
  * Controller of the linkDumpApp
  */
 angular.module('linkDumpApp')
-  .controller('LinksCtrl', function($scope, $sce, $cookies, $timeout, Dumps, Dump, $location, $http) {
+  .controller('LinksCtrl', function($scope, $sce, $cookies, $timeout, Dumps, Dump, Labels, Label, $location, $http) {
 
     //Get our sessions token
     var sessionToken = $cookies.get("sessionToken");
 
     //inititalizes our dumps
-    $scope.dumps;
+    $scope.dumps = [];
 
     //Inititalize searching
     $scope.findInput = false;
 
-    //Initialize soundcloud, now using no embed
-    // used this guide https://developers.soundcloud.com/docs/api/guide#playing
-    // SC.initialize({
-    //   client_id: 'b9513e908ef7793171225f04e87cf362'
-    // });
+    //Initialize soundcloud
+    SC.initialize({
+      client_id: 'b9513e908ef7793171225f04e87cf362'
+    });
 
     //Our main scraper will be noembed, since it is free and open soruce
     //With embedly as a backup to keep costs low
     //our embedly key
-    var embedlyKey = '1ac8190e5c2940a99a5ffde29e389e72';
 
     //To get the correct things to fire the in viewport, wait a second and then scroll to the top
     $timeout(function() {
@@ -85,10 +83,10 @@ angular.module('linkDumpApp')
       $http.get("http://dev.kondeo.com/api/title-scraper.php?q=" + dump.content)
         .then(function(response) {
 
-            //Get the document
-            var element = document.getElementById("linkTitle-" + index);
+          //Get the document
+          var element = document.getElementById("linkTitle-" + index);
 
-            element.innerHTML = response.data.title;
+          element.innerHTML = response.data.title;
         });
     }
 
@@ -106,27 +104,30 @@ angular.module('linkDumpApp')
             element.innerHTML = $sce.trustAsHtml(response.data.html);
             // say the dump has been lazy loaded
             dump.lazyEmbed = true;
-          } else {
-            //Get the response from embedly
-            $http.get("http://api.embed.ly/1/oembed?key=" + embedlyKey + "&url=" + dump.content)
-              .then(function(response) {
-                //Our response from embedly
-                //Get the document
-                var element = document.getElementById("embed-" + dump.content);
-
-                element.innerHTML = $sce.trustAsHtml(response.data.html);
-                // say the dump has been lazy loaded
-                dump.lazyEmbed = true;
-              });
           }
         });
     }
 
-    //Function to get a url parameter by it's name
-    function getParameterByName(name, url) {
-        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(url);
-        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    //get a sce trusted soundcloud thingy
+    $scope.getSoundCloud = function(dump) {
+      //Used this
+      //https://developers.soundcloud.com/docs/api/guide#playing
+
+      SC.get('/resolve', {
+        url: dump.content
+      }, function(track) {
+
+        //Get the document
+        var element = document.getElementById("scWidget-" + dump.content);
+
+        element.src = $sce.trustAsResourceUrl("https://w.soundcloud.com/player/?url=https%3A" +
+          track.uri.substring(track.uri.indexOf("//api.soundcloud.com")) +
+          "&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true");
+
+        // say the dump has been lazy loaded
+        dump.lazyEmbed = true;
+
+      });
     }
 
     //Check if a link already exists
@@ -191,13 +192,12 @@ angular.module('linkDumpApp')
         "id": dump._id
       };
 
+      //Splice off dump we dont want
       var index = $scope.dumps.indexOf(dump);
+      $scope.dumps.splice(index, 1);
 
       //Save the link
       Dump.delete(remJson, function(data, status) {
-        //Splice off dump we dont want
-        $scope.dumps.splice(index, 1);
-
         //Inform user
         Materialize.toast("Deleted " + data.content + "!", 3000);
 
@@ -206,5 +206,39 @@ angular.module('linkDumpApp')
       });;
     }
 
+    //Submit a dumped link
+    $scope.submitLabel = function(dump) {
+      var payload = {
+        "token": sessionToken,
+        "link": dump.content,
+        "title": dump.newLabel
+      }
+      Labels.save(payload, function(data) {
+        var index = $scope.dumps.indexOf(dump);
+        $scope.dumps[index].labels.push(data);
+        dump.newLabel = "";
+      }, function(err) {
+        Materialize.toast(err.data.msg, 3000);
+      });
+    }
 
+    $scope.filterLabel = function(label){
+        $scope.enteredFind = label.title;
+        $scope.findInput = true;
+    }
+
+    $scope.removeLabel = function(dump, label) {
+      var payload = {
+        "token": sessionToken,
+        "dumpId": dump._id,
+        "id": label._id
+      }
+      Label.delete(payload, function(data) {
+        var i1 = $scope.dumps.indexOf(dump);
+        var i2 = $scope.dumps[i1].labels.indexOf(label);
+        $scope.dumps[i1].labels.splice(i2, 1);
+      }, function(err) {
+        Materialize.toast(err.data.msg, 3000);
+      });
+    }
   });
