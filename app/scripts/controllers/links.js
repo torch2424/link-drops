@@ -20,9 +20,9 @@ angular.module('linkDumpApp')
     $scope.findInput = false;
 
     //Initialize soundcloud
-    SC.initialize({
-      client_id: 'b9513e908ef7793171225f04e87cf362'
-    });
+    // SC.initialize({
+    //   client_id: 'b9513e908ef7793171225f04e87cf362'
+    // });
 
     //Our main scraper will be noembed, since it is free and open soruce
     //With embedly as a backup to keep costs low
@@ -134,7 +134,7 @@ angular.module('linkDumpApp')
         //pass through the function
         elemUrl("spotify", dump,
         "https://embed.spotify.com/?uri=spotify:"
-        + splitUrl[3] + ":" +splitUrl[4]);
+        + splitUrl[3] + ":" +splitUrl[4].split("?")[0]);
     }
 
     //get a sce trusted soundcloud thingy

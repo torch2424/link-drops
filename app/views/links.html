@@ -19,7 +19,7 @@
         <br ng-show = "!findInput">
 
         <div  ng-show = "findInput">
-            <input id = "findInput" type = "text" class = "center"
+            <input id = "findInput" type = "text" class = "center findInput"
             name = "enterFind" placeholder="What are you looking for?"
             ng-model="enteredFind">
         </div>
@@ -37,21 +37,23 @@
 
                 <!-- This need to be only noembed, and another div should be created under for embedly, followed by various native apis -->
                 <!-- Use our Fallbacks (NoEmbed And then Embedly), Display Media Embeds (Bandcamp, Youtube, Vimeo, etc... -->
-                <div ng-if = "(dump.content.indexOf('https://www.youtube.com/watch?v=') > -1)
+                <div class = "embed"
+                ng-if = "(dump.content.indexOf('https://www.youtube.com/watch?v=') > -1)
                     || (dump.content.indexOf('http://www.amazon.com/gp/product/') > -1)
                     || (dump.content.indexOf('https://soundcloud.com/') > -1)
                     || (dump.content.indexOf('https://instagram.com/p/') > -1)
                     || (dump.content.indexOf('https://vine.co/v/') > -1)
                     || (dump.content.indexOf('https://vine.co/v/') > -1)
                     || (dump.content.indexOf('wikipedia.org/wiki/') > -1)
-                    || (dump.content.indexOf('https://twitter.com/') > -1 && dump.content.indexOf('/status/') > -1 )
+                    || (dump.content.indexOf('https://twitter.com/') > -1 && dump.content.indexOf('/status/') > -1)
                     || (dump.content.indexOf('https://gist.github.com/') > -1)"
                     id = "embed-{{dump.content}}"
                     in-view = "$inview && !dump.lazyEmbed && getEmbed(dump)">
                 </div>
 
                 <!-- Image Files -->
-                <div ng-if = "(dump.content.indexOf('.jpg') > -1)
+                <div class = "embed"
+                ng-if = "(dump.content.indexOf('.jpg') > -1)
                     || (dump.content.indexOf('.png') > -1)
                     || (dump.content.indexOf('.gif') > -1)"
                     in-view = "$inview && !dump.lazyEmbed && getImage(dump)">
@@ -59,23 +61,24 @@
                 </div>
 
                 <!-- KickStarter -->
-                <div ng-if = "(dump.content.indexOf('https://www.kickstarter.com/projects/') > -1)"
+                <div class = "embed"
+                ng-if = "(dump.content.indexOf('https://www.kickstarter.com/projects/') > -1)"
                     in-view = "$inview && !dump.lazyEmbed && getKickStarter(dump)">
                     <iframe
                     id = "kick-{{dump.content}}"
-                    width="auto" height="360"
+                    class = "kickEmbed"
                     frameborder="0" scrolling="no">
                     </iframe>
                 </div>
 
                 <!-- Spotify -->
-                <div
+                <div class = "embed"
                 ng-if = "(dump.content.indexOf('https://play.spotify.com/') > -1)
                     || (dump.content.indexOf('https://play.spotify.com/') > -1)"
                     in-view = "$inview && !dump.lazyEmbed && getSpotify(dump)">
                     <iframe
                     id = "spotify-{{dump.content}}"
-                    width="auto" height="360"
+                    class = "spotifyEmbed"
                     frameborder="0" scrolling="no">
                     </iframe>
                 </div>
@@ -92,11 +95,25 @@
                 <br>
                 <!-- Sharing/Categories -->
                 <div class = "grey-text text-lighten-1 linkSubTextLeftContainer">
-                    <p ng-repeat="label in dump.labels" class = "linkSubText"><img src="images/x.png" class="linkLabelDelete" ng-click="removeLabel(dump, label)"><a class="linkLabelText grey-text text-lighten-1" ng-click="filterLabel(label)">{{label.title}}</a> </p>
+                    <p ng-repeat="label in dump.labels"
+                    class = "linkSubText">
+                        <img src="images/x.png"
+                        class="linkLabelDelete"
+                        ng-click="removeLabel(dump, label)">
+
+                        <a class="linkLabelText"
+                        ng-click="filterLabel(label)">{{label.title}}
+                        </a>
+                    </p>
                     <br />
                     <form>
-                        <input class="linkSubTextInput" type="text" ng-model="dump.newLabel"></input>
-                        <button type = "submit" style = "display: none" ng-click="submitLabel(dump)"></button>
+                        <input class="linkSubTextInput center" type="text"
+                        placeholder="Enter a Category"
+                        ng-model="dump.newLabel">
+                        </input>
+                        <button type = "submit" style = "display: none"
+                        ng-click="submitLabel(dump)">
+                        </button>
                     </form>
                 </div>
                 <!-- Last updated -->

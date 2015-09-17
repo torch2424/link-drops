@@ -150,6 +150,40 @@ a {
     border-top: 1px solid $navBG;
 }
 
+//Iframes and images, need to be responsive and things
+.embed {
+
+    iframe {
+        max-width: 90%;
+        min-height: 380px;
+        max-height: 600px;
+    }
+
+    img {
+        max-width: 90%;
+        height: auto;
+    }
+
+    .spotifyEmbed {
+        width: 300px;
+        height: 380px;
+    }
+
+    .kickEmbed {
+        height: 420px;
+        width: 220px;
+    }
+
+    .noembed-embed-inner {
+        width: 90%;
+        max-width: 90%;
+        max-height: 500px;
+        overflow:hidden;
+    }
+
+    overflow:hidden;
+}
+
 /**************************
     SPECIFIC STYLES
 **************************/
@@ -202,11 +236,16 @@ a {
 }
 
 .linkInput {
-    width: 80%;
+    width: 80% !important;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .linkInstructions {
+    width: 80%;
     padding-bottom: 5px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .findButton {
@@ -215,7 +254,7 @@ a {
 }
 
 .findInput {
-    width: 80%;
+    width: 80% !important;
     height: 40px;
 }
 
@@ -232,18 +271,19 @@ a {
 
 .dropURL {
     vertical-align: -webkit-baseline-middle;
+    word-wrap: break-word;
 }
 
 .linkSubTextLeftContainer {
     padding-top: 5px;
-    text-align: left;
-    float: left;
+    text-align: center;
+    float: none;
 }
 
 .linkSubTextRightContainer {
-    padding-top: 5px;
-    text-align: right;
-    float:right;
+    padding-bottom: 5px;
+    text-align: center;
+    float:none;
 }
 
 .linkSubText {
@@ -252,6 +292,7 @@ a {
 
 .linkSubTextInput {
     height: 16px !important;
+    width: 80% !important;
 }
 
 .linkLabelDelete {
@@ -262,6 +303,8 @@ a {
 
 .linkLabelText {
     margin-right: 5px;
+    font-size: 15px;
+    color: $navBG;
 }
 
 
@@ -293,6 +336,19 @@ a {
 
     }
 
+  }
+
+  //Make our containers better
+  .linkSubTextLeftContainer {
+      padding-top: 5px;
+      text-align: left;
+      float: left;
+  }
+
+  .linkSubTextRightContainer {
+      padding-top: 5px;
+      text-align: right;
+      float:right;
   }
 
   //Container overrides
