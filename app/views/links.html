@@ -51,6 +51,14 @@
                     in-view = "$inview && !dump.lazyEmbed && getEmbed(dump)">
                 </div>
 
+                <!-- Image Files -->
+                <div ng-if = "(dump.content.indexOf('.jpg') > -1)
+                    || (dump.content.indexOf('.png') > -1)
+                    || (dump.content.indexOf('.gif') > -1)"
+                    in-view = "$inview && !dump.lazyEmbed && getImage(dump)">
+                    <img id = "img-{{dump.content}}" />
+                </div>
+
                 <!-- Get our favicon and link title -->
                 <img ng-src="{{dump.content | favicon}}" alt="Drop Icon" class = "dropFavicon">
                 <a id = "linkTitle-{{$index}}"

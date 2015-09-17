@@ -90,7 +90,7 @@ angular.module('linkDumpApp')
         });
     }
 
-    //Get a sce trusted embedly bandcamp
+    //Get a sce trusted noembed
     $scope.getEmbed = function(dump) {
       //Get the response from noembed
       $http.get("https://noembed.com/embed?url=" + dump.content + "&nowrap=on")
@@ -106,6 +106,17 @@ angular.module('linkDumpApp')
             dump.lazyEmbed = true;
           }
         });
+    }
+
+    //Embed an image link
+    $scope.getImage = function() {
+        //Get the document
+        var element = document.getElementById("img-" + dump.content);
+
+        element.src = $sce.trustAsResourceUrl(dump.content);
+
+        // say the dump has been lazy loaded
+        dump.lazyEmbed = true;
     }
 
     //get a sce trusted soundcloud thingy
