@@ -42,9 +42,8 @@
                     || (dump.content.indexOf('http://www.amazon.com/gp/product/') > -1)
                     || (dump.content.indexOf('https://soundcloud.com/') > -1)
                     || (dump.content.indexOf('https://instagram.com/p/') > -1)
-                    || (dump.content.indexOf('https://vine.co/v/') > -1)
-                    || (dump.content.indexOf('https://vine.co/v/') > -1)
                     || (dump.content.indexOf('wikipedia.org/wiki/') > -1)
+                    || (dump.content.indexOf('https://vimeo.com/') > -1)
                     || (dump.content.indexOf('https://twitter.com/') > -1 && dump.content.indexOf('/status/') > -1)
                     || (dump.content.indexOf('https://gist.github.com/') > -1)"
                     id = "embed-{{dump.content}}"
@@ -67,6 +66,17 @@
                     <iframe
                     id = "kick-{{dump.content}}"
                     class = "kickEmbed"
+                    frameborder="0" scrolling="no">
+                    </iframe>
+                </div>
+
+                <!-- Vine -->
+                <div class = "embed"
+                ng-if = "(dump.content.indexOf('https://vine.co/v/') > -1)"
+                    in-view = "$inview && !dump.lazyEmbed && getVine(dump)">
+                    <iframe
+                    id = "vine-{{dump.content}}"
+                    class = "vineEmbed"
                     frameborder="0" scrolling="no">
                     </iframe>
                 </div>

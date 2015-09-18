@@ -125,6 +125,16 @@ angular.module('linkDumpApp')
         elemUrl("kick", dump, kickUrl);
     }
 
+    //Embed a vine thing
+    $scope.getVine = function(dump) {
+
+        //Get the embed url
+        var vineUrl = dump.content+ "/embed/simple";
+
+        //pass through the function
+        elemUrl("vine", dump, vineUrl);
+    }
+
     //Embed a spotify (artist, albulm, track) thing
     $scope.getSpotify = function(dump) {
 
