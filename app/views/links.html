@@ -118,7 +118,7 @@
                     <br />
                     <form>
                         <input class="linkSubTextInput center" type="text"
-                        placeholder="Enter a Category"
+                        placeholder="New label..."
                         ng-model="dump.newLabel">
                         </input>
                         <button type = "submit" style = "display: none"
@@ -128,7 +128,6 @@
                 </div>
                 <!-- Last updated -->
                 <div class = "grey-text text-lighten-1 linkSubTextRightContainer">
-                    <p class = "linkSubText">Dropped at: </p>
                     <p class = "linkSubText" ng-bind="dump.updated_at | date:'h:mm MM/dd/yyyy '"></p>
                     <a class = "grey-text text-lighten-1" ng-click = "removeLink(dump)"><p>Delete Drop</p></a>
                 </div>
