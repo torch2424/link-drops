@@ -148,6 +148,14 @@ a {
     padding-top: 15px;
     color: $pageText;
     border-top: 1px solid $navBG;
+
+    a {
+        color: $buttonBG;
+
+        &:hover {
+            color: $buttonBGHover;
+        }
+    }
 }
 
 /**************************
