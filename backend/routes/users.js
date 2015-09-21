@@ -114,6 +114,60 @@ router.post('/join', function(req, res, next) {
   }
 });
 
+/* Update user */
+router.put('/', function(req, res, next) {
+  var emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)\b/;
+  if (req.body.username && !emailRegex.test(req.body.username)) {
+    res.status(412).json({
+      msg: "Email is not valid!"
+    });
+  } else {
+    Session.findOne({
+        token: req.body.token
+      })
+      .select('user_id')
+      .exec(function(err, session) {
+        if (err) {
+          res.status(500).json({
+            msg: "Couldn't search the database for session!"
+          });
+        } else if (!session) {
+          res.status(401).json({
+            msg: "Session is not valid!"
+          });
+        } else {
+          var updatedUser = {};
+
+          if (req.body.username && typeof req.body.username === 'string') updatedUser.username = req.body.username;
+          if (req.body.password && typeof req.body.password === 'string') {
+            //Create a random salt
+            var salt = crypto.randomBytes(128).toString('base64');
+            //Create a unique hash from the provided password and salt
+            var hash = crypto.pbkdf2Sync(req.body.password, salt, 10000, 512);
+            updatedUser.password = hash;
+            updatedUser.salt = salt;
+          }
+
+          var setUser = {
+            $set: updatedUser
+          }
+
+          User.update({
+              _id: session.user_id
+            }, setUser)
+            .exec(function(err, user) {
+              if (err) {
+                res.status(500).json({
+                  msg: "Could not update user"
+                });
+              } else {
+                res.status(200).json(user);
+              }
+            });
+        }
+      });
+  }
+});
 
 /* Check if a session token is valid */
 router.get('/session', function(req, res, next) {
