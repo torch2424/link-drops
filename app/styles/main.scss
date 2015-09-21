@@ -226,6 +226,20 @@ a {
 /**************************
     SPECIFIC STYLES
 **************************/
+.navbarIcon {
+    height: 32px;
+    width: 32px;
+    display: inline-block !important;
+
+    margin-right: 5px;
+    vertical-align: -webkit-baseline-middle;
+}
+
+.mainIcon {
+    height: 128px;
+    width: 128px;
+}
+
 .homeCard {
     padding-bottom: 25px;
     padding-left: 10px;
