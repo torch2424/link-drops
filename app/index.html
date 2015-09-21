@@ -24,34 +24,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="header">
-      <div class="navbar navbar-default mainNav" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-
-            <a class="navbar-brand navText"><img class = "navbarIcon" src = "/images/linkDrops32.gif" />linkDrops.</a>
-          </div>
-
-          <div class="collapse navbar-collapse" id="js-navbar-collapse" ng-controller="NavCtrl">
-
-            <ul class="nav navbar-nav">
-              <li ng-class="{activeTab:isActive('/')}" ng-hide = "isLoggedIn()"><a class = "navText" href="#/">Home</a></li>
-              <li ng-class="{activeTab:isActive('/signup')}" ng-hide = "isLoggedIn()"><a class = "navText" ng-href="#/signup">Sign Up</a></li>
-              <li ng-class="{activeTab:isActive('/login')}" ng-hide = "isLoggedIn()"><a class = "navText" ng-href="#/login">Log In</a></li>
-              <li ng-class="{activeTab:isActive('/dumps')}" ng-show = "isLoggedIn()"><a class = "navText" ng-href="#/dumps">Dumps</a></li>
-              <li ng-class="{activeTab:isActive('/myaccount')}" ng-show = "isLoggedIn()"><a class = "navText" ng-href="#/myaccount">My Account</a></li>
-              <li ng-show = "isLoggedIn()"><a class = "navText" ng-click = "logout()" href="#/">Log Out</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div ng-include src="'views/nav.html'"></div>
 
     <div class="container" in-view-container>
     <div ng-view=""></div>
