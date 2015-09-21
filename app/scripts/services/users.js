@@ -38,6 +38,19 @@ angular.module('linkDumpApp')
   }]);
 
 angular.module('linkDumpApp')
+  .factory('UserUpdate', ['$resource', function($resource) {
+
+    return $resource(window.location.protocol + "//" + apiBase + '/users/', {}, {
+      update: {
+        method: 'PUT',
+        params: {},
+        isArray: false
+      }
+
+    });
+  }]);
+
+angular.module('linkDumpApp')
   .factory('Session', ['$resource', function($resource) {
 
     return $resource(window.location.protocol + "//" + apiBase + '/users/session', {}, {
