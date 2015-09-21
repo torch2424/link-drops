@@ -57,7 +57,7 @@ router.post('/login', function(req, res, next) {
 /* Join as a user */
 router.post('/join', function(req, res, next) {
   var emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)\b/;
-  if (!emailRegex.test(data.username)) {
+  if (!emailRegex.test(req.body.username)) {
     res.status(412).json({
       msg: "Email is not valid!"
     });
