@@ -150,6 +150,71 @@ a {
     border-top: 1px solid $navBG;
 }
 
+//Iframes and images, need to be responsive and things
+.embed {
+
+    //General/neccessary
+    margin-left: auto;
+    margin-right: auto;
+    overflow:hidden;
+
+    .noembed-embed-inner {
+        width: 90%;
+        max-width: 90%;
+        max-height: 350px;
+        margin: auto;
+    }
+
+    iframe {
+        max-width: 90%;
+        height: auto;
+    }
+
+    img {
+        max-width: 90%;
+        height: auto;
+    }
+
+    .noembed-instagram {
+
+        img {
+            width: 320px;
+            width: 320px;
+        }
+
+    }
+
+    .noembed-soundcloud {
+        width: 100%;
+        height: 450px;
+
+        max-width: 100%;
+        max-height: 450px;
+
+        iframe {
+            width: 100%;
+            height: 450px;
+            max-width: 100%;
+            max-height: 450px;
+        }
+    }
+
+    .spotifyEmbed {
+        width: 300px;
+        height: 380px;
+    }
+
+    .kickEmbed {
+        height: 420px;
+        width: 220px;
+    }
+
+    .vineEmbed {
+        height: 300px;
+        width: 300px;
+    }
+}
+
 /**************************
     SPECIFIC STYLES
 **************************/
@@ -202,11 +267,16 @@ a {
 }
 
 .linkInput {
-    width: 80%;
+    width: 80% !important;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .linkInstructions {
+    width: 80%;
     padding-bottom: 5px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .findButton {
@@ -215,7 +285,7 @@ a {
 }
 
 .findInput {
-    width: 80%;
+    width: 80% !important;
     height: 40px;
 }
 
@@ -232,18 +302,19 @@ a {
 
 .dropURL {
     vertical-align: -webkit-baseline-middle;
+    word-wrap: break-word;
 }
 
 .linkSubTextLeftContainer {
     padding-top: 5px;
-    text-align: left;
-    float: left;
+    text-align: center;
+    float: none;
 }
 
 .linkSubTextRightContainer {
-    padding-top: 5px;
-    text-align: right;
-    float:right;
+    padding-bottom: 5px;
+    text-align: center;
+    float:none;
 }
 
 .linkSubText {
@@ -252,6 +323,8 @@ a {
 
 .linkSubTextInput {
     height: 16px !important;
+    width: 80% !important;
+    text-align: left;
 }
 
 .linkLabelDelete {
@@ -262,6 +335,8 @@ a {
 
 .linkLabelText {
     margin-right: 5px;
+    font-size: 15px;
+    color: $navBG;
 }
 
 
@@ -295,10 +370,81 @@ a {
 
   }
 
+  //Make our containers better
+  .linkSubTextLeftContainer {
+      padding-top: 5px;
+      text-align: left;
+      float: left;
+  }
+
+  .linkSubTextRightContainer {
+      padding-top: 5px;
+      text-align: right;
+      float:right;
+  }
+
   //Container overrides
   .container {
       width: $pageWidth;
       max-width: $pageWidth;
+  }
+
+  //Iframes and images, need to be responsive and things. Tablets and up!
+  .embed {
+
+      //General/neccessary
+      margin-left: auto;
+      margin-right: auto;
+      overflow:hidden;
+
+      .noembed-embed-inner {
+          width: 95%;
+          max-width: 95%;
+          max-height: 350px;
+          margin: auto;
+      }
+
+      iframe {
+          height: inherit;
+      }
+
+      .noembed-youtube {
+          max-width: none;
+          height: 315px;
+      }
+
+      .noembed-vimeo {
+          max-width: none;
+          width: 500px;
+          height: 260px;
+      }
+
+      .noembed-soundcloud {
+          width: 100%;
+          height: 450px;
+
+          max-width: none;
+          max-height: none;
+      }
+
+      img {
+          max-width: 100%;
+          height: auto;
+      }
+
+      .noembed-instagram {
+
+          img {
+              width: 250px;
+              width: 250px;
+          }
+
+      }
+
+      .vineEmbed {
+          height: 480px;
+          width: 480px;
+      }
   }
 
 }

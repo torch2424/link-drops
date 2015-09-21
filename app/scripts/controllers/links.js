@@ -27,7 +27,6 @@ angular.module('linkDumpApp')
     //Our main scraper will be noembed, since it is free and open soruce
     //With embedly as a backup to keep costs low
     //our embedly key
-    var embedlyKey = '1ac8190e5c2940a99a5ffde29e389e72';
 
     //To get the correct things to fire the in viewport, wait a second and then scroll to the top
     $timeout(function() {
@@ -91,7 +90,7 @@ angular.module('linkDumpApp')
         });
     }
 
-    //Get a sce trusted embedly bandcamp
+    //Get a sce trusted noembed
     $scope.getEmbed = function(dump) {
       //Get the response from noembed
       $http.get("https://noembed.com/embed?url=" + dump.content + "&nowrap=on")
@@ -105,20 +104,47 @@ angular.module('linkDumpApp')
             element.innerHTML = $sce.trustAsHtml(response.data.html);
             // say the dump has been lazy loaded
             dump.lazyEmbed = true;
-          } else {
-            //Get the response from embedly
-            $http.get("http://api.embed.ly/1/oembed?key=" + embedlyKey + "&url=" + dump.content)
-              .then(function(response) {
-                //Our response from embedly
-                //Get the document
-                var element = document.getElementById("embed-" + dump.content);
-
-                element.innerHTML = $sce.trustAsHtml(response.data.html);
-                // say the dump has been lazy loaded
-                dump.lazyEmbed = true;
-              });
           }
         });
+    }
+
+    //Embed an image link
+    $scope.getImage = function(dump) {
+
+        //pass through the function
+        elemUrl("img", dump);
+    }
+
+    //Embed a Kickstarter thing
+    $scope.getKickStarter = function(dump) {
+
+        //Get the embed url
+        var kickUrl = dump.content.split("?")[0] + "/widget/card.html?v=2";
+
+        //pass through the function
+        elemUrl("kick", dump, kickUrl);
+    }
+
+    //Embed a vine thing
+    $scope.getVine = function(dump) {
+
+        //Get the embed url
+        var vineUrl = dump.content+ "/embed/simple";
+
+        //pass through the function
+        elemUrl("vine", dump, vineUrl);
+    }
+
+    //Embed a spotify (artist, albulm, track) thing
+    $scope.getSpotify = function(dump) {
+
+        //Get the spotify link type and id , last 2 out of 5 elemnts
+        var splitUrl = dump.content.split("/");
+
+        //pass through the function
+        elemUrl("spotify", dump,
+        "https://embed.spotify.com/?uri=spotify:"
+        + splitUrl[3] + ":" +splitUrl[4].split("?")[0]);
     }
 
     //get a sce trusted soundcloud thingy
@@ -130,17 +156,28 @@ angular.module('linkDumpApp')
         url: dump.content
       }, function(track) {
 
-        //Get the document
-        var element = document.getElementById("scWidget-" + dump.content);
+          //pass through the function
+          elemUrl("scWidget", dump,
+      "https://w.soundcloud.com/player/?url=https%3A" +
+        track.uri.substring(track.uri.indexOf("//api.soundcloud.com")) +
+        "&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true");
 
-        element.src = $sce.trustAsResourceUrl("https://w.soundcloud.com/player/?url=https%3A" +
-          track.uri.substring(track.uri.indexOf("//api.soundcloud.com")) +
-          "&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true");
+      });
+    }
+
+    function elemUrl(id, dump, url) {
+        //Get the document
+        var element = document.getElementById( id + "-" + dump.content);
+
+        if(!url) {
+            url = dump.content;
+        }
+
+        //Set the element src
+        element.src = $sce.trustAsResourceUrl(url);
 
         // say the dump has been lazy loaded
         dump.lazyEmbed = true;
-
-      });
     }
 
     //Check if a link already exists
