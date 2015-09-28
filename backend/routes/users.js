@@ -4,6 +4,7 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Session = mongoose.model('Session');
+var nodemailer = require('nodemailer');
 
 /* Log in user */
 router.post('/login', function(req, res, next) {
@@ -164,6 +165,72 @@ router.put('/', function(req, res, next) {
                 res.status(200).json(user);
               }
             });
+        }
+      });
+  }
+});
+
+/* User forgot password */
+router.post('/forgot', function(req, res, next) {
+  //Find a user with the username requested. Select salt and password
+  var emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)\b/;
+  if (!emailRegex.test(req.body.username)) {
+    res.status(412).json({
+      msg: "Email is not valid!"
+    });
+  } else {
+    //Check if a user with that username already exists
+    User.findOne({
+        username: req.body.username.toLowerCase()
+      })
+      .select('_id')
+      .exec(function(err, user) {
+        if (user) {
+          //Create a random token
+          var token = crypto.randomBytes(48).toString('hex');
+          //New session!
+          new Session({
+            user_id: user._id,
+            token: token
+          }).save(function(err) {
+            if (err) {
+              res.status(500).json({
+                msg: "Error saving token to DB!"
+              });
+            } else {
+              var message = 'Hello, You recently requested a password reset for your LinkDrops account. If you didn\'t, please ignore this email. Here is your reset link: http://linkdrops.com/forgot/' + token;
+
+              var transporter = nodemailer.createTransport({
+                service: 'Gmail',
+                auth: {
+                  user: 'kondeodev@gmail.com',
+                  pass: ''
+                }
+              });
+              var mailOptions = {
+                  from: 'LinkDrops <julian@kondeo.com>',
+                to: req.body.username.toLowerCase(),
+                subject: 'LinkDrops Password Reset Link',
+                text: message
+              }
+              console.log(mailOptions);
+              transporter.sendMail(mailOptions, function(error, response) {
+                if (error) {
+                  console.log(error);
+                } else {
+                  console.log("Message sent: " + response.message);
+                }
+              });
+
+              res.status(200).json({
+                msg: "Password reset email was sent!"
+              });
+            }
+          });
+        } else {
+          res.status(404).json({
+            msg: "Email does not exist!"
+          });
         }
       });
   }
