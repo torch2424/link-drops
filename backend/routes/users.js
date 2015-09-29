@@ -4,7 +4,8 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Session = mongoose.model('Session');
-var nodemailer = require('nodemailer');
+var nodemailer = require('nodemailer')
+var config = require('../config/keys.json');
 
 /* Log in user */
 router.post('/login', function(req, res, next) {
@@ -204,12 +205,12 @@ router.post('/forgot', function(req, res, next) {
               var transporter = nodemailer.createTransport({
                 service: 'Gmail',
                 auth: {
-                  user: 'kondeodev@gmail.com',
-                  pass: ''
+                  user: config.gmail.username,
+                  pass: config.gmail.password
                 }
               });
               var mailOptions = {
-                  from: 'LinkDrops <julian@kondeo.com>',
+                from: config.gmail.alias,
                 to: req.body.username.toLowerCase(),
                 subject: 'LinkDrops Password Reset Link',
                 text: messagePlain,
