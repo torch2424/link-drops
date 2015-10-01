@@ -1,12 +1,12 @@
 <div class="authCard card center grey lighten-3 z-depth-3">
     <h1 class = "authTitle grey-text text-darken-4">Sign Up!</h1>
 
-    <form>
+    <form ng-submit="submitInfo()">
         <i class="authIcons material-icons prefix">account_circle</i>
-        <input class = "authInput center" placeholder="Username" type="text" class="validate" ng-model = "signup.username" required>
+        <input name="username" class = "authInput center" placeholder="Email" type="email" class="validate" ng-model = "signup.username" required>
         <br>
         <i class="authIcons material-icons prefix">vpn_key</i>
-        <input class = "authInput center" type = "password" placeholder="Password" type="text" class="validate" ng-model = "signup.password" required>
+        <input name="password" class = "authInput center" type = "password" placeholder="Password" type="text" class="validate" ng-model = "signup.password" required>
         <br>
         <i class="authIcons material-icons prefix">vpn_key</i>
         <input class = "authInput center" type = "password" placeholder="Confirm Password" type="text" class="validate" ng-model = "signup.confirm" required>
@@ -14,6 +14,6 @@
 
         <!-- finish and Sign Up -->
         <br>
-        <button type="submit" class=" authButton waves-effect waves-light btn-large z-depth-2" ng-click = "submitInfo()">Sign Up</button>
+        <button type="submit" class=" authButton waves-effect waves-light btn-large z-depth-2">Sign Up</button>
     </form>
 </div>
