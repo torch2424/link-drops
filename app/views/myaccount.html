@@ -1,1 +1,43 @@
-<p>This is the myAccount view.</p>
+<div class="card center authCard grey lighten-3 z-depth-3">
+  <h1 class="authTitle grey-text text-darken-4">My Account</h1>
+
+  <div class="grey-text text-lighten-1 center" ng-show="!options.email">
+    <button style="margin: 0px;" class="waves-effect waves-light btn z-depth-1 findButton" ng-click="options.email = true">
+      New Email
+    </button>
+  </div>
+
+  <form ng-show="options.email">
+    <i class="authIcons material-icons prefix">account_circle</i>
+    <input class="authInput center" placeholder="New Email" type="text" class="validate" ng-model="username.username">
+    <br>
+    <i class="authIcons material-icons prefix">account_circle</i>
+    <input class="authInput center" placeholder="Confirm Email" type="text" class="validate" ng-model="username.confirm">
+    <br>
+
+    <!-- finish and Sign Up -->
+    <br>
+    <button type="submit" style="margin: 0px;" class="authButton waves-effect waves-light btn-large z-depth-2" ng-click="submitUsername()">Save</button>
+  </form>
+
+  <br>
+
+  <div class="grey-text text-lighten-1 center" ng-show="!options.password">
+    <button style="margin: 0px;" class="waves-effect waves-light btn z-depth-1 findButton" ng-click="options.password = true">
+      New Password
+    </button>
+  </div>
+
+  <form ng-show="options.password">
+    <i class="authIcons material-icons prefix">vpn_key</i>
+    <input class="authInput center" placeholder="New Password" type="password" class="validate" ng-model="password.password">
+    <br>
+    <i class="authIcons material-icons prefix">vpn_key</i>
+    <input class="authInput center" placeholder="Confirm Password" type="password" class="validate" ng-model="password.confirm">
+    <br>
+
+    <!-- finish and Sign Up -->
+    <br>
+    <button type="submit" style="margin: 0px;" class="authButton waves-effect waves-light btn-large z-depth-2" ng-click="submitPassword()">Save</button>
+  </form>
+</div>
