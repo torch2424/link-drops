@@ -8,7 +8,7 @@
  * Controller of the linkDumpApp
  */
 angular.module('linkDumpApp')
-  .controller('ForgotCtrl', function($scope, $location, $cookies, $routeParams, Session) {
+  .controller('ForgotCtrl', function($scope, $location, $cookies, $routeParams, Forgot, Session) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -37,7 +37,7 @@ angular.module('linkDumpApp')
     $scope.submitInfo = function() {
       var emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)\b/;
       if (emailRegex.test($scope.forgot.username)) {
-        Forgot.submit($scope.forgot,
+        Forgot.forgot($scope.forgot,
           function(data, status) {
             Materialize.toast("Now, check your email!", 6000);
 
