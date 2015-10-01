@@ -3,7 +3,7 @@
 
     <form>
         <i class="authIcons material-icons prefix">account_circle</i>
-        <input class = "authInput center" placeholder="Username" type="text" class="validate" ng-model = "login.username">
+        <input class = "authInput center" placeholder="Email/Username" type="text" class="validate" ng-model = "login.username">
         <br>
         <i class="authIcons material-icons prefix">vpn_key</i>
         <input class = "authInput center" type = "password" placeholder="Password" type="text" class="validate" ng-model = "login.password">
@@ -12,6 +12,7 @@
 
         <!-- finish and Sign Up -->
         <br>
-        <button type="submit" class="authButton waves-effect waves-light btn-large z-depth-2" ng-click = "submitInfo()">Log In</button>
+        <button type="submit" style="margin: 0px;" class="authButton waves-effect waves-light btn-large z-depth-2" ng-click = "submitInfo()">Log In</button>
+        <br><br><a href="#/forgot/new">Forgot Password</a>
     </form>
 </div>

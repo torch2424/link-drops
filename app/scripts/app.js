@@ -22,7 +22,7 @@ angular
     'favicon',
     'angular-inview'
   ])
-  .config(function ($routeProvider) {
+  .config(function($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -53,6 +53,11 @@ angular
         templateUrl: 'views/myaccount.html',
         controller: 'MyaccountCtrl',
         controllerAs: 'myAccount'
+      })
+      .when('/forgot/:token', {
+        templateUrl: 'views/forgot.html',
+        controller: 'ForgotCtrl',
+        controllerAs: 'forgot'
       })
       .otherwise({
         redirectTo: '/'

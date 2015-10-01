@@ -7,6 +7,14 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var fs = require('fs');
+
+if (fs.existsSync("./config/keys.json")) {
+    console.log("keys.json found");
+} else {
+    var content = fs.readFileSync('./config/keys-template.json');
+    fs.writeFileSync('./config/keys.json', content);
+}
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
