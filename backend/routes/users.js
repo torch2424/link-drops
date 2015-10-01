@@ -199,8 +199,8 @@ router.post('/forgot', function(req, res, next) {
                 msg: "Error saving token to DB!"
               });
             } else {
-              var messagePlain = 'Hello ' + req.body.username.toLowerCase() + ', You recently requested a password reset for your LinkDrops account. If you didn\'t, please ignore this email. Here is your reset link: http://linkdrops.com/forgot/' + token;
-              var messageHTML = 'Hello LinkDrops User!<br><br> You recently requested a password reset for your LinkDrops account. If you didn\'t, please ignore this email. <br><br>Here is your reset link: <br>http://linkdrops.com/forgot/' + token;
+              var messagePlain = 'Hello ' + req.body.username.toLowerCase() + ', You recently requested a password reset for your LinkDrops account. If you didn\'t, please ignore this email. Here is your reset link: http://linkdrops.com/#/forgot/' + token;
+              var messageHTML = 'Hello LinkDrops User!<br><br> You recently requested a password reset for your LinkDrops account. If you didn\'t, please ignore this email. <br><br>Here is your reset link: <br>http://linkdrops.com/#/forgot/' + token;
 
               var transporter = nodemailer.createTransport({
                 service: 'Gmail',
