@@ -51,11 +51,24 @@ angular.module('linkDumpApp')
   }]);
 
 angular.module('linkDumpApp')
+  .factory('Forgot', ['$resource', function($resource) {
+
+    return $resource(window.location.protocol + "//" + apiBase + '/users/forgot', {}, {
+      forgot: {
+        method: 'POST',
+        params: {},
+        isArray: false
+      }
+
+    });
+  }]);
+
+angular.module('linkDumpApp')
   .factory('Session', ['$resource', function($resource) {
 
     return $resource(window.location.protocol + "//" + apiBase + '/users/session', {}, {
       validate: {
-        method: 'Get',
+        method: 'GET',
         params: {},
         isArray: false
       }
