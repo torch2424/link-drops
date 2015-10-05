@@ -493,7 +493,7 @@ module.exports = function(grunt) {
         'wiredep',
         'concurrent:server',
         'autoprefixer:server',
-        'ngconstant:development',
+        'ngconstant:production',
         'connect:livereload',
         'watch'
       ]);
@@ -512,15 +512,8 @@ module.exports = function(grunt) {
       ]);
       return;
     }
-  });
 
-  grunt.registerTask('serve', 'Compile then start a connect web server', function(target) {
-    if (target === 'dist') {
-      return grunt.task.run(['build', 'connect:dist:keepalive']);
-      console.log("DIST");
-    }
-
-
+    console.log("\nYou didn't specify an environment! Available: prod, dist\n");
   });
 
   grunt.registerTask('server', 'DEPRECATED TASK. Use the "serve" task instead', function(target) {
@@ -539,7 +532,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'ngconstant:production',
+    'ngconstant:distribution',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
