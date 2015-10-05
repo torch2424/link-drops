@@ -20,7 +20,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'favicon',
-    'angular-inview'
+    'angular-inview',
+    'envConfig'
   ])
   .config(function($routeProvider) {
     $routeProvider
