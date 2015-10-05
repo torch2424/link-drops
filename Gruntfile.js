@@ -7,7 +7,7 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
@@ -66,6 +66,47 @@ module.exports = function (grunt) {
         ]
       }
     },
+    ngconstant: {
+      // Options for all targets
+      options: {
+        space: '  ',
+        wrap: '"use strict";\n\n {%= __ngModule %}',
+        name: 'config',
+      },
+      // Development mode environment targets
+      development: {
+        options: {
+          dest: '<%= yeoman.app %>/scripts/config/env.js'
+        },
+        constants: {
+          ENV: {
+            API_BASE: 'localhost:3000'
+          }
+        }
+      },
+      // Development production environment targets
+      production: {
+        options: {
+          dest: '<%= yeoman.app %>/scripts/config/env.js'
+        },
+        constants: {
+          ENV: {
+            API_BASE: 'http://srv.kondeo.com:3000'
+          }
+        }
+      },
+      // Environment targets for distribution
+      distribution: {
+        options: {
+          dest: '<%= yeoman.dist %>/scripts/config/env.js'
+        },
+        constants: {
+          ENV: {
+            API_BASE: 'http://srv.kondeo.com:3000'
+          }
+        }
+      },
+    },
 
     // The actual grunt server settings
     connect: {
@@ -78,7 +119,7 @@ module.exports = function (grunt) {
       livereload: {
         options: {
           open: true,
-          middleware: function (connect) {
+          middleware: function(connect) {
             return [
               connect.static('.tmp'),
               connect().use(
@@ -97,7 +138,7 @@ module.exports = function (grunt) {
       test: {
         options: {
           port: 9001,
-          middleware: function (connect) {
+          middleware: function(connect) {
             return [
               connect.static('.tmp'),
               connect.static('test'),
@@ -183,23 +224,23 @@ module.exports = function (grunt) {
     wiredep: {
       app: {
         src: ['<%= yeoman.app %>/index.html'],
-        ignorePath:  /\.\.\//
+        ignorePath: /\.\.\//
       },
       test: {
         devDependencies: true,
         src: '<%= karma.unit.configFile %>',
-        ignorePath:  /\.\.\//,
-        fileTypes:{
+        ignorePath: /\.\.\//,
+        fileTypes: {
           js: {
             block: /(([\s\t]*)\/{2}\s*?bower:\s*?(\S*))(\n|\r|.)*?(\/{2}\s*endbower)/gi,
-              detect: {
-                js: /'(.*\.js)'/gi
-              },
-              replace: {
-                js: '\'{{filePath}}\','
-              }
+            detect: {
+              js: /'(.*\.js)'/gi
+            },
+            replace: {
+              js: '\'{{filePath}}\','
             }
           }
+        }
       },
       sass: {
         src: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
@@ -279,7 +320,9 @@ module.exports = function (grunt) {
           '<%= yeoman.dist %>/styles'
         ],
         patterns: {
-          js: [[/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']]
+          js: [
+            [/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']
+          ]
         }
       }
     },
@@ -441,23 +484,46 @@ module.exports = function (grunt) {
     }
   });
 
+  grunt.loadNpmTasks('grunt-ng-constant');
 
-  grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
-    if (target === 'dist') {
-      return grunt.task.run(['build', 'connect:dist:keepalive']);
+  grunt.registerTask('serve', 'Compile then start a connect web server', function(target) {
+    if (target === 'prod') {
+      grunt.task.run([
+        'clean:server',
+        'wiredep',
+        'concurrent:server',
+        'autoprefixer:server',
+        'ngconstant:development',
+        'connect:livereload',
+        'watch'
+      ]);
+      return;
     }
 
-    grunt.task.run([
-      'clean:server',
-      'wiredep',
-      'concurrent:server',
-      'autoprefixer:server',
-      'connect:livereload',
-      'watch'
-    ]);
+    if (target === 'dev') {
+      grunt.task.run([
+        'clean:server',
+        'wiredep',
+        'concurrent:server',
+        'autoprefixer:server',
+        'ngconstant:development',
+        'connect:livereload',
+        'watch'
+      ]);
+      return;
+    }
   });
 
-  grunt.registerTask('server', 'DEPRECATED TASK. Use the "serve" task instead', function (target) {
+  grunt.registerTask('serve', 'Compile then start a connect web server', function(target) {
+    if (target === 'dist') {
+      return grunt.task.run(['build', 'connect:dist:keepalive']);
+      console.log("DIST");
+    }
+
+
+  });
+
+  grunt.registerTask('server', 'DEPRECATED TASK. Use the "serve" task instead', function(target) {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
     grunt.task.run(['serve:' + target]);
   });
@@ -473,6 +539,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'ngconstant:production',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
