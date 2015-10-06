@@ -322,11 +322,6 @@ a {
     height: 40px;
 }
 
-.linkCard {
-    padding: 2%;
-    padding-bottom: 0;
-}
-
 .dropFavicon {
     vertical-align: -webkit-baseline-middle;
     width: 16px;
@@ -372,11 +367,20 @@ a {
     color: $navBG;
 }
 
+.columns {
+
+    position: relative;
+
+    .linkCard {
+        position: absolute;
+        display: table;
+    }
+}
+
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
 
-    
   //Make our containers better
   .linkSubTextLeftContainer {
       padding-top: 5px;

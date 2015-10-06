@@ -29,11 +29,12 @@
     <!-- ng repeat all of our links -->
     <!-- outer div for columns -->
     <div class = "columns animated fadeIn">
+
         <grid
         list = "dumps"
         width="200px" margin="20px"
         ng-show="([dump] | filter:enteredFind).length > 0"
-        class = "center card-panel linkCard">
+        class = "center">
 
             <!-- This need to be only noembed, and another div should be created under for embedly, followed by various native apis -->
             <!-- Use our Fallbacks (NoEmbed And then Embedly), Display Media Embeds (Bandcamp, Youtube, Vimeo, etc... -->

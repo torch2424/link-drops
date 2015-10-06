@@ -8,7 +8,7 @@
  From: http://microblog.anthonyestebe.com/2013-12-14/grid-pinterest-like-with-angular/
  */
 angular.module('linkDumpApp')
-  .directive('resizeable', function () {
+  .directive('resize', function ($window) {
       return function($scope) {
         $scope.initializeWindowSize = function() {
           $scope.windowHeight = $window.innerHeight;
