@@ -1,6 +1,8 @@
 <div resize ng-style='computePositions()'>
 
-    <div class = "card-panel linkCard" ng-repeat='dump in list'>
+    <div class = "card-panel linkCard"
+    ng-controller = "LinksCtrl"
+    ng-repeat='dump in list'>
 
         <!-- This need to be only noembed, and another div should be created under for embedly, followed by various native apis -->
         <!-- Use our Fallbacks (NoEmbed And then Embedly), Display Media Embeds (Bandcamp, Youtube, Vimeo, etc... -->

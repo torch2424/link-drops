@@ -325,6 +325,7 @@ a {
     vertical-align: -webkit-baseline-middle;
     width: 16px;
     height: 16px;
+    margin-right: 5px;
 }
 
 .dropURL {
@@ -368,7 +369,7 @@ a {
 
 .columns {
     position: relative;
-    
+
     margin-left: auto;
     margin-right: auto;
 
@@ -376,6 +377,85 @@ a {
 
         position: absolute;
         display: table;
+
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+
+        max-width: 450px;
+
+        //Bottoms lables and things
+        //Make our containers better
+        .linkSubTextLeftContainer {
+            padding-top: 5px;
+            text-align: left;
+            float: left;
+        }
+
+        .linkSubTextRightContainer {
+            padding-top: 5px;
+            text-align: right;
+            float:right;
+        }
+
+
+        //Iframes and images, need to be responsive and things. Tablets and up!
+        .embed {
+
+            //General/neccessary
+            margin-left: auto;
+            margin-right: auto;
+            overflow:hidden;
+
+            .noembed-embed-inner {
+                width: 95%;
+                max-width: 95%;
+                max-height: 350px;
+                margin: auto;
+            }
+
+            iframe {
+                height: inherit;
+            }
+
+            .noembed-youtube {
+                max-width: none;
+                height: 315px;
+            }
+
+            .noembed-vimeo {
+                max-width: none;
+                width: 500px;
+                height: 260px;
+            }
+
+            .noembed-soundcloud {
+                width: 100%;
+                height: 450px;
+
+                max-width: none;
+                max-height: none;
+            }
+
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            .noembed-instagram {
+
+                img {
+                    width: 250px;
+                    width: 250px;
+                }
+
+            }
+
+            .vineEmbed {
+                height: 480px;
+                width: 480px;
+            }
+        }
     }
 }
 
@@ -383,81 +463,10 @@ a {
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
 
-  //Make our containers better
-  .linkSubTextLeftContainer {
-      padding-top: 5px;
-      text-align: left;
-      float: left;
-  }
-
-  .linkSubTextRightContainer {
-      padding-top: 5px;
-      text-align: right;
-      float:right;
-  }
-
   //Container overrides
   .container {
       width: $pageWidth;
       max-width: $pageWidth;
-  }
-
-  //Iframes and images, need to be responsive and things. Tablets and up!
-  .embed {
-
-      //General/neccessary
-      margin-left: auto;
-      margin-right: auto;
-      overflow:hidden;
-
-      .noembed-embed-inner {
-          width: 95%;
-          max-width: 95%;
-          max-height: 350px;
-          margin: auto;
-      }
-
-      iframe {
-          height: inherit;
-      }
-
-      .noembed-youtube {
-          max-width: none;
-          height: 315px;
-      }
-
-      .noembed-vimeo {
-          max-width: none;
-          width: 500px;
-          height: 260px;
-      }
-
-      .noembed-soundcloud {
-          width: 100%;
-          height: 450px;
-
-          max-width: none;
-          max-height: none;
-      }
-
-      img {
-          max-width: 100%;
-          height: auto;
-      }
-
-      .noembed-instagram {
-
-          img {
-              width: 250px;
-              width: 250px;
-          }
-
-      }
-
-      .vineEmbed {
-          height: 480px;
-          width: 480px;
-      }
   }
 
 }
