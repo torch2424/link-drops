@@ -131,11 +131,17 @@ angular.module('linkDumpApp')
               parent = $element.parent()[0];
               _margin = null;
               _width = null;
+
+
+              //Variables to edit margin and width
+              var maxMargin = 15;
+              var maxWidth = 450;
+
               margin = function () {
                   return _margin || (_margin = parseInt($attrs.margin, 10) || 15);
               };
               width = function () {
-                  return _width || (_width = parseInt($attrs.width, 10) || 225);
+                  return _width || (_width = parseInt($attrs.width, 10) || 450);
               };
               elemWidth = function () {
                   return width() + 2 * margin();
