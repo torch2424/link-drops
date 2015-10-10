@@ -3,6 +3,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 // endbower
 
 //imports of our other files
+@import "navbar";
 @import "colors";
 @import "default";
 @import "animate";
@@ -33,6 +34,18 @@ body {
           color: $buttonBGHover;
       }
   }
+}
+
+//The infamous center class. The backbone of every CSS framework (jk)
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+//Anhgular animate fix
+.ng-hide {
+    display: none !important;
 }
 
 //Placeholder text color throughout the page
