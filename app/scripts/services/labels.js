@@ -8,9 +8,9 @@
  * Service in the linkDumpApp.
  */
 angular.module('linkDumpApp')
-  .factory('Labels', ['$resource', function($resource) {
+  .factory('Labels', ['$resource', 'ENV', function($resource, ENV) {
 
-    return $resource(window.location.protocol + "//" + apiBase + '/labels/', {}, {
+    return $resource(ENV.API_BASE + '/labels/', {}, {
       get: {
         method: 'GET',
         params: {},
@@ -27,9 +27,9 @@ angular.module('linkDumpApp')
   }]);
 
 angular.module('linkDumpApp')
-  .factory('Label', ['$resource', function($resource) {
+  .factory('Label', ['$resource', 'ENV', function($resource, ENV) {
 
-    return $resource(window.location.protocol + "//" + apiBase + '/labels/:id', {
+    return $resource(ENV.API_BASE + '/labels/:id', {
       id: '@id'
     }, {
       delete: {

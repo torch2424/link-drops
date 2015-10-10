@@ -1,91 +1,100 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>linkDrops.</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css(.) styles/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/materialize/bin/materialize.css" />
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
 
-    <!-- Material design icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  </head>
-  <body ng-app="linkDumpApp">
-    <!--[if lte IE 8]>
+<head>
+  <meta charset="utf-8">
+  <title>linkDrops.</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/materialize/bin/materialize.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+
+  <!-- Material design icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body ng-app="linkDumpApp">
+  <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <!-- Add your site or application content here -->
-    <div ng-include src="'views/nav.html'"></div>
+  <!-- Add your site or application content here -->
+  <div ng-include src="'views/nav.html'"></div>
 
-    <div class="container" in-view-container>
+  <div class="container" in-view-container>
     <div ng-view=""></div>
 
     <div class="footerText">
       <div class="container">
-        <p>Want us to support some of your favorite websites? Or you got an idea that could make "linkDrops." better? <span class="glyphicon glyphicon-envelope"></span> us at <a href = "mailto:suggestions@linkdrops.com">suggestions@linkdrops.com</a> </p>
-        <p><span class="glyphicon glyphicon-heart"></span> from the "linkDrops." team</p>
+        <p>Want us to support some of your favorite websites? Or you got an idea that could make "linkDrops." better?
+          <span class="glyphicon glyphicon-envelope"></span> us at <a href="mailto:suggestions@linkdrops.com">suggestions@linkdrops.com</a> </p>
+        <p>
+          <span class="glyphicon glyphicon-heart"></span> from the "linkDrops." team</p>
       </div>
     </div>
 
-    </div>
+  </div>
 
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
-       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
-       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
-       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+  <script>
+    ! function(A, n, g, u, l, a, r) {
+      A.GoogleAnalyticsObject = l, A[l] = A[l] || function() {
+          (A[l].q = A[l].q || []).push(arguments)
+        }, A[l].l = +new Date, a = n.createElement(g),
+        r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
+    }(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script>
+    ga('create', 'UA-XXXXX-X');
+    ga('send', 'pageview');
+  </script>
 
-    <!-- build:js(.) scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-touch/angular-touch.js"></script>
-    <script src="bower_components/materialize/bin/materialize.js"></script>
-    <script src="bower_components/angular-favicon/angular-favicon.js"></script>
-    <script src="bower_components/angular-inview/angular-inview.js"></script>
-    <!-- endbower -->
+  <!-- build:js(.) scripts/vendor.js -->
+  <!-- bower:js -->
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="bower_components/angular-touch/angular-touch.js"></script>
+  <script src="bower_components/materialize/bin/materialize.js"></script>
+  <script src="bower_components/angular-favicon/angular-favicon.js"></script>
+  <script src="bower_components/angular-inview/angular-inview.js"></script>
+  <!-- endbower -->
+  <!-- endbuild -->
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/about.js"></script>
+    <script src="scripts/controllers/signup.js"></script>
+    <script src="scripts/controllers/login.js"></script>
+    <script src="scripts/controllers/activenav.js"></script>
+    <script src="scripts/controllers/links.js"></script>
+    <script src="scripts/controllers/myaccount.js"></script>
+    <script src="scripts/controllers/forgot.js"></script>
+    <script src="scripts/services/users.js"></script>
+    <script src="scripts/services/dumps.js"></script>
+    <script src="scripts/services/labels.js"></script>
+    <script src="scripts/directives/resizeable.js"></script>
+    <script src="scripts/directives/grid.js"></script>
     <!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
-        <script src="scripts/controllers/signup.js"></script>
-        <script src="scripts/controllers/login.js"></script>
-        <script src="scripts/controllers/activenav.js"></script>
-        <script src="scripts/controllers/links.js"></script>
-        <script src="scripts/controllers/myaccount.js"></script>
-        <script src="scripts/controllers/forgot.js"></script>
-        <script src="scripts/services/users.js"></script>
-        <script src="scripts/services/dumps.js"></script>
-        <script src="scripts/services/labels.js"></script>
-        <script src="scripts/directives/resizeable.js"></script>
-        <script src="scripts/directives/grid.js"></script>
-        <!-- endbuild -->
+  <script src="/scripts/config/env.js"></script>
 
-        <!-- Other Apis for embedding -->
-        <script src="//connect.soundcloud.com/sdk-2.0.0.js"></script>
-        <!-- End other Apis -->
+  <!-- Other Apis for embedding -->
+  <script src="//connect.soundcloud.com/sdk-2.0.0.js"></script>
+  <!-- End other Apis -->
 </body>
+
 </html>
