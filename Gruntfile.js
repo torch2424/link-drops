@@ -183,7 +183,12 @@ module.exports = function (grunt) {
     wiredep: {
       app: {
         src: ['<%= yeoman.app %>/index.html'],
-        ignorePath:  /\.\.\//
+        ignorePath:  /\.\.\//,
+        //Excluding the all so heavy jquery
+        exclude: [
+            'bower_components/bootstrap-sass-official/assets/javascripts',
+            'bower_components/jquery'
+        ]
       },
       test: {
         devDependencies: true,
