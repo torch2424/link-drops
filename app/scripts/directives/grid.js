@@ -15,7 +15,6 @@ angular.module('linkDumpApp')
           //Need to create our own html file here
           //And copy pasta logic from old controller
           templateUrl: '../views/linkcard.html',
-          scope: { list: '=' },
           controller: function ($scope, $element, $attrs) {
               //Tiling code from the wonderful lor Anthony Estebe. Thank you so much
               //http://microblog.anthonyestebe.com/2013-12-14/grid-pinterest-like-with-angular/
@@ -61,7 +60,7 @@ angular.module('linkDumpApp')
                   ref = $element.children();
                   for (i = j = 0, len = ref.length; j < len; i = ++j) {
                       elem = ref[i];
-                      elem.style.height = $scope.list[i].height + 'px';
+                      elem.style.height = $scope.dumps[i].height + 'px';
                       top = null;
                       index = 0;
                       for (i = k = 0, len1 = bottoms.length; k < len1; i = ++k) {
