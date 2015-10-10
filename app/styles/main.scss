@@ -1,5 +1,7 @@
 $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 // bower:scss
+@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+@import "materialize/sass/materialize.scss";
 // endbower
 
 //imports of our other files
@@ -32,13 +34,6 @@ body {
           color: $buttonBGHover;
       }
   }
-}
-
-//My infamou horizontal centring class
-.center {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
 }
 
 //Placeholder text color throughout the page
@@ -251,19 +246,14 @@ a {
 }
 
 .mainIcon {
-    @extend .center;
-
     height: 128px;
     width: 128px;
 }
 
 .homeCard {
-    @extend .center;
-
     padding-bottom: 25px;
     padding-left: 10px;
     padding-right: 10px;
-    width: auto;
 }
 
 .homeTagLine {
