@@ -117,9 +117,17 @@ body > .container {
     max-width: none;
 }
 
+.pageView {
+
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 //our cards
 .card {
     background-color:  $cardBG;
+    border-radius: 3px;
 }
 
 .card-panel {
@@ -132,6 +140,15 @@ body > .container {
         //Wanted to add some border, but didnt really look that good haha
         //Also soundcloud was NOT having borders
         //border-radius: 2px !important;
+    }
+}
+
+//Siwtitching buttons to our pallette
+md-button {
+    background-color: $buttonBG;
+
+    &:hover {
+        background-color: $buttonBGHover;
     }
 }
 
@@ -257,13 +274,18 @@ a {
     vertical-align: -webkit-baseline-middle;
 }
 
+md-content {
+    background-color: $pageBGColor;
+}
+
 .mainIcon {
     height: 128px;
     width: 128px;
 }
 
 .homeCard {
-    padding-bottom: 25px;
+    padding-top: 10px;
+    padding-bottom: 15px;
     padding-left: 10px;
     padding-right: 10px;
 }
