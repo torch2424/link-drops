@@ -314,16 +314,25 @@ md-content {
 }
 
 .authTitle {
+    padding-top: 10px;
     padding-bottom: 10px;
 }
 
 .authIcons {
-    font-size: 40px;
-    vertical-align: top;
+    font-size: 40px !important;
+    vertical-align: middle;
 }
 
 .authInput {
-    width: 40% !important;
+
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.authInputContainer {
+    @extend .center;
+
+    display: inline-block;
 }
 
 .authButton {
