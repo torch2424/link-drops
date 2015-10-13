@@ -314,7 +314,7 @@ md-content {
 }
 
 .authTitle {
-    padding-top: 10px;
+    padding-top: 15px;
     padding-bottom: 10px;
 }
 
@@ -324,15 +324,17 @@ md-content {
 }
 
 .authInput {
+    text-align: center;
 
-    margin-left: 5px;
-    margin-right: 5px;
+    width: 75% !important;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .authInputContainer {
-    @extend .center;
-
-    display: inline-block;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .authButton {
