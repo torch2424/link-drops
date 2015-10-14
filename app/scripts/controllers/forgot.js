@@ -39,15 +39,30 @@ angular.module('linkDumpApp')
       if (emailRegex.test($scope.forgot.username)) {
         Forgot.forgot($scope.forgot,
           function(data, status) {
-            Materialize.toast("Now, check your email!", 6000);
+              $mdToast.show(
+                $mdToast.simple()
+                  .content("Now, check your email!")
+                  .position('top left')
+                  .hideDelay(6000)
+              );
 
             $location.path("/");
           },
           function(err) {
-            Materialize.toast(err.data.msg, 3000);
+              $mdToast.show(
+                $mdToast.simple()
+                  .content(err.data.msg)
+                  .position('top left')
+                  .hideDelay(3000)
+              );
           });
       } else {
-        Materialize.toast("Only email-based accounts can use the reset-feature. Please contact devs.", 3000);
+          $mdToast.show(
+            $mdToast.simple()
+              .content("Only email-based accounts can use the reset-feature. Please contact devs.")
+              .position('top left')
+              .hideDelay(3000)
+          );
       }
     }
 
