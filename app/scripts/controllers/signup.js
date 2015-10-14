@@ -44,7 +44,12 @@ angular.module('linkDumpApp')
                   $location.path("/dumps");
                 },
                 function(err) {
-                  Materialize.toast(err.data.msg, 3000);
+                    $mdToast.show(
+                      $mdToast.simple()
+                        .content(err.data.msg)
+                        .position('top left')
+                        .hideDelay(3000)
+                    );
                 });
           } else {
               $mdToast.show(
