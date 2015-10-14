@@ -1,30 +1,40 @@
 <div ng-init="getDumps()">
-    <!-- add links here -->
-    <form name = "linkForm" class = "card center animated fadeIn">
-        <br>
-        <input type = "url" name = "linkInput" class = "center linkInput" placeholder="Drop a new link here." ng-model="enteredLink" ng-paste = "submitLink()">
-        <br>
-        <p class = "grey-text text-lighten-1 center linkInstructions">If you enjoy typing links by hand, don't forget to add " http:// " or " https:// " and press "Enter"</p>
 
-        <!--This button is required for form submission -->
-        <button type = "submit" style = "display: none" ng-click="submitLink()"></button>
+    <div class = "card">
+        <!-- add links here -->
+        <form name = "linkForm" class = "center animated fadeIn">
+            <br>
+            <md-input-container class = "authInputContainer">
+            <label>Drop a new link here</label>
+            <input type = "url" name = "linkInput" class = "center linkInput" ng-model="enteredLink" ng-paste = "submitLink()">
+            </md-input-container>
+            <p class = "center linkInstructions">If you enjoy typing links by hand, don't forget to add " http:// " or " https:// " and press "Enter"</p>
 
-        <div class = "grey-text text-lighten-1 center" ng-show = "!findInput">
-            <button class="waves-effect waves-light btn z-depth-1 findButton"
-            ng-click = "showFind()">
-            Find...
-            </button>
-        </div>
+            <!--This button is required for form submission -->
+            <button type = "submit" style = "display: none" ng-click="submitLink()"></button>
+
+            <div class = "center" ng-show = "!findInput">
+                <md-button class="findButton md-raised"
+                ng-click = "showFind()">
+                Find...
+            </md-button>
+            </div>
+
+        </form>
 
         <br ng-show = "!findInput">
 
         <div  ng-show = "findInput">
-            <input id = "findInput" type = "text" class = "center findInput"
-            name = "enterFind" placeholder="What are you looking for?"
-            ng-model="enteredFind">
+            <md-input-container class = "authInputContainer center">
+                <label>What are you looking for?</label>
+                <input id = "findInput" type = "text"
+                class = "center findInput"
+                name = "enterFind"
+                ng-model="enteredFind">
+            </md-input-container>
         </div>
 
-    </form>
+    </div>
 
     <!-- ng repeat all of our links -->
     <!-- outer div for columns -->

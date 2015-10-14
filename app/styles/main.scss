@@ -354,6 +354,7 @@ md-content {
     padding-bottom: 5px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 0px;
 }
 
 .findButton {
@@ -363,7 +364,8 @@ md-content {
 
 .findInput {
     width: 80% !important;
-    height: 40px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .linkCard {
