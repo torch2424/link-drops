@@ -37,18 +37,13 @@
     </div>
 
     <!-- ng repeat all of our links -->
-    <!-- Grid list for responsive pintrest style -->
     <!-- outer div for columns -->
-    <md-grid-list md-cols="5" md-gutter="1em"
-    md-row-height="4:3" class = "animated fadeIn">
-
-            <md-grid-tile
-            md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
-            md-row-height-gt-md="1:1" md-row-height="4:3"
-            md-gutter="8px" md-gutter-gt-sm="4px" 
+    <div class = "columns animated fadeIn">
+        <ul>
+            <li
             ng-repeat="dump in dumps track by dump._id"
             ng-show="([dump] | filter:enteredFind).length > 0"
-            class = "center card linkCard">
+            class = "center card-panel linkCard">
 
                 <!-- This need to be only noembed, and another div should be created under for embedly, followed by various native apis -->
                 <!-- Use our Fallbacks (NoEmbed And then Embedly), Display Media Embeds (Bandcamp, Youtube, Vimeo, etc... -->
@@ -158,6 +153,8 @@
                     <p class = "linkSubText" ng-bind="dump.updated_at | date:'h:mm MM/dd/yyyy '"></p>
                     <a class = "grey-text text-lighten-1" ng-click = "removeLink(dump)"><p>Delete Drop</p></a>
                 </div>
-        </md-grid-tile>
-    </md-grid-list>
+
+            </li>
+        </ul>
+    </div>
 </div>
