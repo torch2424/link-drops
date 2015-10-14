@@ -18,34 +18,32 @@ angular.module('linkDumpApp')
           controller: function ($scope, $element, $attrs) {
               //Tiling code from the wonderful lor Anthony Estebe. Thank you so much
               //http://microblog.anthonyestebe.com/2013-12-14/grid-pinterest-like-with-angular/
-              var _margin, _width, elemHeight, elemPerLine, elemWidth, gridWidth, margin, parent, width;
+              var elemHeight, elemPerLine, elemWidth, gridWidth, margin, parent, width;
               parent = $element.parent()[0];
-              _margin = null;
-              _width = null;
-
 
               //Variables to edit margin and width
+              //(Must be consistent with css in .linkCard class)
               var maxMargin = 10;
-              var maxWidth = 450;
+              var maxWidth = 850;
 
-              margin = function () {
-                  return _margin || (_margin = parseInt($attrs.margin, 10) || maxMargin);
-              };
-              width = function () {
-                  return _width || (_width = parseInt($attrs.width, 10) || maxWidth);
-              };
-              elemWidth = function () {
-                  return width() + 2 * margin();
-              };
-              elemHeight = function (height) {
-                  return height + 2 * margin();
-              };
-              elemPerLine = function () {
-                  return parseInt(parent.offsetWidth / elemWidth(), 10);
-              };
-              gridWidth = function () {
-                  return elemPerLine() * elemWidth();
-              };
+              margin = function() {
+                      return parseInt($attrs.margin, 10) || maxMargin;
+                    };
+                    width = function() {
+                      return parseInt($attrs.width, 10) || maxWidth;
+                    };
+                    elemWidth = function() {
+                      return width() + 2 * margin();
+                    };
+                    elemHeight = function(height) {
+                      return height + 2 * margin();
+                    };
+                    elemPerLine = function() {
+                      return parseInt(parent.offsetWidth / elemWidth(), 10);
+                    };
+                    gridWidth = function() {
+                      return elemPerLine() * elemWidth();
+                    };
               return $scope.computePositions = function () {
                   var bottom, bottoms, elem, height, i, index, j, k, left, len, len1, maxHeight, ref, top;
                   bottoms = function () {
