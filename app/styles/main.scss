@@ -43,6 +43,13 @@ body {
     text-align: center;
 }
 
+//Julian made a gang of inline styles for this in the myaccount page
+.noMargin {
+    margin: 0px;
+    margin-top: 0px;
+    margin-left: 0px;
+}
+
 //Anhgular animate fix
 .ng-hide {
     display: none !important;
@@ -418,14 +425,7 @@ md-content {
     color: $navBG;
 }
 
-
-
-
-/*----------------------------
-*
-*           GRID FOR LINKS
-*
------------------------------*/
+//USe authButton waves-effect waves-light btn-large for red material button
 
 
 /* Responsive: Portrait tablets and up */
