@@ -419,35 +419,17 @@ md-content {
 }
 
 
+
+
+/*----------------------------
+*
+*           GRID FOR LINKS
+*
+-----------------------------*/
+
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
-
-  //multiple responsive card columnds
-  .columns {
-      //Columns stuff
-      -webkit-column-count: 3; /* Chrome, Safari, Opera */
-      -moz-column-count: 3; /* Firefox */
-      column-count: 3;
-
-      -webkit-column-width: $columnWidth;
-      -moz-column-width: $columnWidth;
-      column-width: $columnWidth;
-      column-gap: 15px;
-
-    //Fix the missing content
-    ul {
-        list-style-position: inside;
-        margin: 0;
-
-        li {
-            break-inside: avoid-column;
-            display: inline-block;
-            width: 100%;
-        }
-
-    }
-
-  }
 
   //Make our containers better
   .linkSubTextLeftContainer {
