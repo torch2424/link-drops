@@ -135,6 +135,18 @@ body > .container {
 .card {
     background-color:  $cardBG;
     border-radius: 3px;
+    color: $pageText;
+}
+
+//Our Buttons
+.colorButton {
+    background-color: $buttonBG;
+    color: $navText;
+    font-weight: 600;
+
+    &:hover {
+        background-color: $buttonBGHover;
+    }
 }
 
 .card-panel {
