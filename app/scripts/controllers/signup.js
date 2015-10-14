@@ -8,7 +8,8 @@
  * Controller of the linkDumpApp
  */
 angular.module('linkDumpApp')
-  .controller('SignupCtrl', function($scope, $location, $cookies, Join) {
+  .controller('SignupCtrl', function($scope, $location, $cookies,
+      Join, $mdToast) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
