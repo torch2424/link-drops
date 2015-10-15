@@ -16,6 +16,7 @@ angular.module('linkDumpApp')
           //And copy pasta logic from old controller
           templateUrl: '../views/linkcard.html',
           controller: function ($scope, $element, $attrs) {
+
               //Tiling code from the wonderful lor Anthony Estebe. Thank you so much
               //http://microblog.anthonyestebe.com/2013-12-14/grid-pinterest-like-with-angular/
               var elemHeight, elemPerLine, elemWidth, gridWidth, margin, parent, width;
@@ -23,66 +24,76 @@ angular.module('linkDumpApp')
 
               //Variables to edit margin and width
               //(Must be consistent with css in .linkCard class)
+              //Get rid of $attrs, and use the parent offset width and stuff to set
+              //a function name get width of get margin
               var maxMargin = 10;
               var maxWidth = 850;
 
-              margin = function() {
-                      return parseInt($attrs.margin, 10) || maxMargin;
-                    };
-                    width = function() {
-                      return parseInt($attrs.width, 10) || maxWidth;
-                    };
-                    elemWidth = function() {
-                      return width() + 2 * margin();
-                    };
-                    elemHeight = function(height) {
-                      return height + 2 * margin();
-                    };
-                    elemPerLine = function() {
-                      return parseInt(parent.offsetWidth / elemWidth(), 10);
-                    };
-                    gridWidth = function() {
-                      return elemPerLine() * elemWidth();
-                    };
-              return $scope.computePositions = function () {
-                  var bottom, bottoms, elem, height, i, index, j, k, left, len, len1, maxHeight, ref, top;
-                  bottoms = function () {
-                      var j, ref, results;
-                      results = [];
-                      for (i = j = 0, ref = elemPerLine(); 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
-                          results.push(0);
+                margin = function() {
+                  return parseInt($attrs.margin, 10) || maxMargin;
+                };
+                width = function() {
+                  return parseInt($attrs.width, 10) || maxWidth;
+                };
+                elemWidth = function() {
+                  return width() + 2 * margin();
+                };
+                elemHeight = function(height) {
+                  return height + 2 * margin();
+                };
+                elemPerLine = function() {
+                  return parseInt(parent.offsetWidth / elemWidth(), 10);
+                };
+                gridWidth = function() {
+                  return elemPerLine() * elemWidth();
+                };
+
+                //Testing
+                console.log(parent.offsetWidth);
+                console.log(width() + 2 * margin());
+                console.log(parseInt(parent.offsetWidth / elemWidth(), 10));
+                console.log($attrs.width);
+                console.log(parent);
+
+
+                //Compute positions of elements
+                $scope.computePositions = function() {
+                    var bottom, bottoms, elem, height, i, index, left, maxHeight, top, _i, _j, _len, _len1, _ref;
+                    bottoms = (function() {
+                      var _i, _ref, _results;
+                      _results = [];
+                      for (i = _i = 0, _ref = elemPerLine(); 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
+                        _results.push(0);
                       }
-                      return results;
-                  }();
-                  maxHeight = 0;
-                  ref = $element.children();
-                  for (i = j = 0, len = ref.length; j < len; i = ++j) {
-                      elem = ref[i];
-                      elem.style.height = $scope.dumps[i].height + 'px';
+                      return _results;
+                    })();
+                    maxHeight = 0;
+                    _ref = $element.children();
+                    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                      elem = _ref[_i];
                       top = null;
                       index = 0;
-                      for (i = k = 0, len1 = bottoms.length; k < len1; i = ++k) {
-                          bottom = bottoms[i];
-                          if (!(top == null || top > bottom)) {
-                              continue;
-                          }
-                          top = bottom;
-                          index = i;
+                      for (i = _j = 0, _len1 = bottoms.length; _j < _len1; i = ++_j) {
+                        bottom = bottoms[i];
+                        if (!((top == null) || top > bottom)) {
+                          continue;
+                        }
+                        top = bottom;
+                        index = i;
                       }
-                      left = index * elemWidth() % gridWidth() + margin();
+                      left = (index * elemWidth()) % gridWidth() + margin();
                       height = top + elemHeight(elem.offsetHeight);
                       if (maxHeight < height) {
-                          maxHeight = height;
+                        maxHeight = height;
                       }
                       bottoms[index] = height;
                       elem.style.left = left + 'px';
                       elem.style.top = top + margin() + 'px';
-                      elem.style.width = width() + 'px';
-                  }
-                  return {
-                      width: gridWidth() + 'px',
-                      height: maxHeight + 'px'
-                  };
+                    }
+                    return {
+                      width: "" + (gridWidth()) + "px",
+                      height: "" + maxHeight + "px"
+                    };
               };
           }
       };
