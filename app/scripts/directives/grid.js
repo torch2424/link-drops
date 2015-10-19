@@ -15,7 +15,7 @@ angular.module('linkDumpApp')
           //Need to create our own html file here
           //And copy pasta logic from old controller
           templateUrl: '../views/linkcard.html',
-          controller: function ($scope, $element, $attrs) {
+          controller: function ($scope, $element) {
 
               //Tiling code from the wonderful lor Anthony Estebe. Thank you so much
               //http://microblog.anthonyestebe.com/2013-12-14/grid-pinterest-like-with-angular/
@@ -30,10 +30,19 @@ angular.module('linkDumpApp')
               var maxWidth = 850;
 
                 margin = function() {
-                  return parseInt($attrs.margin, 10) || maxMargin;
+                  return maxMargin;
                 };
                 width = function() {
-                  return parseInt($attrs.width, 10) || maxWidth;
+                    //Value we cannot be larger than,
+                    //or else breaks responsiveness
+                    var parentWidth = parent.offsetWidth - 2 * maxMargin;
+                    if(maxWidth >= parentWidth)
+                    {
+                        return parentWidth;
+                    }
+                    else {
+                        return maxWidth;
+                    }
                 };
                 elemWidth = function() {
                   return width() + 2 * margin();
@@ -47,13 +56,6 @@ angular.module('linkDumpApp')
                 gridWidth = function() {
                   return elemPerLine() * elemWidth();
                 };
-
-                //Testing
-                console.log(parent.offsetWidth);
-                console.log(width() + 2 * margin());
-                console.log(parseInt(parent.offsetWidth / elemWidth(), 10));
-                console.log($attrs.width);
-                console.log(parent);
 
 
                 //Compute positions of elements
@@ -82,6 +84,11 @@ angular.module('linkDumpApp')
                         index = i;
                       }
                       left = (index * elemWidth()) % gridWidth() + margin();
+                      //Check if our width is less than max width, if it is, have no left
+                      if(width() < 850)
+                      {
+                          left = 0;
+                      }
                       height = top + elemHeight(elem.offsetHeight);
                       if (maxHeight < height) {
                         maxHeight = height;
