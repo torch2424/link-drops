@@ -450,6 +450,11 @@ md-content {
         max-width: 850px;
         width: 100%;
 
+        padding-top: 10px;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-bottom: 10px;
+
         //Bottoms lables and things
         //Make our containers better
         .linkSubTextLeftContainer {
@@ -462,6 +467,18 @@ md-content {
             padding-top: 5px;
             text-align: right;
             float:right;
+        }
+
+        .labelInputContainer {
+            padding: 0px;
+            padding-bottom: 0px;
+        }
+
+        .deleteDump {
+            p {
+                margin-bottom: 0px;
+                padding-top: 16px;
+            }
         }
 
 
