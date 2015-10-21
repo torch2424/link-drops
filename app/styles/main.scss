@@ -7,6 +7,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "colors";
 @import "default";
 @import "animate";
+@import "materialChanges";
 
 //Some content variables
 $pageWidth: auto;
@@ -306,6 +307,10 @@ md-content {
     padding-bottom: 15px;
     padding-left: 10px;
     padding-right: 10px;
+
+    h1 {
+        font-size: 55px;
+    }
 }
 
 .homeTagLine {
