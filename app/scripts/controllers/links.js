@@ -36,6 +36,24 @@ angular.module('linkDumpApp')
       }
     }, 2000);
 
+    //Show the find input
+    $scope.showFind = function() {
+      if ($scope.findInput) {
+        $scope.findInput = false;
+        $scope.enteredFind = "";
+      } else {
+        $scope.findInput = true;
+
+        //To get the correct things to fire the in viewport, wait a second and then scroll to the top
+        $timeout(function() {
+          if (window.scrollY == 0 && window.scrollX == 0) {
+            //focus on the field
+            document.getElementById('findInput').focus();
+          }
+        }, 300);
+      }
+    }
+
     //get our dumps
     $scope.getDumps = function() {
       //Our json we will submit to the backend
@@ -62,24 +80,6 @@ angular.module('linkDumpApp')
           }
         }
       );
-    }
-
-    //Show the find input
-    $scope.showFind = function() {
-      if ($scope.findInput) {
-        $scope.findInput = false;
-        $scope.enteredFind = "";
-      } else {
-        $scope.findInput = true;
-
-        //To get the correct things to fire the in viewport, wait a second and then scroll to the top
-        $timeout(function() {
-          if (window.scrollY == 0 && window.scrollX == 0) {
-            //focus on the field
-            document.getElementById('findInput').focus();
-          }
-        }, 300);
-      }
     }
 
     //Get the title of a link
