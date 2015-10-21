@@ -34,7 +34,7 @@ angular.module('linkDumpApp')
             $mdToast.show(
               $mdToast.simple()
                 .content('Welcome Back!')
-                .position('top left')
+                .position('top right')
                 .hideDelay(3000)
             );
 
@@ -58,7 +58,7 @@ angular.module('linkDumpApp')
                     $mdToast.show(
                       $mdToast.simple()
                         .content('Welcome Back!')
-                        .position('top left')
+                        .position('top right')
                         .hideDelay(3000)
                     );
 
@@ -69,7 +69,7 @@ angular.module('linkDumpApp')
                       $mdToast.show(
                         $mdToast.simple()
                           .content(err.data.msg)
-                          .position('top left')
+                          .position('top right')
                           .hideDelay(3000)
                       );
                   });
@@ -77,7 +77,7 @@ angular.module('linkDumpApp')
                 $mdToast.show(
                   $mdToast.simple()
                     .content("Sorry, but without a valid email we cannot log you in.")
-                    .position('top left')
+                    .position('top right')
                     .hideDelay(3000)
                 );
             }
@@ -87,7 +87,7 @@ angular.module('linkDumpApp')
             $mdToast.show(
               $mdToast.simple()
                 .content(err.data.msg)
-                .position('top left')
+                .position('top right')
                 .hideDelay(3000)
             );
         });

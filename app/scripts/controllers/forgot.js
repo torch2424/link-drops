@@ -42,7 +42,7 @@ angular.module('linkDumpApp')
               $mdToast.show(
                 $mdToast.simple()
                   .content("Now, check your email!")
-                  .position('top left')
+                  .position('top right')
                   .hideDelay(6000)
               );
 
@@ -52,7 +52,7 @@ angular.module('linkDumpApp')
               $mdToast.show(
                 $mdToast.simple()
                   .content(err.data.msg)
-                  .position('top left')
+                  .position('top right')
                   .hideDelay(3000)
               );
           });
@@ -60,7 +60,7 @@ angular.module('linkDumpApp')
           $mdToast.show(
             $mdToast.simple()
               .content("Only email-based accounts can use the reset-feature. Please contact devs.")
-              .position('top left')
+              .position('top right')
               .hideDelay(3000)
           );
       }

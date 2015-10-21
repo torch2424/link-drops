@@ -36,7 +36,7 @@ angular.module('linkDumpApp')
                   $mdToast.show(
                     $mdToast.simple()
                       .content('Welcome to linkDrops!')
-                      .position('top left')
+                      .position('top right')
                       .hideDelay(3000)
                   );
 
@@ -47,7 +47,7 @@ angular.module('linkDumpApp')
                     $mdToast.show(
                       $mdToast.simple()
                         .content(err.data.msg)
-                        .position('top left')
+                        .position('top right')
                         .hideDelay(3000)
                     );
                 });
@@ -55,7 +55,7 @@ angular.module('linkDumpApp')
               $mdToast.show(
                 $mdToast.simple()
                   .content('Email is not valid!')
-                  .position('top left')
+                  .position('top right')
                   .hideDelay(3000)
               );
           }
@@ -64,7 +64,7 @@ angular.module('linkDumpApp')
         $mdToast.show(
           $mdToast.simple()
             .content('Passwords do no match!')
-            .position('top left')
+            .position('top right')
             .hideDelay(3000)
         );
       }

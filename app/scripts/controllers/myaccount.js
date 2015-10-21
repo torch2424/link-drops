@@ -30,7 +30,7 @@ angular.module('linkDumpApp')
                   $mdToast.show(
                     $mdToast.simple()
                       .content("New Email Saved!")
-                      .position('top left')
+                      .position('top right')
                       .hideDelay(3000)
                   );
               },
@@ -43,7 +43,7 @@ angular.module('linkDumpApp')
                   $mdToast.show(
                     $mdToast.simple()
                       .content(err.data.msg)
-                      .position('top left')
+                      .position('top right')
                       .hideDelay(3000)
                   );
                 }
@@ -52,7 +52,7 @@ angular.module('linkDumpApp')
             $mdToast.show(
               $mdToast.simple()
                 .content("Username confirm doesn't match!")
-                .position('top left')
+                .position('top right')
                 .hideDelay(3000)
             );
         }
@@ -70,7 +70,7 @@ angular.module('linkDumpApp')
                   $mdToast.show(
                     $mdToast.simple()
                       .content("New password saved!")
-                      .position('top left')
+                      .position('top right')
                       .hideDelay(3000)
                   );
               },
@@ -83,7 +83,7 @@ angular.module('linkDumpApp')
                   $mdToast.show(
                     $mdToast.simple()
                       .content(err.data.msg)
-                      .position('top left')
+                      .position('top right')
                       .hideDelay(3000)
                   );
                 }
@@ -92,7 +92,7 @@ angular.module('linkDumpApp')
             $mdToast.show(
               $mdToast.simple()
                 .content("Username confirm doesn't match!")
-                .position('top left')
+                .position('top right')
                 .hideDelay(3000)
             );
         }
