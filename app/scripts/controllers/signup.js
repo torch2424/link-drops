@@ -8,7 +8,8 @@
  * Controller of the linkDumpApp
  */
 angular.module('linkDumpApp')
-  .controller('SignupCtrl', function($scope, $location, $cookies, Join) {
+  .controller('SignupCtrl', function($scope, $location, $cookies,
+      Join, $mdToast) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -32,21 +33,40 @@ angular.module('linkDumpApp')
                   //Save the sessionToken in cookies
                   $cookies.put("sessionToken", data.token);
 
-                  //Thank user for joining
-                  Materialize.toast("Welcome to linkDrops!", 3000);
+                  $mdToast.show(
+                    $mdToast.simple()
+                      .content('Welcome to linkDrops!')
+                      .position('top right')
+                      .hideDelay(3000)
+                  );
 
                   //Send them to the links page
                   $location.path("/dumps");
                 },
                 function(err) {
-                  Materialize.toast(err.data.msg, 3000);
+                    $mdToast.show(
+                      $mdToast.simple()
+                        .content(err.data.msg)
+                        .position('top right')
+                        .hideDelay(3000)
+                    );
                 });
           } else {
-              Materialize.toast("Email is not valid!", 3000);
+              $mdToast.show(
+                $mdToast.simple()
+                  .content('Email is not valid!')
+                  .position('top right')
+                  .hideDelay(3000)
+              );
           }
       } else {
         //If they dont error to the users
-        Materialize.toast("Passwords do not match!", 3000);
+        $mdToast.show(
+          $mdToast.simple()
+            .content('Passwords do no match!')
+            .position('top right')
+            .hideDelay(3000)
+        );
       }
     }
 

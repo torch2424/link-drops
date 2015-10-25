@@ -1,13 +1,13 @@
 $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 // bower:scss
-@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
-@import "materialize/sass/materialize.scss";
 // endbower
 
 //imports of our other files
+@import "navbar";
 @import "colors";
 @import "default";
 @import "animate";
+@import "materialChanges";
 
 //Some content variables
 $pageWidth: auto;
@@ -34,6 +34,27 @@ body {
           color: $buttonBGHover;
       }
   }
+}
+
+//The infamous center class. The backbone of every CSS framework (jk)
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+//Julian made a gang of inline styles for this in the myaccount page
+.noMargin {
+    margin: 0px;
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px !important;
+    margin-bottom: 0px;
+}
+
+//Anhgular animate fix
+.ng-hide {
+    display: none !important;
 }
 
 //Placeholder text color throughout the page
@@ -105,9 +126,29 @@ body > .container {
     max-width: none;
 }
 
+.pageView {
+
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 //our cards
 .card {
     background-color:  $cardBG;
+    border-radius: 3px;
+    color: $pageText;
+}
+
+//Our Buttons
+.colorButton {
+    background-color: $buttonBG;
+    color: $navText;
+    font-weight: 600;
+
+    &:hover {
+        background-color: $buttonBGHover;
+    }
 }
 
 .card-panel {
@@ -120,6 +161,15 @@ body > .container {
         //Wanted to add some border, but didnt really look that good haha
         //Also soundcloud was NOT having borders
         //border-radius: 2px !important;
+    }
+}
+
+//Siwtitching buttons to our pallette
+md-button {
+    background-color: $buttonBG;
+
+    &:hover {
+        background-color: $buttonBGHover;
     }
 }
 
@@ -245,15 +295,24 @@ a {
     vertical-align: -webkit-baseline-middle;
 }
 
+md-content {
+    background-color: $pageBGColor;
+}
+
 .mainIcon {
     height: 128px;
     width: 128px;
 }
 
 .homeCard {
-    padding-bottom: 25px;
+    padding-top: 10px;
+    padding-bottom: 15px;
     padding-left: 10px;
     padding-right: 10px;
+
+    h1 {
+        font-size: 55px;
+    }
 }
 
 .homeTagLine {
@@ -280,16 +339,27 @@ a {
 }
 
 .authTitle {
+    padding-top: 15px;
     padding-bottom: 10px;
 }
 
 .authIcons {
-    font-size: 40px;
-    vertical-align: top;
+    font-size: 40px !important;
+    vertical-align: middle;
 }
 
 .authInput {
-    width: 40% !important;
+    text-align: center;
+
+    width: 75% !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.authInputContainer {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .authButton {
@@ -309,6 +379,7 @@ a {
     padding-bottom: 5px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 0px;
 }
 
 .findButton {
@@ -318,7 +389,8 @@ a {
 
 .findInput {
     width: 80% !important;
-    height: 40px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .dropFavicon {
@@ -385,6 +457,11 @@ a {
         max-width: 850px;
         width: 100%;
 
+        padding-top: 10px;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-bottom: 10px;
+
         //Bottoms lables and things
         //Make our containers better
         .linkSubTextLeftContainer {
@@ -397,6 +474,18 @@ a {
             padding-top: 5px;
             text-align: right;
             float:right;
+        }
+
+        .labelInputContainer {
+            padding: 0px;
+            padding-bottom: 0px;
+        }
+
+        .deleteDump {
+            p {
+                margin-bottom: 0px;
+                padding-top: 16px;
+            }
         }
 
 

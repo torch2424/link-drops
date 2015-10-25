@@ -8,7 +8,8 @@
  * Controller of the linkDumpApp
  */
 angular.module('linkDumpApp')
-  .controller('LinksCtrl', function($scope, $sce, $cookies, $timeout, Dumps, Dump, Labels, Label, $location, $http) {
+  .controller('LinksCtrl', function($scope, $sce, $cookies, $timeout,
+      Dumps, Dump, Labels, Label, $location, $http, $mdToast) {
 
     //Get our sessions token
     var sessionToken = $cookies.get("sessionToken");
@@ -70,7 +71,12 @@ angular.module('linkDumpApp')
             $location.path("/");
           } else {
             //Something else happened
-            Materialize.toast(err.data.msg, 3000);
+            $mdToast.show(
+              $mdToast.simple()
+                .content(err.data.msg)
+                .position('top right')
+                .hideDelay(3000)
+            );
           }
         }
       );
@@ -184,7 +190,12 @@ angular.module('linkDumpApp')
     function linkExists() {
       for (var i = 0; i < $scope.dumps.length; i++) {
         if ($scope.dumps[i].content == $scope.enteredLink) {
-          Materialize.toast("Link already exists!", 3000);
+            $mdToast.show(
+              $mdToast.simple()
+                .content('Link already exists!')
+                .position('top right')
+                .hideDelay(3000)
+            );
 
           //Set the input back to empty
           $scope.enteredLink = "";
@@ -217,13 +228,23 @@ angular.module('linkDumpApp')
                 $scope.enteredLink = "";
 
                 //Inform user of the dump
-                Materialize.toast("Dropped!", 3000);
+                $mdToast.show(
+                  $mdToast.simple()
+                    .content('Dropped!')
+                    .position('top right')
+                    .hideDelay(3000)
+                );
 
                 //Add new dump to dump array
                 $scope.dumps.unshift(data);
               },
               function(err) {
-                Materialize.toast(err.data.msg, 3000);
+                  $mdToast.show(
+                    $mdToast.simple()
+                      .content(err.data.msg)
+                      .position('top right')
+                      .hideDelay(3000)
+                  );
               });
           }
         }, 1);
@@ -249,10 +270,20 @@ angular.module('linkDumpApp')
       //Save the link
       Dump.delete(remJson, function(data, status) {
         //Inform user
-        Materialize.toast("Deleted " + data.content + "!", 3000);
+        $mdToast.show(
+          $mdToast.simple()
+            .content("Deleted " + data.content + "!")
+            .position('top right')
+            .hideDelay(3000)
+        );
 
       }, function(err) {
-        Materialize.toast(err.data.msg, 3000);
+          $mdToast.show(
+            $mdToast.simple()
+              .content(err.data.msg)
+              .position('top right')
+              .hideDelay(3000)
+          );
       });;
     }
 
@@ -268,7 +299,12 @@ angular.module('linkDumpApp')
         $scope.dumps[index].labels.push(data);
         dump.newLabel = "";
       }, function(err) {
-        Materialize.toast(err.data.msg, 3000);
+          $mdToast.show(
+            $mdToast.simple()
+              .content(err.data.msg)
+              .position('top right')
+              .hideDelay(3000)
+          );
       });
     }
 
@@ -288,7 +324,12 @@ angular.module('linkDumpApp')
         var i2 = $scope.dumps[i1].labels.indexOf(label);
         $scope.dumps[i1].labels.splice(i2, 1);
       }, function(err) {
-        Materialize.toast(err.data.msg, 3000);
+          $mdToast.show(
+            $mdToast.simple()
+              .content(err.data.msg)
+              .position('top right')
+              .hideDelay(3000)
+          );
       });
     }
   });

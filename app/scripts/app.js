@@ -18,7 +18,8 @@ angular
     'ngTouch',
     'favicon',
     'angular-inview',
-    'envConfig'
+    'envConfig',
+    'ngMaterial'
   ])
   .config(function($routeProvider) {
     $routeProvider

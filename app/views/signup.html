@@ -1,19 +1,32 @@
-<div class="authCard card center grey lighten-3 z-depth-3">
-    <h1 class = "authTitle grey-text text-darken-4">Sign Up!</h1>
+<div class="authCard card center md-whiteframe-15dp">
+    <h1 class = "authTitle">Sign Up!</h1>
 
     <form ng-submit="submitInfo()">
-        <i class="authIcons material-icons prefix">account_circle</i>
-        <input name="username" class = "authInput center" placeholder="Email" type="email" class="validate" ng-model = "signup.username" required>
-        <br>
-        <i class="authIcons material-icons prefix">vpn_key</i>
-        <input name="password" class = "authInput center" type = "password" placeholder="Password" type="text" class="validate" ng-model = "signup.password" required>
-        <br>
-        <i class="authIcons material-icons prefix">vpn_key</i>
-        <input class = "authInput center" type = "password" placeholder="Confirm Password" type="text" class="validate" ng-model = "signup.confirm" required>
 
+        <md-input-container class = "authInputContainer">
+            <md-icon class="authIcons material-icons prefix">account_circle</md-icon>
+            <label>Email</label>
+            <input name="username" class = "authInput"  type="email" class="validate" ng-model = "signup.username" required>
+        </md-input-container>
+
+        <br>
+
+        <md-input-container class = "authInputContainer">
+                    <md-icon class="authIcons material-icons prefix">vpn_key</md-icon>
+            <label>Password</label>
+            <input name="password" class = "authInput" type = "password" type="text" class="validate" ng-model = "signup.password" required>
+        </md-input-container>
+
+        <br>
+
+        <md-input-container class = "authInputContainer">
+            <md-icon class="authIcons material-icons prefix">vpn_key</md-icon>
+            <label>Confirm Password</label>
+        <input class = "authInput" type = "password" type="text" class="validate" ng-model = "signup.confirm" required>
+        </md-input-container>
 
         <!-- finish and Sign Up -->
         <br>
-        <button type="submit" class=" authButton waves-effect waves-light btn-large z-depth-2">Sign Up</button>
+        <md-button type="submit" class=" authButton md-raised">Sign Up</md-button>
     </form>
 </div>

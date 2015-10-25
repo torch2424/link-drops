@@ -1,6 +1,6 @@
 <div ng-style='computePositions()'  resize>
 
-    <div class = "card-panel linkCard"
+    <div class = "card-panel linkCard md-whiteframe-10dp"
     ng-repeat='dump in dumps'
     ng-if = "([dump] | filter:enteredFind).length > 0">
 
@@ -85,7 +85,7 @@
 
         <br>
         <!-- Sharing/Categories -->
-        <div class = "grey-text text-lighten-1 linkSubTextLeftContainer">
+        <div class = "linkSubTextLeftContainer">
             <p ng-repeat="label in dump.labels"
             class = "linkSubText">
                 <img src="images/x.png"
@@ -98,19 +98,19 @@
             </p>
             <br />
             <form>
-                <input class="linkSubTextInput center" type="text"
-                placeholder="New label..."
-                ng-model="dump.newLabel">
-                </input>
+                <md-input-container class = "labelInputContainer">
+                    <label>New Label</label>
+                    <input name="newLabel" class = "labelInput" type="text" class="validate" ng-model = "dump.newLabel">
+                </md-input-container>
                 <button type = "submit" style = "display: none"
                 ng-click="submitLabel(dump)">
                 </button>
             </form>
         </div>
         <!-- Last updated -->
-        <div class = "grey-text text-lighten-1 linkSubTextRightContainer">
+        <div class = "linkSubTextRightContainer">
             <p class = "linkSubText" ng-bind="dump.updated_at | date:'h:mm MM/dd/yyyy '"></p>
-            <a class = "grey-text text-lighten-1" ng-click = "removeLink(dump)"><p>Delete Drop</p></a>
+            <a class = "deleteDump" ng-click = "removeLink(dump)"><p>Delete Drop</p></a>
         </div>
 
     </div>
