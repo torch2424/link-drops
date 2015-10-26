@@ -1,8 +1,5 @@
 'use strict';
 
-//Our url base for the backend
-var apiBase = "srv.kondeo.com:3000";
-
 /**
  * @ngdoc overview
  * @name linkDumpApp
@@ -20,7 +17,9 @@ angular
     'ngSanitize',
     'ngTouch',
     'favicon',
-    'angular-inview'
+    'angular-inview',
+    'envConfig',
+    'ngMaterial'
   ])
   .config(function($routeProvider) {
     $routeProvider

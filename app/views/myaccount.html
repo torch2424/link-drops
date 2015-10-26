@@ -1,43 +1,70 @@
-<div class="card center authCard grey lighten-3 z-depth-3">
-  <h1 class="authTitle grey-text text-darken-4">My Account</h1>
+<div class="card center authCard md-whiteframe-15dp">
+  <h1 class="authTitle">My Account</h1>
 
-  <div class="grey-text text-lighten-1 center" ng-show="!options.email">
-    <button style="margin: 0px;" class="waves-effect waves-light btn z-depth-1 findButton" ng-click="options.email = true">
+  <div class="center" ng-show="!options.email">
+
+    <md-button class="findButton md-raised noMargin"
+    ng-click="options.email = true">
       New Email
-    </button>
+    </md-button>
+
   </div>
 
   <form ng-show="options.email">
-    <i class="authIcons material-icons prefix">account_circle</i>
-    <input class="authInput center" placeholder="New Email" type="text" class="validate" ng-model="username.username">
+
+    <md-input-container class = "authInputContainer">
+        <md-icon class="authIcons material-icons prefix">account_circle</md-icon>
+        <label>New Email</label>
+        <input class="authInput center" type="text" class="validate" ng-model="username.username">
+    </md-input-container>
+
     <br>
-    <i class="authIcons material-icons prefix">account_circle</i>
-    <input class="authInput center" placeholder="Confirm Email" type="text" class="validate" ng-model="username.confirm">
+
+    <md-input-container class = "authInputContainer">
+        <md-icon class="authIcons material-icons prefix">account_circle</md-icon>
+        <label>Confirm Email</label>
+        <input class="authInput center" type="text" class="validate" ng-model="username.confirm">
+    </md-input-container>
+
     <br>
 
     <!-- finish and Sign Up -->
-    <br>
-    <button type="submit" style="margin: 0px;" class="authButton waves-effect waves-light btn-large z-depth-2" ng-click="submitUsername()">Save</button>
+    <md-button type="submit"
+    class="md-raised noMargin"
+    ng-click="submitUsername()">Save</md-button>
   </form>
 
   <br>
 
-  <div class="grey-text text-lighten-1 center" ng-show="!options.password">
-    <button style="margin: 0px;" class="waves-effect waves-light btn z-depth-1 findButton" ng-click="options.password = true">
+  <div class="center" ng-show="!options.password">
+    <md-button class="findButton md-raised noMargin"
+    ng-click="options.password = true">
       New Password
-    </button>
+  </md-button>
   </div>
 
   <form ng-show="options.password">
-    <i class="authIcons material-icons prefix">vpn_key</i>
-    <input class="authInput center" placeholder="New Password" type="password" class="validate" ng-model="password.password">
+
+    <md-input-container class = "authInputContainer">
+    <md-icon class="authIcons material-icons prefix">vpn_key</md-icon>
+    <label>New Password</label>
+    <input class="authInput center" type="password" class="validate" ng-model="password.password">
+    </md-input-container>
+
     <br>
-    <i class="authIcons material-icons prefix">vpn_key</i>
-    <input class="authInput center" placeholder="Confirm Password" type="password" class="validate" ng-model="password.confirm">
+
+    <md-input-container class = "authInputContainer">
+    <md-icon class="authIcons material-icons prefix">vpn_key</md-icon>
+    <label>Confirm Password</label>
+    <input class="authInput center" type="password" class="validate" ng-model="password.confirm">
+    </md-input-container>
+
     <br>
 
     <!-- finish and Sign Up -->
-    <br>
-    <button type="submit" style="margin: 0px;" class="authButton waves-effect waves-light btn-large z-depth-2" ng-click="submitPassword()">Save</button>
+    <md-button type="submit"
+    class="md-raised noMargin"
+    ng-click="submitPassword()">Save</md-button>
+
   </form>
 </div>

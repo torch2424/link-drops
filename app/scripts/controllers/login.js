@@ -8,7 +8,7 @@
  * Controller of the linkDumpApp
  */
 angular.module('linkDumpApp')
-  .controller('LoginCtrl', function($scope, $location, $cookies, Login, UserUpdate) {
+  .controller('LoginCtrl', function($scope, $location, $cookies, Login, UserUpdate, $mdToast) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -31,7 +31,12 @@ angular.module('linkDumpApp')
             $cookies.put("sessionToken", data.token);
 
             //Thank user for joining
-            Materialize.toast("Welcome back!", 3000);
+            $mdToast.show(
+              $mdToast.simple()
+                .content('Welcome Back!')
+                .position('top right')
+                .hideDelay(3000)
+            );
 
             //Send them to the links page
             $location.path("/dumps");
@@ -50,21 +55,41 @@ angular.module('linkDumpApp')
                     $cookies.put("sessionToken", token);
 
                     //Thank user for joining
-                    Materialize.toast("Welcome back!", 3000);
+                    $mdToast.show(
+                      $mdToast.simple()
+                        .content('Welcome Back!')
+                        .position('top right')
+                        .hideDelay(3000)
+                    );
 
                     //Send them to the links page
                     $location.path("/dumps");
                   },
                   function(err) {
-                    Materialize.toast(err.data.msg, 3000);
+                      $mdToast.show(
+                        $mdToast.simple()
+                          .content(err.data.msg)
+                          .position('top right')
+                          .hideDelay(3000)
+                      );
                   });
             } else {
-                Materialize.toast("Sorry, but without a valid email we cannot log you in.", 3000);
+                $mdToast.show(
+                  $mdToast.simple()
+                    .content("Sorry, but without a valid email we cannot log you in.")
+                    .position('top right')
+                    .hideDelay(3000)
+                );
             }
           }
         },
         function(err) {
-          Materialize.toast(err.data.msg, 3000);
+            $mdToast.show(
+              $mdToast.simple()
+                .content(err.data.msg)
+                .position('top right')
+                .hideDelay(3000)
+            );
         });
     }
 

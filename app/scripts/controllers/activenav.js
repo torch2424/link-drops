@@ -15,6 +15,15 @@ angular.module('linkDumpApp')
       'Karma'
     ];
 
+    //Function to determine if we have a collapsing navbar
+    $scope.isMobile = function() {
+
+        //Check to see if the css rule for the collapsible applies
+        var mq = window.matchMedia('(max-width: 767px)');
+
+        return mq.matches;
+    }
+
     //Fucntion to find the active page
     $scope.isActive = function(route) {
       return route === $location.path();

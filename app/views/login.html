@@ -1,18 +1,28 @@
-<div class="card center authCard grey lighten-3 z-depth-3">
-    <h1 class = "authTitle grey-text text-darken-4">Log In!</h1>
+<div class="card center authCard md-whiteframe-15dp">
+    <h1 class = "authTitle">Log In!</h1>
 
     <form ng-submit="submitInfo()">
-        <i class="authIcons material-icons prefix">account_circle</i>
-        <input name="username" class = "authInput center" placeholder="Email/Username" type="text" class="validate" ng-model = "login.username">
+
+        <md-input-container class = "authInputContainer">
+            <md-icon class="authIcons material-icons prefix">account_circle</md-icon>
+            <label>Email</label>
+            <input name="username" class = "authInput" type="text" class="validate" ng-model = "login.username">
+        </md-input-container>
+
         <br>
-        <i class="authIcons material-icons prefix">vpn_key</i>
-        <input name="password" class = "authInput center" type = "password" placeholder="Password" type="text" class="validate" ng-model = "login.password">
+
+        <md-input-container class = "authInputContainer">
+        <md-icon class="authIcons material-icons prefix">vpn_key</md-icon>
+        <label>Password</label>
+        <input name="password" class = "authInput center" type = "password" type="text" class="validate" ng-model = "login.password">
+        </md-input-container>
+
         <br>
 
 
         <!-- finish and Sign Up -->
         <br>
-        <button type="submit" style="margin: 0px;" class="authButton waves-effect waves-light btn-large z-depth-2">Log In</button>
+        <md-button type="submit" style="margin: 0px;" class="authButton md-raised noMargin colorButtons">Log In</md-button>
         <br><br><a href="#/forgot/new">Forgot Password</a>
     </form>
 </div>

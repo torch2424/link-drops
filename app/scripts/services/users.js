@@ -12,9 +12,9 @@
 
 
 angular.module('linkDumpApp')
-  .factory('Login', ['$resource', function($resource) {
+  .factory('Login', ['$resource', 'ENV', function($resource, ENV) {
 
-    return $resource(window.location.protocol + "//" + apiBase + '/users/login', {}, {
+    return $resource(ENV.API_BASE + '/users/login', {}, {
       submit: {
         method: 'POST',
         params: {},
@@ -25,9 +25,9 @@ angular.module('linkDumpApp')
   }]);
 
 angular.module('linkDumpApp')
-  .factory('Join', ['$resource', function($resource) {
+  .factory('Join', ['$resource', 'ENV', function($resource, ENV) {
 
-    return $resource(window.location.protocol + "//" + apiBase + '/users/join', {}, {
+    return $resource(ENV.API_BASE + '/users/join', {}, {
       submit: {
         method: 'POST',
         params: {},
@@ -38,9 +38,9 @@ angular.module('linkDumpApp')
   }]);
 
 angular.module('linkDumpApp')
-  .factory('UserUpdate', ['$resource', function($resource) {
+  .factory('UserUpdate', ['$resource', 'ENV', function($resource, ENV) {
 
-    return $resource(window.location.protocol + "//" + apiBase + '/users/', {}, {
+    return $resource(ENV.API_BASE + '/users/', {}, {
       update: {
         method: 'PUT',
         params: {},
@@ -51,9 +51,9 @@ angular.module('linkDumpApp')
   }]);
 
 angular.module('linkDumpApp')
-  .factory('Forgot', ['$resource', function($resource) {
+  .factory('Forgot', ['$resource', 'ENV', function($resource, ENV) {
 
-    return $resource(window.location.protocol + "//" + apiBase + '/users/forgot', {}, {
+    return $resource(ENV.API_BASE + '/users/forgot', {}, {
       forgot: {
         method: 'POST',
         params: {},
@@ -64,9 +64,9 @@ angular.module('linkDumpApp')
   }]);
 
 angular.module('linkDumpApp')
-  .factory('Session', ['$resource', function($resource) {
+  .factory('Session', ['$resource', 'ENV', function($resource, ENV) {
 
-    return $resource(window.location.protocol + "//" + apiBase + '/users/session', {}, {
+    return $resource(ENV.API_BASE + '/users/session', {}, {
       validate: {
         method: 'GET',
         params: {},

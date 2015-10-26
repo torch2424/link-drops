@@ -27,7 +27,12 @@ angular.module('linkDumpApp')
 
             UserUpdate.update(payload,
               function(data, status) {
-                Materialize.toast("New email saved!", 3000);
+                  $mdToast.show(
+                    $mdToast.simple()
+                      .content("New Email Saved!")
+                      .position('top right')
+                      .hideDelay(3000)
+                  );
               },
               function(err) {
                 if (err.status == 401) {
@@ -35,11 +40,21 @@ angular.module('linkDumpApp')
                   $location.path("/");
                 } else {
                   //Something else happened
-                  Materialize.toast(err.data.msg, 3000);
+                  $mdToast.show(
+                    $mdToast.simple()
+                      .content(err.data.msg)
+                      .position('top right')
+                      .hideDelay(3000)
+                  );
                 }
             });
         } else {
-            Materialize.toast("Username confirm doesn't match!", 3000);
+            $mdToast.show(
+              $mdToast.simple()
+                .content("Username confirm doesn't match!")
+                .position('top right')
+                .hideDelay(3000)
+            );
         }
     }
 
@@ -52,7 +67,12 @@ angular.module('linkDumpApp')
 
             UserUpdate.update(payload,
               function(data, status) {
-                  Materialize.toast("New password saved!", 3000);
+                  $mdToast.show(
+                    $mdToast.simple()
+                      .content("New password saved!")
+                      .position('top right')
+                      .hideDelay(3000)
+                  );
               },
               function(err) {
                 if (err.status == 401) {
@@ -60,11 +80,21 @@ angular.module('linkDumpApp')
                   $location.path("/");
                 } else {
                   //Something else happened
-                  Materialize.toast(err.data.msg, 3000);
+                  $mdToast.show(
+                    $mdToast.simple()
+                      .content(err.data.msg)
+                      .position('top right')
+                      .hideDelay(3000)
+                  );
                 }
             });
         } else {
-            Materialize.toast("Username confirm doesn't match!", 3000);
+            $mdToast.show(
+              $mdToast.simple()
+                .content("Username confirm doesn't match!")
+                .position('top right')
+                .hideDelay(3000)
+            );
         }
     }
 
