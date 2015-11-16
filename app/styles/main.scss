@@ -74,6 +74,11 @@ body {
    color: $placeholderText;
 }
 
+h1 {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
 //Our navbar
 .header {
     padding: 0px;
@@ -316,21 +321,19 @@ md-content {
 }
 
 .homeTagLine {
-    padding-bottom: 25px;
+    padding-bottom: 0px;
 }
 
 .homeLogText {
-    padding-bottom: 10px;
+    padding-bottom: 0px;
 }
 
 .homeSignUp {
     margin-right: 10px;
-    font-weight: 600;
 }
 
 .homeLogIn {
     margin-left: 10px;
-    font-weight: 600;
 }
 
 .authCard {
@@ -360,12 +363,17 @@ md-content {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
+    padding-bottom: 10px;
 }
 
 .authButton {
     margin-top: 25px;
     margin-left: 10px;
     font-weight: 600;
+}
+
+.linkFormCard {
+    padding: 12px;
 }
 
 .linkInput {
@@ -379,7 +387,8 @@ md-content {
     padding-bottom: 5px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 0px;
+    margin-top: 2px;
+    margin-bottom: 5px;
 }
 
 .findButton {

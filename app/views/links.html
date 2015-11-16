@@ -1,9 +1,8 @@
 <div ng-init="getDumps()">
 
-    <div class = "card md-whiteframe-15dp">
+    <div class = "card md-whiteframe-15dp linkFormCard">
         <!-- add links here -->
         <form name = "linkForm" class = "center animated fadeIn">
-            <br>
             <md-input-container class = "authInputContainer">
             <label>Drop a new link here</label>
             <input type = "url" name = "linkInput" class = "center linkInput" ng-model="enteredLink" ng-paste = "submitLink()">
@@ -12,19 +11,16 @@
 
             <!--This button is required for form submission -->
             <button type = "submit" style = "display: none" ng-click="submitLink()"></button>
-
-            <div class = "center" ng-show = "!findInput">
-                <md-button class="findButton md-raised"
-                ng-click = "showFind()">
-                Find...
-            </md-button>
-            </div>
-
         </form>
 
-        <br ng-show = "!findInput">
+        <div class = "center" ng-show = "!findInput">
+            <md-button class="findButton md-raised"
+            ng-click = "showFind()">
+            Find...
+        </md-button>
+        </div>
 
-        <div  ng-show = "findInput">
+        <div ng-show = "findInput">
             <md-input-container class = "authInputContainer center">
                 <label>What are you looking for?</label>
                 <input id = "findInput" type = "text"
