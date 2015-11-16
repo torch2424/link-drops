@@ -27,7 +27,7 @@ angular.module('linkDumpApp')
               //Get rid of $attrs, and use the parent offset width and stuff to set
               //a function name get width of get margin
               var maxMargin = 10;
-              var maxWidth = 850;
+              var maxWidth = 450;
 
                 margin = function() {
                   return maxMargin;
