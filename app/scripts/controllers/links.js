@@ -92,7 +92,11 @@ angular.module('linkDumpApp')
           //Get the document
           var element = document.getElementById("linkTitle-" + index);
 
-          element.innerHTML = response.data.title;
+          //Make sure the element isnt null and we got the object
+          if(element != null)
+          {
+              element.innerHTML = response.data.title;
+          }
         });
     }
 
@@ -107,7 +111,10 @@ angular.module('linkDumpApp')
             //Get the document
             var element = document.getElementById("embed-" + dump.content);
 
-            element.innerHTML = $sce.trustAsHtml(response.data.html);
+            if(element != null) {
+                element.innerHTML = $sce.trustAsHtml(response.data.html);
+            }
+
             // say the dump has been lazy loaded
             dump.lazyEmbed = true;
           }
@@ -180,7 +187,10 @@ angular.module('linkDumpApp')
         }
 
         //Set the element src
-        element.src = $sce.trustAsResourceUrl(url);
+        if(element != null)
+        {
+            element.src = $sce.trustAsResourceUrl(url);
+        }
 
         // say the dump has been lazy loaded
         dump.lazyEmbed = true;

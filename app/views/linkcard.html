@@ -14,7 +14,7 @@
             || (dump.content.indexOf('https://vimeo.com/') > -1)
             || (dump.content.indexOf('https://twitter.com/') > -1 && dump.content.indexOf('/status/') > -1)
             || (dump.content.indexOf('https://gist.github.com/') > -1)"
-            id = "embed-{{dump.content}}"
+            id = "embed-{{::dump.content}}"
             in-view = "$inview && !dump.lazyEmbed && getEmbed(dump)">
         </div>
 
@@ -24,7 +24,7 @@
             || (dump.content.indexOf('.png') > -1)
             || (dump.content.indexOf('.gif') > -1)"
             in-view = "$inview && !dump.lazyEmbed && getImage(dump)">
-            <img id = "img-{{dump.content}}" />
+            <img id = "img-{{::dump.content}}" />
         </div>
 
         <!-- Soundcloud -->
@@ -33,7 +33,7 @@
             in-view = "$inview && !dump.lazyEmbed && getSoundCloud(dump)">
             <div class = "noembed-soundcloud">
                 <iframe
-                id = "scWidget-{{dump.content}}"
+                id = "scWidget-{{::dump.content}}"
                 width = "100%" height = "450"
                 frameborder="0" scrolling="no">
                 </iframe>
@@ -45,7 +45,7 @@
         ng-if = "(dump.content.indexOf('https://www.kickstarter.com/projects/') > -1)"
             in-view = "$inview && !dump.lazyEmbed && getKickStarter(dump)">
             <iframe
-            id = "kick-{{dump.content}}"
+            id = "kick-{{::dump.content}}"
             class = "kickEmbed"
             frameborder="0" scrolling="no">
             </iframe>
@@ -56,7 +56,7 @@
         ng-if = "(dump.content.indexOf('https://vine.co/v/') > -1)"
             in-view = "$inview && !dump.lazyEmbed && getVine(dump)">
             <iframe
-            id = "vine-{{dump.content}}"
+            id = "vine-{{::dump.content}}"
             class = "vineEmbed"
             frameborder="0" scrolling="no">
             </iframe>
@@ -68,16 +68,16 @@
             || (dump.content.indexOf('https://open.spotify.com/') > -1)"
             in-view = "$inview && !dump.lazyEmbed && getSpotify(dump)">
             <iframe
-            id = "spotify-{{dump.content}}"
+            id = "spotify-{{::dump.content}}"
             class = "spotifyEmbed"
             frameborder="0" scrolling="no">
             </iframe>
         </div>
 
         <!-- Get our favicon and link title -->
-        <img ng-src="{{dump.content | favicon}}" alt="Drop Icon" class = "dropFavicon">
-        <a id = "linkTitle-{{$index}}"
-        href="{{dump.content}}" target="_blank"
+        <img ng-src="{{::dump.content | favicon}}" alt="Drop Icon" class = "dropFavicon">
+        <a id = "linkTitle-{{::$index}}"
+        href="{{::dump.content}}" target="_blank"
         class = "dropURL"
         ng-init = "getTitle(dump, $index)">
         {{dump.content}}
