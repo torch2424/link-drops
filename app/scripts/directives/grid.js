@@ -23,11 +23,11 @@ angular.module('linkDumpApp')
               parent = $element.parent()[0];
 
               //Variables to edit margin and width
-              //(Must be consistent with css in .linkCard class)
+              //(Must be consistent with the max-width css in .linkCard class)
               //Get rid of $attrs, and use the parent offset width and stuff to set
               //a function name get width of get margin
               var maxMargin = 10;
-              var maxWidth = 850;
+              var maxWidth = 425;
 
                 margin = function() {
                   return maxMargin;
@@ -85,7 +85,7 @@ angular.module('linkDumpApp')
                       }
                       left = (index * elemWidth()) % gridWidth() + margin();
                       //Check if our width is less than max width, if it is, have no left
-                      if(width() < 850)
+                      if(width() < maxWidth)
                       {
                           left = 0;
                       }
