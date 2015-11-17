@@ -23,7 +23,8 @@ angular.module('linkDumpApp')
               parent = $element.parent()[0];
 
               //Variables to edit margin and width
-              //(Must be consistent with the max-width css in .linkCard class)
+              //(Must be consistent with the max-width css in .linkCard class, 
+              // variable linkCard Width)
               //Get rid of $attrs, and use the parent offset width and stuff to set
               //a function name get width of get margin
               var maxMargin = 10;
