@@ -1,7 +1,7 @@
 <div ng-style='computePositions()'  resize>
 
     <div class = "card-panel linkCard md-whiteframe-10dp"
-    ng-repeat='dump in dumps track by dump._id'
+    ng-repeat='dump in dumps'
     ng-if = "([dump] | filter:enteredFind).length > 0">
 
         <!-- This need to be only noembed, and another div should be created under for embedly, followed by various native apis -->
