@@ -14,7 +14,7 @@ angular.module('linkDumpApp')
           replace: true,
           //Need to create our own html file here
           //And copy pasta logic from old controller
-          templateUrl: 'linkcard.html',
+          templateUrl: 'views/linkcard.html',
           controller: function ($scope, $element) {
 
               //Tiling code from the wonderful lor Anthony Estebe. Thank you so much
