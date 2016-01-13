@@ -91,7 +91,7 @@ module.exports = function(grunt) {
         },
         constants: {
           ENV: {
-            API_BASE: 'http://srv.kondeo.com:3000'
+            API_BASE: 'https://srv.kondeo.com:3000'
           }
         }
       },
@@ -102,7 +102,7 @@ module.exports = function(grunt) {
         },
         constants: {
           ENV: {
-            API_BASE: 'http://srv.kondeo.com:3000'
+            API_BASE: 'https://srv.kondeo.com:3000'
           }
         }
       },
