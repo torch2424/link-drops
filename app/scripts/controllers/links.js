@@ -86,7 +86,7 @@ angular.module('linkDumpApp')
     $scope.getTitle = function(dump, index) {
 
       //Get the response from noembed
-      $http.get("http://dev.kondeo.com/api/title-scraper.php?q=" + dump.content)
+      $http.get("https://dev.kondeo.com/api/title-scraper.php?q=" + dump.content)
         .then(function(response) {
 
           //Get the document
