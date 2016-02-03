@@ -11,6 +11,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 //Some content variables
 $pageWidth: auto;
+$columnWidth: 500px;
 
 /**************************
     GENERAL STYLES
@@ -448,11 +449,31 @@ md-content {
     color: $navBG;
 }
 
+//multiple responsive card columns
 .columns {
-    position: relative;
 
-    margin-left: auto;
-    margin-right: auto;
+    //Columns stuff
+  -webkit-column-count: 3; /* Chrome, Safari, Opera */
+  -moz-column-count: 3; /* Firefox */
+  column-count: 3;
+
+  -webkit-column-width: $columnWidth;
+  -moz-column-width: $columnWidth;
+  column-width: $columnWidth;
+  column-gap: 15px;
+
+    //Fix the missing content
+    ul {
+        list-style-position: inside;
+        margin: 0;
+
+        li {
+            break-inside: avoid-column;
+            display: inline-block;
+            width: 100%;
+        }
+
+    }
 
     .linkCard {
 
