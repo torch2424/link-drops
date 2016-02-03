@@ -71,13 +71,15 @@ ng-if = "(dump.content.indexOf('https://play.spotify.com/') > -1)
 </div>
 
 <!-- Get our favicon and link title -->
-<img ng-src="{{::dump.content | favicon}}" alt="Drop Icon" class = "dropFavicon">
-<a id = "linkTitle-{{::$index}}"
-href="{{::dump.content}}" target="_blank"
-class = "dropURL"
-ng-init = "getTitle(dump, $index)">
-{{dump.content}}
-</a>
+<div class = "urlContainer">
+    <img ng-src="{{::dump.content | favicon}}" alt="Drop Icon" class = "dropFavicon">
+    <a id = "linkTitle-{{::$index}}"
+    href="{{::dump.content}}" target="_blank"
+    class = "dropURL"
+    ng-init = "getTitle(dump, $index)">
+    {{dump.content}}
+    </a>
+</div>
 
 <br>
 <!-- Sharing/Categories -->

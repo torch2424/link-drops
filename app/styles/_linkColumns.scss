@@ -1,16 +1,3 @@
-.dropFavicon {
-    vertical-align: -webkit-baseline-middle;
-    width: 16px;
-    height: 16px;
-    margin-right: 5px;
-}
-
-.dropURL {
-    vertical-align: -webkit-baseline-middle;
-    word-wrap: break-word;
-    max-width: calc($columnWidth - 50px);
-}
-
 .linkSubTextLeftContainer {
     padding-top: 5px;
     text-align: center;
@@ -118,8 +105,27 @@
             }
         }
 
+        .urlContainer {
+            @extend .center;
+            max-width: $columnWidth / 1.25;
+        }
 
-        //Iframes and images, need to be responsive and things. Tablets and up!
+        .dropURL {
+            vertical-align: -webkit-baseline-middle;
+            word-wrap: break-word;
+            max-width: calc($columnWidth - 50px);
+            width: 100%;
+        }
+
+        .dropFavicon {
+            vertical-align: -webkit-baseline-middle;
+            width: 16px;
+            height: 16px;
+            margin-right: 5px;
+        }
+
+
+        //Iframes and images, need to be responsive and things
         .embed {
 
             //General/neccessary
@@ -128,52 +134,59 @@
             overflow:hidden;
 
             .noembed-embed-inner {
-                width: 95%;
-                max-width: 95%;
+                width: 90%;
+                max-width: 90%;
                 max-height: 350px;
                 margin: auto;
             }
 
             iframe {
-                height: inherit;
-            }
-
-            .noembed-youtube {
-                max-width: none;
-                height: 315px;
-            }
-
-            .noembed-vimeo {
-                max-width: none;
-                width: 500px;
-                height: 260px;
-            }
-
-            .noembed-soundcloud {
-                width: 100%;
-                height: 450px;
-
-                max-width: none;
-                max-height: none;
+                max-width: 90%;
+                height: auto;
             }
 
             img {
-                max-width: 100%;
+                max-width: 90%;
                 height: auto;
             }
 
             .noembed-instagram {
 
                 img {
-                    width: 250px;
-                    width: 250px;
+                    width: 320px;
+                    width: 320px;
                 }
 
             }
 
+            .noembed-soundcloud {
+                width: 100%;
+                height: 450px;
+
+                max-width: 100%;
+                max-height: 450px;
+
+                iframe {
+                    width: 100%;
+                    height: 450px;
+                    max-width: 100%;
+                    max-height: 450px;
+                }
+            }
+
+            .spotifyEmbed {
+                width: 300px;
+                height: 380px;
+            }
+
+            .kickEmbed {
+                height: 420px;
+                width: 220px;
+            }
+
             .vineEmbed {
-                height: 480px;
-                width: 480px;
+                height: 300px;
+                width: 300px;
             }
         }
     }
