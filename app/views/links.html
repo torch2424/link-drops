@@ -1,4 +1,4 @@
-<div ng-init="getDumps()">
+<div>
 
     <div class = "card md-whiteframe-15dp linkFormCard">
         <!-- add links here -->
@@ -41,7 +41,7 @@
             ng-include="'../views/linkcard.html'"
             ng-repeat='dump in dumps'
             ng-if = "([dump] | filter:enteredFind).length > 0">
-        </li>
+            </li>
         </ul>
     </div>
 

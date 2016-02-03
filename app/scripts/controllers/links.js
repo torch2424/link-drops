@@ -54,7 +54,7 @@ angular.module('linkDumpApp')
       }
     }
 
-    //get our dumps
+    //get our dumps, on init
     $scope.getDumps = function() {
       //Our json we will submit to the backend
       var dumpJson = {
@@ -81,6 +81,7 @@ angular.module('linkDumpApp')
         }
       );
     }
+    $scope.getDumps();
 
     //Get the title of a link
     $scope.getTitle = function(dump, index) {
