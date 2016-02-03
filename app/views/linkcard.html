@@ -1,6 +1,6 @@
-<div ng-style='computePositions()'  resize>
+<div class="asdf" resize>
 
-    <div class = "card-panel linkCard md-whiteframe-10dp"
+    <div class = "card-panel linkCard"
     ng-repeat='dump in dumps'
     ng-if = "([dump] | filter:enteredFind).length > 0">
 
@@ -81,7 +81,7 @@
             <a id = "linkTitle-{{::$index}}"
             href="{{::dump.content}}" target="_blank"
             class = "dropURL"
-            ng-init = "getTitle(dump, $index)">
+            ng-init = "">
             {{dump.content}}
             </a>
         </div>
