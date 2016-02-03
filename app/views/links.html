@@ -35,14 +35,16 @@
     <!-- ng repeat all of our
     links in a custom pintrest style drective
     Using our linkcard template-->
-    <div class = "columns animated fadeIn">
-        <ul>
-            <li class = "card-panel linkCard md-whiteframe-10dp"
-            ng-include="'../views/linkcard.html'"
-            ng-repeat='dump in dumps'
-            ng-if = "([dump] | filter:enteredFind).length > 0">
-            </li>
-        </ul>
+    <div class = "columns animated fadeIn" ng-include="'../views/linkcard.html'">
+
+    </div>
+
+    <div class = "card md-whiteframe-15dp linkFormCard">
+
+        <a style="text-align:center;" href="" ng-click = "displayLinks = displayLinks + 30">
+            Load More
+        </a>
+
     </div>
 
 </div>

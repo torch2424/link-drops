@@ -11,6 +11,8 @@ angular.module('linkDumpApp')
   .controller('LinksCtrl', function($scope, $sce, $cookies, $timeout,
       Dumps, Dump, Labels, Label, $location, $http, $mdToast) {
 
+    $scope.displayLinks = 50;
+
     //Get our sessions token
     var sessionToken = $cookies.get("sessionToken");
 
