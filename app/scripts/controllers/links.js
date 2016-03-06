@@ -63,6 +63,16 @@ angular.module('linkDumpApp')
 
       Dumps.get(dumpJson,
         function(data, status) {
+            var spitArray = [];
+            var splice = false;
+            for(var i=0;i<data.length;i++){
+                if(splice){
+                    splitArray.push(data.splice(i,1));
+                    i--;
+                }
+                splice = !splice;
+            }
+
           $scope.dumps = data;
         },
         function(err) {
