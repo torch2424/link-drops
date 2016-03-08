@@ -45,19 +45,26 @@
   column-width: $columnWidth;
   column-gap: 15px;
 
+  margin-top: 10px;
+  margin-bottom: 10px;
+
     //Fix the missing content
     ul {
+
+        width: 100%;
         list-style-position: inside;
         margin-left: auto;
         margin-right: auto;
         margin-top: 0px;
         margin-bottom: 0px;
         padding: 0px;
+        display: block;
+        text-align: center;
 
         li {
+
             break-inside: avoid-column;
             display: inline-block;
-            width: 100%;
         }
 
     }
