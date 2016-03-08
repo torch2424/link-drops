@@ -108,6 +108,7 @@
         .urlContainer {
             @extend .center;
             max-width: $columnWidth / 1.25;
+            margin-bottom: 10px;
         }
 
         .dropURL {

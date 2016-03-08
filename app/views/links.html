@@ -39,7 +39,8 @@
 
     </div>
 
-    <div class = "card md-whiteframe-15dp linkFormCard">
+    <div class = "card md-whiteframe-15dp linkFormCard"
+    ng-if = "displayLinks < dumps.length">
 
         <a style="text-align:center;" href="" ng-click = "displayLinks = displayLinks + 50">
             Load More

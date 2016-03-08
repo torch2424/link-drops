@@ -9,23 +9,23 @@
  */
 angular.module('linkDumpApp')
   .controller('LinksCtrl', function($scope, $sce, $cookies, $timeout,
-      Dumps, Dump, Labels, Label, $location, $http, $mdToast) {
+      Dumps, Dump, Labels, Label, $location, $http, $mdToast,
+      Embedder) {
 
+    //Initialize Dumps
+    $scope.dumps = [];
+
+    //Initialize our embedder
+    $scope.embedder = Embedder;
+
+    //Initialize how many dumps we are showing
     $scope.displayLinks = 50;
 
     //Get our sessions token
     var sessionToken = $cookies.get("sessionToken");
 
-    //inititalizes our dumps
-    $scope.dumps = [];
-
     //Inititalize searching
     $scope.findInput = false;
-
-    //Initialize soundcloud
-    SC.initialize({
-      client_id: 'b9513e908ef7793171225f04e87cf362'
-    });
 
     //Our main scraper will be noembed, since it is free and open soruce
     //With embedly as a backup to keep costs low
@@ -101,102 +101,6 @@ angular.module('linkDumpApp')
               element.innerHTML = response.data.title;
           }
         });
-    }
-
-    //Get a sce trusted noembed
-    $scope.getEmbed = function(dump) {
-      //Get the response from noembed
-      $http.get("https://noembed.com/embed?url=" + dump.content + "&nowrap=on")
-        .then(function(response) {
-
-          //Check for no error
-          if (!response.data.error) {
-            //Get the document
-            var element = document.getElementById("embed-" + dump.content);
-
-            if(element != null) {
-                element.innerHTML = $sce.trustAsHtml(response.data.html);
-            }
-
-            // say the dump has been lazy loaded
-            dump.lazyEmbed = true;
-          }
-        });
-    }
-
-    //Embed an image link
-    $scope.getImage = function(dump) {
-
-        //pass through the function
-        elemUrl("img", dump);
-    }
-
-    //Embed a Kickstarter thing
-    $scope.getKickStarter = function(dump) {
-
-        //Get the embed url
-        var kickUrl = dump.content.split("?")[0] + "/widget/card.html?v=2";
-
-        //pass through the function
-        elemUrl("kick", dump, kickUrl);
-    }
-
-    //Embed a vine thing
-    $scope.getVine = function(dump) {
-
-        //Get the embed url
-        var vineUrl = dump.content+ "/embed/simple";
-
-        //pass through the function
-        elemUrl("vine", dump, vineUrl);
-    }
-
-    //Embed a spotify (artist, albulm, track) thing
-    $scope.getSpotify = function(dump) {
-
-        //Get the spotify link type and id , last 2 out of 5 elemnts
-        var splitUrl = dump.content.split("/");
-
-        //pass through the function
-        elemUrl("spotify", dump,
-        "https://embed.spotify.com/?uri=spotify:"
-        + splitUrl[3] + ":" +splitUrl[4].split("?")[0]);
-    }
-
-    //get a sce trusted soundcloud thingy
-    $scope.getSoundCloud = function(dump) {
-      //Used this
-      //https://developers.soundcloud.com/docs/api/guide#playing
-
-      SC.get('/resolve', {
-        url: dump.content
-      }, function(track) {
-
-          //pass through the function
-          elemUrl("scWidget", dump,
-      "https://w.soundcloud.com/player/?url=https%3A" +
-        track.uri.substring(track.uri.indexOf("//api.soundcloud.com")) +
-        "&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true");
-
-      });
-    }
-
-    function elemUrl(id, dump, url) {
-        //Get the document
-        var element = document.getElementById( id + "-" + dump.content);
-
-        if(!url) {
-            url = dump.content;
-        }
-
-        //Set the element src
-        if(element != null)
-        {
-            element.src = $sce.trustAsResourceUrl(url);
-        }
-
-        // say the dump has been lazy loaded
-        dump.lazyEmbed = true;
     }
 
     //Check if a link already exists
