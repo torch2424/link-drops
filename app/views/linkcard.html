@@ -8,8 +8,8 @@
             <a id = "linkTitle-{{::$index}}"
             href="{{::dump.content}}" target="_blank"
             class = "dropURL"
-            ng-mouseover="embedder.lazyEmbed(dump)"
-            ng-mouseleave="embedder.cancelEmbed(dump)"
+            ng-mouseover="dump.hovering = true; embedder.lazyEmbed(dump)"
+            ng-mouseleave="dump.hovering = false; embedder.cancelEmbed(dump)"
             ng-init = "getTitle(dump, $index)">
             {{dump.content}}
             </a>
@@ -18,7 +18,7 @@
       <!-- Firstly, our loading ellipses if we are currently attempting to embed -->
       <!-- With some nice help from https://martinwolf.org/blog/2015/01/pure-css-savingloading-dots-animation -->
       <p class="embedLoad"
-      ng-if="!dump.lazyEmbed && dump.hover && dump.embed">
+      ng-if="!dump.lazyEmbed && dump.embed && dump.hovering">
           Loading<span>.</span><span>.</span><span>.</span>
       </p>
 

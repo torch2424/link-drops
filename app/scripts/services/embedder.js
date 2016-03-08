@@ -8,7 +8,8 @@
  * Service in the linkDumpApp.
  */
 angular.module('linkDumpApp')
-  .service('Embedder', function ($timeout, $sce) {
+  .service('Embedder', function ($timeout, $sce,
+        $http) {
 
       //Initialize our embedQueue
       var embeds = [];
@@ -96,7 +97,7 @@ angular.module('linkDumpApp')
       }
 
       //Function to assign embed divs to ids
-      var srcDiv = function(id, dump, url) {
+      var srcUrl = function(id, dump, url) {
 
           //Get the document
           var element = document.getElementById( id + "-" + dump.content);
@@ -189,8 +190,20 @@ angular.module('linkDumpApp')
                 //Check for no error
                 if (!response.data.error) {
 
-                  //Pass through the html SRC-er
-                  return srcDiv("embed", dump)
+                    //Cannot use srcUrl since it embeds by URL and not HTML
+
+                      //Get the document
+                      var element = document.getElementById("embed-" + dump.content);
+
+                      if(element != null) {
+                          element.innerHTML = $sce.trustAsHtml(response.data.html);
+                      }
+
+                      // say the dump has been lazy loaded
+                      dump.lazyEmbed = true;
+
+                      //Return the dump
+                      return dump;
                 }
               });
           },
@@ -199,7 +212,7 @@ angular.module('linkDumpApp')
           imageEmbed: function(dump) {
 
               //Simply pass through the sourcing
-              return srcDiv("img", dump)
+              return srcUrl("img", dump)
           },
 
           kickStarterEmbed: function(dump) {
@@ -208,7 +221,7 @@ angular.module('linkDumpApp')
               var kickUrl = dump.content.split("?")[0] + "/widget/card.html?v=2";
 
               //pass through the function
-              return srcDiv("kick", dump, kickUrl);
+              return srcUrl("kick", dump, kickUrl);
           },
 
           vineEmbed: function(dump) {
@@ -217,7 +230,7 @@ angular.module('linkDumpApp')
               var vineUrl = dump.content+ "/embed/simple";
 
               //pass through the function
-              return srcDiv("vine", dump, vineUrl);
+              return srcUrl("vine", dump, vineUrl);
           },
 
           spotifyEmbed: function(dump) {
@@ -226,7 +239,7 @@ angular.module('linkDumpApp')
               var splitUrl = dump.content.split("/");
 
               //pass through the function
-              return srcDiv("spotify", dump,
+              return srcUrl("spotify", dump,
               "https://embed.spotify.com/?uri=spotify:"
               + splitUrl[3] + ":" +splitUrl[4].split("?")[0]);
           },
@@ -240,7 +253,7 @@ angular.module('linkDumpApp')
             }, function(track) {
 
                 //pass through the function
-                return srcDiv("scWidget", dump,
+                return srcUrl("scWidget", dump,
                 "https://w.soundcloud.com/player/?url=https%3A" +
                 track.uri.substring(track.uri.indexOf("//api.soundcloud.com")) +
                 "&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true");
