@@ -113,12 +113,16 @@
         }
 
         .urlContainer {
+
             @extend .center;
             max-width: $columnWidth / 1.25;
             margin-bottom: 10px;
+            background-color: transparent;
+            border-radius: 0px;
         }
 
         .dropURL {
+
             vertical-align: -webkit-baseline-middle;
             word-wrap: break-word;
             max-width: calc($columnWidth - 50px);

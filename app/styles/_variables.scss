@@ -1,10 +1,10 @@
 //All of our color values for the web site
-
 //Gonna use poke palletes cause thatd be dope! http://pokepalettes.com/#hydreigon
-
 $pageBGColor: #5a83cd;
+$pageBGAlpha: rgba(90, 131, 205, 0.25);
 $pageText: #292029;
 $cardBG: #eeeeee;
+$cardBGHover: #e2e2e2;
 $placeholderText: #bdbdbd;
 $navBG: #292029;
 $navText: #e6dede;
@@ -19,3 +19,18 @@ $buttonBGHover: #9c4131;
 $defaultBG: #ccc;
 $defaultHeader: #e5e5e5;
 $void: #000;
+
+
+//Other various Variables
+
+//Some content variables
+$pageWidth: auto;
+$columnWidth: 500px;
+
+//Animation Speed for transitions
+$baseAnimationSpeed: 0.5s;
+
+//Out Font Sizes
+$fontSize: 14px;
+$linkSize: 16px;
+$buttonSize: 16px;

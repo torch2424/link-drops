@@ -1,18 +1,20 @@
 <ul>
     <li class = "card-panel linkCard md-whiteframe-10dp"
-    ng-repeat='dump in dumps | filter:enteredFind | limitTo:displayLinks'>
+    ng-repeat='dump in dumps | filter:enteredFind | limitTo:displayLinks'
+    ng-mouseover="dump.hovering = true; embedder.lazyEmbed(dump)"
+    ng-mouseleave="dump.hovering = false; embedder.cancelEmbed(dump)">
 
         <!-- Get our favicon and link title -->
         <div class = "urlContainer">
+
             <img ng-src="{{::dump.content | favicon}}" alt="Drop Icon" class = "dropFavicon">
             <a id = "linkTitle-{{::$index}}"
             href="{{::dump.content}}" target="_blank"
             class = "dropURL"
-            ng-mouseover="dump.hovering = true; embedder.lazyEmbed(dump)"
-            ng-mouseleave="dump.hovering = false; embedder.cancelEmbed(dump)"
             ng-init = "getTitle(dump, $index)">
             {{dump.content}}
             </a>
+
         </div>
 
       <!-- Firstly, our loading ellipses if we are currently attempting to embed -->

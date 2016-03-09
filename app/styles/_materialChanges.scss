@@ -1,38 +1,63 @@
-//Out Font Sizes
-$normalText: 14px;
-$linkText: 16px;
-$buttonText: 16px;
-
 
 //Make the text bigger
 body {
-    font-size: $normalText;
+    font-size: $fontSize;
 
     a {
-        font-size: $linkText;
+        font-size: $linkSize;
+        transition: text-decoration $baseAnimationSpeed, color $baseAnimationSpeed;
+
+        color: $linkText;
+        text-decoration: initial;
+
+        &:hover {
+
+            color: $buttonBGHover;
+            text-decoration: underline;
+        }
     }
 
     .linkCard {
-        font-size: $normalText;
+        font-size: $fontSize;
 
         a {
-            font-size: $linkText;
+            font-size: $linkSize;
+            transition: text-decoration $baseAnimationSpeed, color $baseAnimationSpeed;
+
+            color: $linkText;
+            text-decoration: initial;
+
+            &:hover {
+
+                color: $buttonBGHover;
+                text-decoration: underline;
+            }
         }
     }
 }
 
 .footerText {
-    font-size: $normalText;
+    font-size: $fontSize;
 
     a {
-        font-size: $linkText;
+        font-size: $linkSize;
+        transition: text-decoration $baseAnimationSpeed, color $baseAnimationSpeed;
+
+        color: $linkText;
+        text-decoration: initial;
+
+        &:hover {
+
+            color: $buttonBGHover;
+            text-decoration: underline;
+        }
     }
 }
 
 //Our buttons
 .md-button {
 
-    font-size: $buttonText !important;
+    font-size: $buttonSize !important;
     color: $cardBG !important;
     font-weight: 600;
     background-color: $buttonBG !important;
