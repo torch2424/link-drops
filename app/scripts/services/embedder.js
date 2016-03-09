@@ -78,10 +78,10 @@ angular.module('linkDumpApp')
 
           if(dump.embed == supportedEmbed[0]) embedderFunctions.noEmbed(dump);
           else if(dump.embed == supportedEmbed[1]) embedderFunctions.imageEmbed(dump);
-          else if(dump.embed == supportedEmbed[2]) embedderFunctions.oundCloudEmbed(dump);
+          else if(dump.embed == supportedEmbed[2]) embedderFunctions.soundCloudEmbed(dump);
           else if(dump.embed == supportedEmbed[3]) embedderFunctions.kickStarterEmbed(dump);
           else if(dump.embed == supportedEmbed[4]) embedderFunctions.vineEmbed(dump);
-          else if(dump.embed == supportedEmbed[5]) embedderFunctions.potifyEmbed(dump);
+          else if(dump.embed == supportedEmbed[5]) embedderFunctions.spotifyEmbed(dump);
 
           //Remove the dump from the embed queue
           for(var i = 0; i < embeds.length; i++) {
@@ -205,6 +205,10 @@ angular.module('linkDumpApp')
                       //Return the dump
                       return dump;
                 }
+                else {
+                    console.log("No embed Error!");
+                }
+
               });
           },
 
