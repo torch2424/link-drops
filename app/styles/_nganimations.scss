@@ -1,10 +1,16 @@
 //Adding preety animations to our ng classes
 //Using animate.css
 
+.ngAnimated {
+    @extend .animated;
+
+    animation-duration: $slowAnimationSpeed;
+}
+
 
 //Class to fade ngif
 .ngIfFade {
-    @extend .animated;
+    @extend .ngAnimated;
 
     &.ng-enter {
         @extend .fadeIn;
@@ -17,7 +23,7 @@
 
 //Class to fade ngif
 .ngShowFade {
-    @extend .animated;
+    @extend .ngAnimated;
 
     &.ng-hide-remove {
         @extend .fadeIn;
@@ -30,7 +36,7 @@
 
 //Ng repeat cards
 .ngRepeatLayout {
-    @extend .animated;
+    @extend .ngAnimated;
 
     &.ng-enter {
         @extend .fadeInUp;
