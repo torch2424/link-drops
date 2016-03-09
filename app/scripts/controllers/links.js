@@ -58,7 +58,6 @@ angular.module('linkDumpApp')
               $scope.findInput = false;
 
               //Also set our original display limit back
-              console.log(originalDisplayLimit);
               $scope.displayLinks = originalDisplayLimit;
             }
             else if(!$scope.findInput) {
