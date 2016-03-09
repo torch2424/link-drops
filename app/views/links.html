@@ -39,12 +39,15 @@
 
     </div>
 
-    <div class = "card md-whiteframe-15dp linkFormCard"
+    <!-- If in view, increase the current amount of links -->
+    <!-- With some nice help from https://martinwolf.org/blog/2015/01/pure-css-savingloading-dots-animation -->
+    <div class = "linkLimitContainer"
     ng-if = "displayLinks < dumps.length">
 
-        <a style="text-align:center;" href="" ng-click = "displayLinks = displayLinks + 50">
-            Load More
-        </a>
+        <h1 class="linkLimitLoad"
+        in-view="$inview && infiniteScroll()">
+            Loading More Links<span>.</span><span>.</span><span>.</span>
+        </h1>
 
     </div>
 

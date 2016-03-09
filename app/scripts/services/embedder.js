@@ -150,7 +150,7 @@ angular.module('linkDumpApp')
                               //Finally embed the dump
                               return doEmbed(dump);
                           }
-                      }, 500)
+                      }, 750)
               });
 
               //Start the timeout

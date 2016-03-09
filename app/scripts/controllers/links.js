@@ -19,7 +19,8 @@ angular.module('linkDumpApp')
     $scope.embedder = Embedder;
 
     //Initialize how many dumps we are showing
-    $scope.displayLinks = 50;
+    $scope.displayLinks = 25;
+    var displayRate = 25;
 
     //Get our sessions token
     var sessionToken = $cookies.get("sessionToken");
@@ -249,4 +250,13 @@ angular.module('linkDumpApp')
           );
       });
     }
+
+    //Function to increase the amount of display links
+    $scope.infiniteScroll = function() {
+
+        //Increase display links
+        $scope.displayLinks = $scope.displayLinks + displayRate;
+    }
+
+
   });

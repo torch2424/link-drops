@@ -152,6 +152,22 @@
                 margin: auto;
             }
 
+            .noembed-youtube {
+
+                iframe {
+                    max-width: 95%;
+                    height: 344px;
+                }
+            }
+
+            .noembed-vimeo {
+
+                iframe {
+                    max-width: 95%;
+                    height: 344px;
+                }
+            }
+
             iframe {
                 max-width: 90%;
                 height: auto;
