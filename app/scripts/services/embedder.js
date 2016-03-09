@@ -205,8 +205,13 @@ angular.module('linkDumpApp')
                       //Return the dump
                       return dump;
                 }
+                //Error
                 else {
-                    console.log("No embed Error!");
+                    console.log("No Embed Error!, response: " + JSON.stringify(response));
+
+                    //Make the embed error
+                    dump.embed = "error";
+                    return dump;
                 }
 
               });
