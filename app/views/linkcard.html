@@ -1,5 +1,5 @@
 <ul>
-    <li class = "card-panel linkCard md-whiteframe-10dp"
+    <li class = "card-panel linkCard md-whiteframe-10dp ngRepeatLayout"
     ng-repeat='dump in dumps | filter:enteredFind | limitTo:displayLinks'
     ng-mouseover="dump.hovering = true; embedder.lazyEmbed(dump)"
     ng-mouseleave="dump.hovering = false; embedder.cancelEmbed(dump)">

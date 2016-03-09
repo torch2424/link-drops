@@ -19,8 +19,9 @@ angular.module('linkDumpApp')
     $scope.embedder = Embedder;
 
     //Initialize how many dumps we are showing
-    $scope.displayLinks = 25;
     var displayRate = 25;
+    var displayDefault = 25;
+    $scope.displayLinks = displayDefault;
 
     //Get our sessions token
     var sessionToken = $cookies.get("sessionToken");
@@ -40,21 +41,51 @@ angular.module('linkDumpApp')
     }, 2000);
 
     //Show the find input
-    $scope.showFind = function() {
-      if ($scope.findInput) {
-        $scope.findInput = false;
-        $scope.enteredFind = "";
-      } else {
-        $scope.findInput = true;
+    var finding = false;
+    var delay = 500;
+    var originalDisplayLimit = displayDefault;
+    $scope.toggleFind = function() {
 
-        //To get the correct things to fire the in viewport, wait a second and then scroll to the top
-        $timeout(function() {
-          if (window.scrollY == 0 && window.scrollX == 0) {
-            //focus on the field
-            document.getElementById('findInput').focus();
-          }
-        }, 300);
-      }
+        //Allow this function to only be called once per half second
+        //To avoid weird glitching
+        if(!finding) {
+            finding = true;
+
+            if ($scope.findInput &&
+            (!$scope.enteredFind ||
+            $scope.enteredFind == "")) {
+
+              $scope.findInput = false;
+
+              //Also set our original display limit back
+              console.log(originalDisplayLimit);
+              $scope.displayLinks = originalDisplayLimit;
+            }
+            else if(!$scope.findInput) {
+
+                  $scope.findInput = true;
+
+                  //Also, set our display limit back to default
+                  originalDisplayLimit = $scope.displayLinks;
+                  $scope.displayLinks = displayDefault
+
+                  //To get the correct things to fire the in viewport, wait a second and then scroll to the top
+                  $timeout(function() {
+                    if (window.scrollY == 0 && window.scrollX == 0) {
+
+                      //focus on the field
+                      document.getElementById('findInput').focus();
+
+                    }
+                }, 150);
+             }
+
+             //Set finding back to false
+            $timeout(function () {
+
+                 finding = false;
+            }, delay);
+        }
     }
 
     //get our dumps, on init

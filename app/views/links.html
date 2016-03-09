@@ -5,7 +5,11 @@
         <form name = "linkForm" class = "center animated fadeIn">
             <md-input-container class = "authInputContainer">
             <label>Drop a new link here</label>
-            <input type = "url" name = "linkInput" class = "center linkInput" ng-model="enteredLink" ng-paste = "submitLink()">
+            <input type = "url"
+            name = "linkInput"
+            class = "center linkInput"
+            ng-model="enteredLink"
+            ng-paste = "submitLink()">
             </md-input-container>
             <p class = "center linkInstructions">If you enjoy typing links by hand, don't forget to add " http:// " or " https:// " and press "Enter"</p>
 
@@ -13,21 +17,29 @@
             <button type = "submit" style = "display: none" ng-click="submitLink()"></button>
         </form>
 
-        <div class = "center" ng-show = "!findInput">
-            <md-button class="findButton md-raised"
-            ng-click = "showFind()">
-            Find...
-        </md-button>
-        </div>
+        <div class = "findContainer">
+            <div class = "center ngShowFade" ng-show = "!findInput">
+                <md-button class="findButton md-raised"
+                ng-click = "toggleFind()";
+                ng-mouseenter = "toggleFind()">
+                Find...
+            </md-button>
+            </div>
 
-        <div ng-show = "findInput">
-            <md-input-container class = "authInputContainer center">
-                <label>What are you looking for?</label>
-                <input id = "findInput" type = "text"
-                class = "center findInput"
-                name = "enterFind"
-                ng-model="enteredFind">
-            </md-input-container>
+            <div ng-show = "findInput"
+            class = "ngShowFade"
+            ng-mouseleave = "toggleFind()">
+                <md-input-container class = "authInputContainer center">
+                    <label>What are you looking for?</label>
+                    <input id = "findInput" type = "text"
+                    class = "center findInput"
+                    name = "enterFind"
+                    ng-model="enteredFind"
+                    ng-change="toggleFind()"
+                    ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 250, 'blur': 0 } }">
+                </md-input-container>
+            </div>
+
         </div>
 
     </div>
@@ -35,7 +47,7 @@
     <!-- ng repeat all of our
     links in a custom pintrest style drective
     Using our linkcard template-->
-    <div class = "columns animated fadeIn" ng-include="'../views/linkcard.html'">
+    <div class = "columns" ng-include="'../views/linkcard.html'">
 
     </div>
 

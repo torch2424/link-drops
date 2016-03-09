@@ -11,6 +11,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "navbar";
 @import "default";
 @import "animate";
+@import "nganimations";
 @import "materialChanges";
 @import "linkColumns";
 
@@ -426,12 +427,18 @@ md-content {
     margin-bottom: 5px;
 }
 
+//Find Button COntainer
+.findContainer {
+    height: 75px !important;
+}
+
 .findButton {
     margin-right: 10px;
     font-weight: 550;
 }
 
 .findInput {
+    margin-top: 15px;
     width: 80% !important;
     margin-left: auto;
     margin-right: auto;
