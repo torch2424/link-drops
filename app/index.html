@@ -26,7 +26,7 @@
     <![endif]-->
 
   <!-- Add your site or application content here -->
-  <div ng-include src="'views/nav.html'"></div>
+  <div ng-include src="'views/templates/nav.html'"></div>
 
   <md-content flex class="container" in-view-container>
     <div class = "pageView" ng-view=""></div>
@@ -92,7 +92,9 @@
     <!-- endbuild -->
 
   <script src="/scripts/config/env.js"></script>
-  <script src="scripts/gridify.js"></script>
+  <!-- Minified javascript myself, built version seemed to be out of date
+    As it was not updating container height-->
+  <script src="scripts/gridify-master/gridify-min.js"></script>
 
   <!-- Other Apis for embedding -->
   <script src="//connect.soundcloud.com/sdk-2.0.0.js"></script>

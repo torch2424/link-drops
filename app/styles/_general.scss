@@ -1,0 +1,234 @@
+/**************************
+    GENERAL STYLES
+**************************/
+
+//Our Body Styles
+body {
+  padding: 0;
+  overflow:hidden;
+  height: 100%;
+  background-color: $pageBGColor;
+  color: $pageText;
+
+  //Link colors
+  a {
+      color: $buttonBG;
+      font-size: 16px;
+      font-weight: 500;
+
+      &:hover {
+          color: $buttonBGHover;
+      }
+  }
+}
+
+//The infamous center class. The backbone of every CSS framework (jk)
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+//Julian made a gang of inline styles for this in the myaccount page
+.noMargin {
+    margin: 0px;
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px !important;
+    margin-bottom: 0px;
+}
+
+//Anhgular animate fix
+.ng-hide {
+    display: none !important;
+}
+
+//Placeholder text color throughout the page
+::-webkit-input-placeholder {
+   color: $placeholderText;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: $placeholderText;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: $placeholderText;
+}
+
+:-ms-input-placeholder {
+   color: $placeholderText;
+}
+
+h1 {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+//Our navbar
+.header {
+    padding: 0px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+}
+
+.mainNav {
+    background-color: $navBG;
+    border-color: $navBG;
+    color: $navText;
+    border-radius: 0px;
+}
+
+.activeTab {
+    background-color: $navActiveTab !important;
+}
+
+.navText {
+        color: $navText !important;
+}
+
+.navbar-toggle {
+    background-color: $navBG;
+    border-color: $navBG !important;
+
+    &:hover {
+        @extend .activeTab;
+    }
+
+    &:focus {
+        @extend .activeTab;
+    }
+}
+
+//Container overrides
+body > .container {
+    margin-top: 50px;
+    padding-top: 15px;
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    overflow: auto;
+    width: $pageWidth;
+    max-width: none;
+}
+
+.pageView {
+
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+//our cards
+.card {
+
+    background-color:  $cardBG;
+    border-radius: 3px;
+    color: $pageText;
+
+    //Add some nice hovering
+    transition: background-color $baseAnimationSpeed;
+    z-index: 1;
+
+    &:hover {
+
+        background-color: $cardBGHover;
+        z-index: 2;
+    }
+}
+
+//Our Buttons
+.colorButton {
+    background-color: $buttonBG;
+    color: $navText;
+    font-weight: 600;
+
+    &:hover {
+        background-color: $buttonBGHover;
+    }
+}
+
+.card-panel {
+    @extend .card;
+
+    overflow: inherit;
+
+    //Our embeds for our links
+    iframe {
+        //Wanted to add some border, but didnt really look that good haha
+        //Also soundcloud was NOT having borders
+        //border-radius: 2px !important;
+    }
+}
+
+//Siwtitching buttons to our pallette
+md-button {
+    background-color: $buttonBG;
+
+    &:hover {
+        background-color: $buttonBGHover;
+    }
+}
+
+//our buttons
+.btn-large {
+    background-color: $buttonBG;
+
+    &:hover {
+        background-color: $buttonBGHover;
+    }
+
+    &:focus {
+        background-color: $buttonBGHover;
+    }
+}
+
+.btn {
+    background-color: $buttonBG;
+
+    &:hover {
+        background-color: $buttonBGHover;
+    }
+
+    &:focus {
+        background-color: $buttonBGHover;
+    }
+}
+
+//link colors (Same as background)
+a {
+    color: $linkText;
+}
+
+//The footer
+.footerText {
+    margin-top: 25px;
+    color: $pageText;
+    border-top: 1px solid $navBG;
+
+    a {
+        color: $buttonBG;
+
+        &:hover {
+            color: $buttonBGHover;
+        }
+    }
+}
+
+.navbarIcon {
+    height: 32px;
+    width: 32px;
+    display: inline-block !important;
+
+    margin-right: 5px;
+    vertical-align: -webkit-baseline-middle;
+}
+
+md-content {
+    background-color: $pageBGColor;
+}
