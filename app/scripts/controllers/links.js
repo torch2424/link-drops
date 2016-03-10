@@ -12,6 +12,10 @@ angular.module('linkDumpApp')
       Dumps, Dump, Labels, Label, $location, $http, $mdToast,
       Embedder) {
 
+      //Our main scraper will be noembed, since it is free and open soruce
+      //With embedly as a backup to keep costs low
+      //our embedly key
+
     //Initialize Dumps
     $scope.dumps = [];
 
@@ -26,19 +30,24 @@ angular.module('linkDumpApp')
     //Get our sessions token
     var sessionToken = $cookies.get("sessionToken");
 
-    //Inititalize searching
-    $scope.findInput = false;
-
-    //Our main scraper will be noembed, since it is free and open soruce
-    //With embedly as a backup to keep costs low
-    //our embedly key
-
     //To get the correct things to fire the in viewport, wait a second and then scroll to the top
     $timeout(function() {
       if (window.scrollY == 0 && window.scrollX == 0) {
         window.scrollTo(0, 1);
       }
     }, 2000);
+
+    //Our grid options
+    $scope.gridOptions = {
+        "gridWidth": 500,
+        "gutterSize": 25,
+        "refreshOnImgLoad": false,
+        "performantScroll": false,
+        "pageSize": 3
+    }
+
+    //Inititalize searching
+    $scope.findInput = false;
 
     //Show the find input
     var finding = false;
@@ -282,10 +291,18 @@ angular.module('linkDumpApp')
     }
 
     //Function to increase the amount of display links
+    var loading = false;
+    var timeout = 2000;
     $scope.infiniteScroll = function() {
 
+        loading = true;
+
         //Increase display links
-        $scope.displayLinks = $scope.displayLinks + displayRate;
+        $timeout(function () {
+
+            $scope.displayLinks = $scope.displayLinks + displayRate;
+            loading = false;
+        }, timeout);
     }
 
 

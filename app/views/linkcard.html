@@ -1,4 +1,6 @@
-<ul>
+<div id="content-scroller">
+<ul angular-grid="dumps"
+ag-options="gridOptions">
     <li class = "card-panel linkCard md-whiteframe-10dp ngRepeatLayout"
     ng-repeat='dump in dumps | filter:enteredFind | limitTo:displayLinks'
     ng-mouseover="dump.hovering = true; embedder.lazyEmbed(dump)"
@@ -118,3 +120,4 @@
       </div>
     </li>
 </ul>
+</div>

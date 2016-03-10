@@ -19,7 +19,8 @@ angular
     'favicon',
     'angular-inview',
     'envConfig',
-    'ngMaterial'
+    'ngMaterial',
+    'angularGrid'
   ])
   .config(function($routeProvider) {
     $routeProvider
