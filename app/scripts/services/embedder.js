@@ -29,6 +29,9 @@ angular.module('linkDumpApp')
         client_id: 'b9513e908ef7793171225f04e87cf362'
       });
 
+      //Our grid refresh timeout
+      var refreshTimeout = 100;
+
       //Function to verify if a dump is embbedable
       //First param is the dump
       //If dump is embeddable, dump.embed will be a string of embed type
@@ -76,18 +79,17 @@ angular.module('linkDumpApp')
       //Continutation of is embeddable function, and will execute the embed
       var doEmbed = function(dump) {
 
-          if(dump.embed == supportedEmbed[0]) embedderFunctions.noEmbed(dump);
-          else if(dump.embed == supportedEmbed[1]) embedderFunctions.imageEmbed(dump);
-          else if(dump.embed == supportedEmbed[2]) embedderFunctions.soundCloudEmbed(dump);
-          else if(dump.embed == supportedEmbed[3]) embedderFunctions.kickStarterEmbed(dump);
-          else if(dump.embed == supportedEmbed[4]) embedderFunctions.vineEmbed(dump);
-          else if(dump.embed == supportedEmbed[5]) embedderFunctions.spotifyEmbed(dump);
+          if(dump.embed == supportedEmbed[0]) return embedderFunctions.noEmbed(dump);
+          else if(dump.embed == supportedEmbed[1]) return embedderFunctions.imageEmbed(dump);
+          else if(dump.embed == supportedEmbed[2]) return embedderFunctions.soundCloudEmbed(dump);
+          else if(dump.embed == supportedEmbed[3]) return embedderFunctions.kickStarterEmbed(dump);
+          else if(dump.embed == supportedEmbed[4]) return embedderFunctions.vineEmbed(dump);
+          else if(dump.embed == supportedEmbed[5]) return embedderFunctions.spotifyEmbed(dump);
 
           //Don't Remove the dump from the embed queue,
           //That way we are not double embedding
 
-          //Also, refresh our grid
-          Gridify.refreshGrid();
+          //Not refreshing here, since we do not want to race the embed
       }
 
       //Function to assign embed divs to ids
@@ -108,6 +110,12 @@ angular.module('linkDumpApp')
 
           // say the dump has been lazy loaded
           dump.lazyEmbed = true;
+
+          //Also, refresh our grid
+          //Timeout since we need to apply our new html
+          $timeout(function () {
+              Gridify.refreshGrid();
+          }, refreshTimeout);
 
           //Return the dump
           return dump;
@@ -203,6 +211,12 @@ angular.module('linkDumpApp')
 
                       // say the dump has been lazy loaded
                       dump.lazyEmbed = true;
+
+                      //Also, refresh our grid
+                      //Timeout since we need to apply our new html
+                      $timeout(function () {
+                          Gridify.refreshGrid();
+                      }, refreshTimeout);
 
                       //Return the dump
                       return dump;

@@ -20,8 +20,8 @@ angular.module('linkDumpApp')
       {
            srcNode: 'li',             // grid items (class, node)
            margin: '25px',             // margin in pixel, default: 0px
-           width: '500px',             // grid item width in pixel, default: 220px
-           max_width: '',              // dynamic gird item width if specified, (pixel)
+           width: '300px',             // grid item width in pixel, default: 220px
+           max_width: '500px',              // dynamic gird item width if specified, (pixel)
            resizable: true,            // re-layout if window resize
       }
 
@@ -31,6 +31,8 @@ angular.module('linkDumpApp')
 
               //Do a slight timeout to cause a $scope.$apply();
               $timeout(function () {
+
+                  console.log("Refreshing!");
 
                  if(document.getElementById(gridId)) document.getElementById(gridId).gridify(options);
                  else console.log("Grid not found!");

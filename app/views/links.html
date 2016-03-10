@@ -35,7 +35,7 @@
                     class = "center findInput"
                     name = "enterFind"
                     ng-model="enteredFind"
-                    ng-change="toggleFind()"
+                    ng-change="toggleFind();findRefresh();"
                     ng-model-options="{ updateOn: 'default blur', debounce: { 'default': findDelay, 'blur': 0 } }">
                 </md-input-container>
             </div>
@@ -60,6 +60,7 @@
         displayLinks < findFilterLength())
         ||
         ((!findInput ||
+        !enteredFind ||
         enteredFind == '') &&
         displayLinks < dumps.length)">
 

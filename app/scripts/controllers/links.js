@@ -22,6 +22,9 @@ angular.module('linkDumpApp')
     //Initialize our embedder
     $scope.embedder = Embedder;
 
+    //Initialize our grid
+    $scope.gridify = Gridify;
+
     //Initialize how many dumps we are showing
     var displayRate = 10;
     var displayDefault = 25;
@@ -47,9 +50,25 @@ angular.module('linkDumpApp')
     $scope.findDelay = 500;
     //A simple function to return the filter length for the loading H1
     $scope.findFilterLength = function() {
+
+        if(!$scope.enteredFind) return 0;
+
+        //Else keep going and find the to lowercase value
         return $scope.dumps.filter(function(value) {
-            return value.content.indexOf($scope.enteredFind) > -1;
+            return (value.content.indexOf($scope.enteredFind.toLowerCase()) > -1);
         }).length;
+    }
+
+    $scope.findRefresh = function() {
+
+        console.log("find Refresh!");
+
+        //Refresh our grid
+        //in a timeout to apply the DOM
+        $timeout(function () {
+
+            Gridify.refreshGrid();
+        }, $scope.findDelay + 375);
     }
 
     $scope.toggleFind = function() {
@@ -70,9 +89,6 @@ angular.module('linkDumpApp')
 
               //Also set our original display limit back
               $scope.displayLinks = originalDisplayLimit;
-
-              //Refresh our grid
-              Gridify.refreshGrid();
             }
             else if(!$scope.findInput) {
 
@@ -80,7 +96,7 @@ angular.module('linkDumpApp')
 
                   //Also, set our display limit back to default
                   originalDisplayLimit = $scope.displayLinks;
-                  $scope.displayLinks = displayDefault
+                  $scope.displayLinks = displayDefault;
 
                   //To get the correct things to fire the in viewport, wait a second and then scroll to the top
                   $timeout(function() {
@@ -92,9 +108,6 @@ angular.module('linkDumpApp')
                     }
                 }, 150);
              }
-
-             //Refresh our grid
-             Gridify.refreshGrid();
 
              //Set finding back to false
             $timeout(function () {
@@ -157,6 +170,7 @@ angular.module('linkDumpApp')
           {
               element.innerHTML = response.data.title;
           }
+
         });
     }
 
@@ -280,6 +294,9 @@ angular.module('linkDumpApp')
         var index = $scope.dumps.indexOf(dump);
         $scope.dumps[index].labels.push(data);
         dump.newLabel = "";
+
+        //Refresh our grid
+        Gridify.refreshGrid();
       }, function(err) {
           $mdToast.show(
             $mdToast.simple()
@@ -293,6 +310,9 @@ angular.module('linkDumpApp')
     $scope.filterLabel = function(label){
         $scope.enteredFind = label.title;
         $scope.findInput = true;
+
+        //Refresh our grid
+        Gridify.refreshGrid();
     }
 
     $scope.removeLabel = function(dump, label) {
@@ -305,6 +325,10 @@ angular.module('linkDumpApp')
         var i1 = $scope.dumps.indexOf(dump);
         var i2 = $scope.dumps[i1].labels.indexOf(label);
         $scope.dumps[i1].labels.splice(i2, 1);
+
+        //Refresh our grid
+        Gridify.refreshGrid();
+
       }, function(err) {
           $mdToast.show(
             $mdToast.simple()

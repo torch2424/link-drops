@@ -224,7 +224,7 @@ a {
 
 //The footer
 .footerText {
-    margin-top: 15px;
+    margin-top: 25px;
     color: $pageText;
     border-top: 1px solid $navBG;
 
@@ -267,53 +267,59 @@ a {
 }
 
 .embedLoadContainer {
+
     height: 35px;
-}
 
-.embedLoad {
+    .embedLoad {
 
-    font-size: 20px;
+        font-size: 20px;
 
-    span {
+        span {
 
-        /**
-         * Use the blink animation, which is defined above
-         */
-        animation-name: blink;
-        /**
-         * The animation should take 1.4 seconds
-         */
-        animation-duration: 1.4s;
-        /**
-         * It will repeat itself forever
-         */
-        animation-iteration-count: infinite;
-        /**
-         * This makes sure that the starting style (opacity: .2)
-         * of the animation is applied before the animation starts.
-         * Otherwise we would see a short flash or would have
-         * to set the default styling of the dots to the same
-         * as the animation. Same applies for the ending styles.
-         */
-        animation-fill-mode: both;
+            /**
+             * Use the blink animation, which is defined above
+             */
+            animation-name: blink;
+            /**
+             * The animation should take 1.4 seconds
+             */
+            animation-duration: 1.4s;
+            /**
+             * It will repeat itself forever
+             */
+            animation-iteration-count: infinite;
+            /**
+             * This makes sure that the starting style (opacity: .2)
+             * of the animation is applied before the animation starts.
+             * Otherwise we would see a short flash or would have
+             * to set the default styling of the dots to the same
+             * as the animation. Same applies for the ending styles.
+             */
+            animation-fill-mode: both;
+        }
+
+        span:nth-child(2) {
+            /**
+             * Starts the animation of the third dot
+             * with a delay of .2s, otherwise all dots
+             * would animate at the same time
+             */
+            animation-delay: .2s;
+        }
+
+        span:nth-child(3) {
+            /**
+             * Starts the animation of the third dot
+             * with a delay of .4s, otherwise all dots
+             * would animate at the same time
+             */
+            animation-delay: .4s;
+        }
     }
 
-    span:nth-child(2) {
-        /**
-         * Starts the animation of the third dot
-         * with a delay of .2s, otherwise all dots
-         * would animate at the same time
-         */
-        animation-delay: .2s;
-    }
+    .embedLoadError {
 
-    span:nth-child(3) {
-        /**
-         * Starts the animation of the third dot
-         * with a delay of .4s, otherwise all dots
-         * would animate at the same time
-         */
-        animation-delay: .4s;
+        margin-top: -15px;
     }
 }
 

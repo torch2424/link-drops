@@ -92,12 +92,16 @@
             padding-top: 5px;
             text-align: left;
             float: left;
+            width: 55%;
+
+            word-wrap: break-word;
         }
 
         .linkSubTextRightContainer {
             padding-top: 5px;
             text-align: right;
             float:right;
+            width: 44%;
         }
 
         .labelInputContainer {
@@ -116,10 +120,10 @@
 
             @extend .center;
             max-width: $columnWidth / 1.25;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             background-color: transparent;
             border-radius: 0px;
-            height: 50px;
+            height: 55px;
         }
 
         .dropURL {
@@ -146,6 +150,8 @@
             margin-right: auto;
             overflow:hidden;
 
+            z-index: 2;
+
             .noembed-embed-inner {
                 width: 90%;
                 max-width: 90%;
@@ -171,7 +177,7 @@
 
             iframe {
                 max-width: 90%;
-                height: auto;
+                height: 344px;
             }
 
             img {

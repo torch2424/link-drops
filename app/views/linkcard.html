@@ -23,14 +23,14 @@
           <p class="embedLoad"
           ng-if="!dump.lazyEmbed && dump.embed && dump.hovering">
               Loading<span>.</span><span>.</span><span>.</span>
-
-              <!-- Show an error here if couldn't embed -->
-              <div ng-if="dump.embed == 'error' &&
-                    dump.hovering">
-                  <br>
-                  Error, could not embed link (Sorry!)
-              </div>
           </p>
+
+          <!-- Show an error here if couldn't embed -->
+          <div ng-if="dump.embed == 'error' &&
+                dump.hovering"
+            class="embedLoadError">
+              Error, could not embed link (Sorry!)
+          </div>
     </div>
 
       <!-- This need to be only noembed, and another div should be created under for embedly, followed by various native apis -->
