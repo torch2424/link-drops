@@ -8,9 +8,9 @@
  * Controller of the linkDumpApp
  */
 angular.module('linkDumpApp')
-  .controller('LinksCtrl', function($scope, $sce, $cookies, $timeout,
-      Dumps, Dump, Labels, Label, $location, $http, $mdToast,
-      Embedder, Gridify) {
+  .controller('LinksCtrl', function($scope, $sce,
+      $cookies, $timeout, Dumps, Dump, Labels, Label,
+      $location, $http, Embedder, Gridify, Toasty) {
 
       //Our main scraper will be noembed, since it is free and open soruce
       //With embedly as a backup to keep costs low
@@ -60,8 +60,6 @@ angular.module('linkDumpApp')
     }
 
     $scope.findRefresh = function() {
-
-        console.log("find Refresh!");
 
         //Refresh our grid
         //in a timeout to apply the DOM
@@ -142,13 +140,9 @@ angular.module('linkDumpApp')
             //Session is invalid! Redirect.
             $location.path("/");
           } else {
-            //Something else happened
-            $mdToast.show(
-              $mdToast.simple()
-                .content(err.data.msg)
-                .position('top right')
-                .hideDelay(3000)
-            );
+
+            //Show a toast
+            Toasty.show(err.data.msg);
           }
         }
       );
@@ -178,12 +172,9 @@ angular.module('linkDumpApp')
     function linkExists() {
       for (var i = 0; i < $scope.dumps.length; i++) {
         if ($scope.dumps[i].content == $scope.enteredLink) {
-            $mdToast.show(
-              $mdToast.simple()
-                .content('Link already exists!')
-                .position('top right')
-                .hideDelay(3000)
-            );
+
+            //Show a toast
+            Toasty.show("Link already exists!")
 
           //Set the input back to empty
           $scope.enteredLink = "";
@@ -215,13 +206,8 @@ angular.module('linkDumpApp')
                 //Set enetered link back to null
                 $scope.enteredLink = "";
 
-                //Inform user of the dump
-                $mdToast.show(
-                  $mdToast.simple()
-                    .content('Dropped!')
-                    .position('top right')
-                    .hideDelay(3000)
-                );
+                //Show a toast
+                Toasty.show("Dropped!");
 
                 //Add new dump to dump array
                 $scope.dumps.unshift(data);
@@ -231,12 +217,9 @@ angular.module('linkDumpApp')
 
               },
               function(err) {
-                  $mdToast.show(
-                    $mdToast.simple()
-                      .content(err.data.msg)
-                      .position('top right')
-                      .hideDelay(3000)
-                  );
+
+                 //Error a toast
+                 Toasty.show(err.data.msg);
               });
           }
         }, 1);
@@ -262,24 +245,16 @@ angular.module('linkDumpApp')
       //Save the link
       Dump.delete(remJson, function(data, status) {
 
-        //Inform user
-        $mdToast.show(
-          $mdToast.simple()
-            .content("Deleted " + data.content + "!")
-            .position('top right')
-            .hideDelay(3000)
-        );
+        //Show a confirm Toast
+        Toasty.show("Deleted " + data.content + "!");
 
         //Refresh our grid
         Gridify.refreshGrid();
 
       }, function(err) {
-          $mdToast.show(
-            $mdToast.simple()
-              .content(err.data.msg)
-              .position('top right')
-              .hideDelay(3000)
-          );
+
+          //Error a toast
+          Toasty.show(err.data.msg);
       });;
     }
 
@@ -298,12 +273,9 @@ angular.module('linkDumpApp')
         //Refresh our grid
         Gridify.refreshGrid();
       }, function(err) {
-          $mdToast.show(
-            $mdToast.simple()
-              .content(err.data.msg)
-              .position('top right')
-              .hideDelay(3000)
-          );
+
+          //Toast the error
+          Toasty.show(err.data.msg);
       });
     }
 
@@ -330,12 +302,9 @@ angular.module('linkDumpApp')
         Gridify.refreshGrid();
 
       }, function(err) {
-          $mdToast.show(
-            $mdToast.simple()
-              .content(err.data.msg)
-              .position('top right')
-              .hideDelay(3000)
-          );
+
+          //Toast the error
+          Toasty.show(err.data.msg);
       });
     }
 

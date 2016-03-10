@@ -8,7 +8,8 @@
  * Controller of the linkDumpApp
  */
 angular.module('linkDumpApp')
-  .controller('LoginCtrl', function($scope, $location, $cookies, Login, UserUpdate, $mdToast) {
+  .controller('LoginCtrl', function($scope, $location, $cookies,
+      Login, UserUpdate, Toasty) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -31,12 +32,7 @@ angular.module('linkDumpApp')
             $cookies.put("sessionToken", data.token);
 
             //Thank user for joining
-            $mdToast.show(
-              $mdToast.simple()
-                .content('Welcome Back!')
-                .position('top right')
-                .hideDelay(3000)
-            );
+            Toasty.show("Welcome Back!");
 
             //Send them to the links page
             $location.path("/dumps");
@@ -55,41 +51,27 @@ angular.module('linkDumpApp')
                     $cookies.put("sessionToken", token);
 
                     //Thank user for joining
-                    $mdToast.show(
-                      $mdToast.simple()
-                        .content('Welcome Back!')
-                        .position('top right')
-                        .hideDelay(3000)
-                    );
+                    Toasty.show("Welcome Back!");
 
                     //Send them to the links page
                     $location.path("/dumps");
                   },
                   function(err) {
-                      $mdToast.show(
-                        $mdToast.simple()
-                          .content(err.data.msg)
-                          .position('top right')
-                          .hideDelay(3000)
-                      );
+
+                      //Toast the error
+                      Toasty.show(err.data.msg);
                   });
             } else {
-                $mdToast.show(
-                  $mdToast.simple()
-                    .content("Sorry, but without a valid email we cannot log you in.")
-                    .position('top right')
-                    .hideDelay(3000)
-                );
+
+                //No Email Toast
+                Toasty.show("Sorry, but without a valid email we cannot log you in.");
             }
           }
         },
         function(err) {
-            $mdToast.show(
-              $mdToast.simple()
-                .content(err.data.msg)
-                .position('top right')
-                .hideDelay(3000)
-            );
+            
+            //Toast the error
+            Toasty.show(err.data.msg);
         });
     }
 

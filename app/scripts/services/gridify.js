@@ -32,8 +32,6 @@ angular.module('linkDumpApp')
               //Do a slight timeout to cause a $scope.$apply();
               $timeout(function () {
 
-                  console.log("Refreshing!");
-
                  if(document.getElementById(gridId)) document.getElementById(gridId).gridify(options);
                  else console.log("Grid not found!");
              }, 100);
