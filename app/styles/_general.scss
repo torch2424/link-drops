@@ -232,3 +232,16 @@ a {
 md-content {
     background-color: $pageBGColor;
 }
+
+
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+
+  //Container overrides
+  .container {
+      width: $pageWidth;
+      max-width: $pageWidth;
+  }
+
+}

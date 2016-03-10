@@ -1,132 +1,5 @@
-@keyframes blink {
-
-    /**
-     * At the start of the animation the dot
-     * has an opacity of .2
-     */
-    0% {
-      opacity: .2;
-    }
-
-    /**
-     * At 20% the dot is fully visible and
-     * then fades out slowly
-     */
-    20% {
-      opacity: 1;
-    }
-
-    /**
-     * Until it reaches an opacity of .2 and
-     * the animation can start again
-     */
-
-    100% {
-      opacity: .2;
-    }
-}
-
-.embedLoadContainer {
-
-    height: 35px;
-
-    .embedLoad {
-
-        font-size: 20px;
-
-        span {
-
-            /**
-             * Use the blink animation, which is defined above
-             */
-            animation-name: blink;
-            /**
-             * The animation should take 1.4 seconds
-             */
-            animation-duration: 1.4s;
-            /**
-             * It will repeat itself forever
-             */
-            animation-iteration-count: infinite;
-            /**
-             * This makes sure that the starting style (opacity: .2)
-             * of the animation is applied before the animation starts.
-             * Otherwise we would see a short flash or would have
-             * to set the default styling of the dots to the same
-             * as the animation. Same applies for the ending styles.
-             */
-            animation-fill-mode: both;
-        }
-
-        span:nth-child(2) {
-            /**
-             * Starts the animation of the third dot
-             * with a delay of .2s, otherwise all dots
-             * would animate at the same time
-             */
-            animation-delay: .2s;
-        }
-
-        span:nth-child(3) {
-            /**
-             * Starts the animation of the third dot
-             * with a delay of .4s, otherwise all dots
-             * would animate at the same time
-             */
-            animation-delay: .4s;
-        }
-    }
-
-    .embedLoadError {
-
-        margin-top: -15px;
-    }
-}
-
-.linkSubTextLeftContainer {
-    padding-top: 5px;
-    text-align: center;
-    float: none;
-}
-
-.linkSubTextRightContainer {
-    padding-bottom: 5px;
-    text-align: center;
-    float:none;
-}
-
-.linkSubText {
-    display: inline !important;
-}
-
-.linkSubTextInput {
-    height: 16px !important;
-    width: 80% !important;
-    text-align: left;
-}
-
-.linkLabelDelete {
-    height: 12px;
-    width: auto;
-    margin-right: 2px;
-}
-
-.linkLabelText {
-    margin-right: 5px;
-    font-size: 15px;
-    color: $navBG;
-}
-
-.flowGridColumn{
-    float: left;
-    padding-left: 10px;
-}
-.flowGridColumn:last-of-type{
-    padding-right: 10px;
-}
-
 //multiple responsive card columns
-.columns {
+.gridInclude {
     margin-top: 10px;
     margin-bottom: 10px;
 
@@ -170,36 +43,6 @@
 
         -webkit-transition: all $baseAnimationSpeed ease-in-out;
         transition: all $baseAnimationSpeed ease-in-out;
-
-        //Bottoms lables and things
-        //Make our containers better
-        .linkSubTextLeftContainer {
-            padding-top: 5px;
-            text-align: left;
-            float: left;
-            width: 55%;
-
-            word-wrap: break-word;
-        }
-
-        .linkSubTextRightContainer {
-            padding-top: 5px;
-            text-align: right;
-            float:right;
-            width: 44%;
-        }
-
-        .labelInputContainer {
-            padding: 0px;
-            padding-bottom: 0px;
-        }
-
-        .deleteDump {
-            p {
-                margin-bottom: 0px;
-                padding-top: 16px;
-            }
-        }
 
         .urlContainer {
 
@@ -309,5 +152,116 @@
                 width: 300px;
             }
         }
+
+
+
+        .embedLoadContainer {
+
+            height: 35px;
+
+            .embedLoad {
+
+                font-size: 20px;
+
+                span {
+
+                    /**
+                     * Use the blink animation, which is defined above
+                     */
+                    animation-name: blink;
+                    /**
+                     * The animation should take 1.4 seconds
+                     */
+                    animation-duration: 1.4s;
+                    /**
+                     * It will repeat itself forever
+                     */
+                    animation-iteration-count: infinite;
+                    /**
+                     * This makes sure that the starting style (opacity: .2)
+                     * of the animation is applied before the animation starts.
+                     * Otherwise we would see a short flash or would have
+                     * to set the default styling of the dots to the same
+                     * as the animation. Same applies for the ending styles.
+                     */
+                    animation-fill-mode: both;
+                }
+
+                span:nth-child(2) {
+                    /**
+                     * Starts the animation of the third dot
+                     * with a delay of .2s, otherwise all dots
+                     * would animate at the same time
+                     */
+                    animation-delay: .2s;
+                }
+
+                span:nth-child(3) {
+                    /**
+                     * Starts the animation of the third dot
+                     * with a delay of .4s, otherwise all dots
+                     * would animate at the same time
+                     */
+                    animation-delay: .4s;
+                }
+            }
+
+            .embedLoadError {
+
+                margin-top: -15px;
+            }
+        }
+
+
+        //Our date and labels and things
+        .linkSubTextLeftContainer {
+            padding-top: 5px;
+            text-align: left;
+            float: left;
+            width: 55%;
+
+            word-wrap: break-word;
+        }
+
+        .linkSubTextRightContainer {
+
+            padding-top: 5px;
+            width: 44%;
+            padding-bottom: 5px;
+
+            text-align: right;
+            float: right;
+        }
+
+        .linkSubText {
+            display: inline !important;
+        }
+
+        .linkLabelDelete {
+            height: 12px;
+            width: auto;
+            margin-right: 2px;
+        }
+
+        .linkLabelText {
+            margin-right: 5px;
+            font-size: 15px;
+            color: $navBG;
+        }
+
+        .labelInputContainer {
+            padding: 0px;
+            padding-bottom: 0px;
+        }
+
+        .deleteDump {
+
+            p {
+                margin-bottom: 0px;
+                padding-top: 16px;
+            }
+        }
+
+        //End of link cards
     }
 }

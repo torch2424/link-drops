@@ -12,6 +12,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 //Animations
 @import "animations/animate";
 @import "animations/nganimations";
+@import "animations/keyframes";
 
 //Defaults
 @import "defaults/yeoman";
@@ -25,21 +26,12 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "general";
 
 /**************************
-    SPECIFIC STYLES
+    BEGIN MAIN STYLES
 **************************/
 
-.linkLimitLoad {
-
-    @extend .embedLoad;
-
-    font-weight: normal;
-    font-size: 30px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    margin-top: 25px;
-    margin-bottom: 25px;
-}
+/**************************
+    HOME
+**************************/
 
 .homeCard {
     padding-top: 10px;
@@ -50,6 +42,11 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     h1 {
         font-size: 55px;
     }
+}
+
+.mainIcon {
+    height: 128px;
+    width: 128px;
 }
 
 .homeTagLine {
@@ -67,6 +64,10 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 .homeLogIn {
     margin-left: 10px;
 }
+
+/**************************
+    LOG IN / SIGN UP
+**************************/
 
 .authCard {
     padding-bottom: 25px;
@@ -123,7 +124,9 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     margin-bottom: 5px;
 }
 
-//Find Button COntainer
+/**************************
+    DUMPS/LINKS
+**************************/
 .findContainer {
     margin-top: 15px;
     height: 75px !important;
@@ -141,16 +144,23 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     margin-right: auto;
 }
 
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
+//Loading more links
+.linkLimitLoad {
 
-  //Container overrides
-  .container {
-      width: $pageWidth;
-      max-width: $pageWidth;
-  }
+    @extend .embedLoad;
 
+    font-weight: normal;
+    font-size: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
+
+/**************************
+    END OF MAIN STYLES
+**************************/
 
 //Our quickfixes
 @import "quickFixes";

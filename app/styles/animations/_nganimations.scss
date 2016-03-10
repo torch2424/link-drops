@@ -33,20 +33,3 @@
         @extend .fadeOut;
     }
 }
-
-//Ng repeat cards
-.ngRepeatLayout {
-    @extend .ngAnimated;
-
-    &.ng-enter {
-        @extend .fadeInUp;
-    }
-
-    &.ng-leave {
-        @extend .fadeOutDown;
-    }
-
-    &.ng-move {
-        @extend .slideInUp;
-    }
-}
