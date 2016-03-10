@@ -32,12 +32,16 @@
     color: $navBG;
 }
 
+.flowGridColumn{
+    float: left;
+    padding-left: 10px;
+}
+.flowGridColumn:last-of-type{
+    padding-right: 10px;
+}
+
 //multiple responsive card columns
 .columns {
-
-    -webkit-transition: all 0.6s ease-out;
-    transition: all 0.6s ease-out;
-
     margin-top: 10px;
     margin-bottom: 10px;
 
@@ -51,8 +55,16 @@
         margin-top: 0px;
         margin-bottom: 0px;
         padding: 0px;
-        display: block;
         text-align: center;
+
+        &:before {
+            content: "";
+            display: table;
+        }
+        &:after {
+            content: "";
+            display: table;
+        }
 
         li {
 
@@ -78,6 +90,9 @@
 
         margin-top: 10px;
         margin-bottom: 10px;
+
+        -webkit-transition: all 0.6s ease-out;
+        transition: all 0.6s ease-out;
 
         //Bottoms lables and things
         //Make our containers better

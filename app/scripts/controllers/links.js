@@ -10,7 +10,7 @@
 angular.module('linkDumpApp')
   .controller('LinksCtrl', function($scope, $sce, $cookies, $timeout,
       Dumps, Dump, Labels, Label, $location, $http, $mdToast,
-      Embedder) {
+      Embedder, Gridify) {
 
       //Our main scraper will be noembed, since it is free and open soruce
       //With embedly as a backup to keep costs low
@@ -23,7 +23,7 @@ angular.module('linkDumpApp')
     $scope.embedder = Embedder;
 
     //Initialize how many dumps we are showing
-    var displayRate = 25;
+    var displayRate = 10;
     var displayDefault = 25;
     $scope.displayLinks = displayDefault;
 
@@ -36,15 +36,6 @@ angular.module('linkDumpApp')
         window.scrollTo(0, 1);
       }
     }, 2000);
-
-    //Our grid options
-    $scope.gridOptions = {
-        "gridWidth": 500,
-        "gutterSize": 25,
-        "refreshOnImgLoad": false,
-        "performantScroll": false,
-        "pageSize": 3
-    }
 
     //Inititalize searching
     $scope.findInput = false;
@@ -105,7 +96,14 @@ angular.module('linkDumpApp')
 
       Dumps.get(dumpJson,
         function(data, status) {
+
+          //Save our dumps to scope
           $scope.dumps = data;
+
+          //Re-order our dumps
+          $timeout(function () {
+              Gridify.refreshGrid();
+          }, 10);
         },
         function(err) {
           if (err.status == 401) {
@@ -194,6 +192,10 @@ angular.module('linkDumpApp')
 
                 //Add new dump to dump array
                 $scope.dumps.unshift(data);
+
+                //Refresh our grid
+                Gridify.refreshGrid();
+                
               },
               function(err) {
                   $mdToast.show(
@@ -226,6 +228,7 @@ angular.module('linkDumpApp')
 
       //Save the link
       Dump.delete(remJson, function(data, status) {
+
         //Inform user
         $mdToast.show(
           $mdToast.simple()
@@ -233,6 +236,9 @@ angular.module('linkDumpApp')
             .position('top right')
             .hideDelay(3000)
         );
+
+        //Refresh our grid
+        Gridify.refreshGrid();
 
       }, function(err) {
           $mdToast.show(
@@ -292,8 +298,11 @@ angular.module('linkDumpApp')
 
     //Function to increase the amount of display links
     var loading = false;
-    var timeout = 2000;
+    var timeout = 750;
     $scope.infiniteScroll = function() {
+
+        //Stop spamming of link increases
+        if(loading) return;
 
         loading = true;
 
@@ -301,6 +310,9 @@ angular.module('linkDumpApp')
         $timeout(function () {
 
             $scope.displayLinks = $scope.displayLinks + displayRate;
+
+            //Refresh our grid
+            Gridify.refreshGrid();
             loading = false;
         }, timeout);
     }

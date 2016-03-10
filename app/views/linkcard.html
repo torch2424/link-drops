@@ -1,7 +1,5 @@
-<div id="content-scroller">
-<ul angular-grid="dumps"
-ag-options="gridOptions">
-    <li class = "card-panel linkCard md-whiteframe-10dp ngRepeatLayout"
+<ul id = "linkGrid">
+    <li class = "card-panel linkCard md-whiteframe-10dp"
     ng-repeat='dump in dumps | filter:enteredFind | limitTo:displayLinks'
     ng-mouseover="dump.hovering = true; embedder.lazyEmbed(dump)"
     ng-mouseleave="dump.hovering = false; embedder.cancelEmbed(dump)">
@@ -21,17 +19,19 @@ ag-options="gridOptions">
 
       <!-- Firstly, our loading ellipses if we are currently attempting to embed -->
       <!-- With some nice help from https://martinwolf.org/blog/2015/01/pure-css-savingloading-dots-animation -->
-      <p class="embedLoad"
-      ng-if="!dump.lazyEmbed && dump.embed && dump.hovering">
-          Loading<span>.</span><span>.</span><span>.</span>
+      <div class = "embedLoadContainer">
+          <p class="embedLoad"
+          ng-if="!dump.lazyEmbed && dump.embed && dump.hovering">
+              Loading<span>.</span><span>.</span><span>.</span>
 
-          <!-- Show an error here if couldn't embed -->
-          <div ng-if="dump.embed == 'error' &&
-                dump.hovering">
-              <br>
-              Error, could not embed link (Sorry!)
-          </div>
-      </p>
+              <!-- Show an error here if couldn't embed -->
+              <div ng-if="dump.embed == 'error' &&
+                    dump.hovering">
+                  <br>
+                  Error, could not embed link (Sorry!)
+              </div>
+          </p>
+    </div>
 
       <!-- This need to be only noembed, and another div should be created under for embedly, followed by various native apis -->
       <!-- Use our Fallbacks (NoEmbed And then Embedly), Display Media Embeds (Bandcamp, Youtube, Vimeo, etc... -->
@@ -120,4 +120,3 @@ ag-options="gridOptions">
       </div>
     </li>
 </ul>
-</div>

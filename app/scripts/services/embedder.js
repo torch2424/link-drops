@@ -9,7 +9,7 @@
  */
 angular.module('linkDumpApp')
   .service('Embedder', function ($timeout, $sce,
-        $http) {
+        $http, Gridify) {
 
       //Initialize our embedQueue
       var embeds = [];
@@ -83,17 +83,11 @@ angular.module('linkDumpApp')
           else if(dump.embed == supportedEmbed[4]) embedderFunctions.vineEmbed(dump);
           else if(dump.embed == supportedEmbed[5]) embedderFunctions.spotifyEmbed(dump);
 
-          //Remove the dump from the embed queue
-          for(var i = 0; i < embeds.length; i++) {
-              if(dump._id == embeds[i].embed._id) {
+          //Don't Remove the dump from the embed queue,
+          //That way we are not double embedding
 
-                  //Cancel the embed timeout
-                  $timeout.cancel(embeds[i].timeout);
-                  //Now remove from the array
-                  embeds.splice(i, 1);
-                  return true;
-              }
-          }
+          //Also, refresh our grid
+          Gridify.refreshGrid();
       }
 
       //Function to assign embed divs to ids
@@ -128,6 +122,13 @@ angular.module('linkDumpApp')
           //And allow embedding by hovering link
           lazyEmbed: function(dump) {
 
+              //Check if the dump is already in the array
+              for(var i = 0; i < embeds.length; i++) {
+                  if(dump._id == embeds[i].embed._id) {
+                      return dump;
+                  }
+              }
+
               //Check if we are embeddable, if dump.embed is undefined
               if(dump.embed == undefined) dump = isEmbeddable(dump);
 
@@ -150,7 +151,7 @@ angular.module('linkDumpApp')
                               //Finally embed the dump
                               return doEmbed(dump);
                           }
-                      }, 750)
+                      }, 1250)
               });
 
               //Start the timeout
@@ -170,6 +171,7 @@ angular.module('linkDumpApp')
 
                       //Cancel the embed timeout
                       $timeout.cancel(embeds[i].timeout);
+
                       //Now remove from the array
                       embeds.splice(i, 1);
                       return true;
