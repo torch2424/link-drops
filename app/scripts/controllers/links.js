@@ -42,14 +42,25 @@ angular.module('linkDumpApp')
 
     //Show the find input
     var finding = false;
-    var delay = 500;
     var originalDisplayLimit = displayDefault;
+    //Make findDelay in scope for ng model options
+    $scope.findDelay = 500;
+    //A simple function to return the filter length for the loading H1
+    $scope.findFilterLength = function() {
+        return $scope.dumps.filter(function(value) {
+            return value.content.indexOf($scope.enteredFind) > -1;
+        }).length;
+    }
+
     $scope.toggleFind = function() {
 
         //Allow this function to only be called once per half second
         //To avoid weird glitching
         if(!finding) {
+
             finding = true;
+
+            //Return our results to the find Filter
 
             if ($scope.findInput &&
             (!$scope.enteredFind ||
@@ -59,6 +70,9 @@ angular.module('linkDumpApp')
 
               //Also set our original display limit back
               $scope.displayLinks = originalDisplayLimit;
+
+              //Refresh our grid
+              Gridify.refreshGrid();
             }
             else if(!$scope.findInput) {
 
@@ -79,11 +93,16 @@ angular.module('linkDumpApp')
                 }, 150);
              }
 
+             //Refresh our grid
+             Gridify.refreshGrid();
+
              //Set finding back to false
             $timeout(function () {
 
-                 finding = false;
-            }, delay);
+                //Reset finding
+                finding = false;
+
+            }, $scope.findDelay);
         }
     }
 
@@ -195,7 +214,7 @@ angular.module('linkDumpApp')
 
                 //Refresh our grid
                 Gridify.refreshGrid();
-                
+
               },
               function(err) {
                   $mdToast.show(

@@ -150,10 +150,12 @@ body > .container {
 
     //Add some nice hovering
     transition: background-color $baseAnimationSpeed;
+    z-index: 1;
 
     &:hover {
 
         background-color: $cardBGHover;
+        z-index: 2;
     }
 }
 

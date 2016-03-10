@@ -36,7 +36,7 @@
                     name = "enterFind"
                     ng-model="enteredFind"
                     ng-change="toggleFind()"
-                    ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 250, 'blur': 0 } }">
+                    ng-model-options="{ updateOn: 'default blur', debounce: { 'default': findDelay, 'blur': 0 } }">
                 </md-input-container>
             </div>
 
@@ -54,8 +54,14 @@
 
     <!-- If in view, increase the current amount of links -->
     <!-- With some nice help from https://martinwolf.org/blog/2015/01/pure-css-savingloading-dots-animation -->
+    <!-- Doing crazy checks since we can use finding -->
     <div class = "linkLimitContainer"
-    ng-if = "displayLinks < dumps.length">
+    ng-if = "(findInput &&
+        displayLinks < findFilterLength())
+        ||
+        ((!findInput ||
+        enteredFind == '') &&
+        displayLinks < dumps.length)">
 
         <h1 class="linkLimitLoad"
         in-view="$inview && infiniteScroll()">
