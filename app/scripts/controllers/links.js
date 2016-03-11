@@ -8,26 +8,30 @@
  * Controller of the linkDumpApp
  */
 angular.module('linkDumpApp')
-  .controller('LinksCtrl', function($scope, $sce, $cookies, $timeout,
-      Dumps, Dump, Labels, Label, $location, $http, $mdToast) {
+  .controller('LinksCtrl', function($scope, $sce,
+      $cookies, $timeout, Dumps, Dump, Labels, Label,
+      $location, $http, Embedder, Gridify, Toasty) {
+
+      //Our main scraper will be noembed, since it is free and open soruce
+      //With embedly as a backup to keep costs low
+      //our embedly key
+
+    //Initialize Dumps
+    $scope.dumps = [];
+
+    //Initialize our embedder
+    $scope.embedder = Embedder;
+
+    //Initialize our grid
+    $scope.gridify = Gridify;
+
+    //Initialize how many dumps we are showing
+    var displayRate = 10;
+    var displayDefault = 25;
+    $scope.displayLinks = displayDefault;
 
     //Get our sessions token
     var sessionToken = $cookies.get("sessionToken");
-
-    //inititalizes our dumps
-    $scope.dumps = [];
-
-    //Inititalize searching
-    $scope.findInput = false;
-
-    //Initialize soundcloud
-    SC.initialize({
-      client_id: 'b9513e908ef7793171225f04e87cf362'
-    });
-
-    //Our main scraper will be noembed, since it is free and open soruce
-    //With embedly as a backup to keep costs low
-    //our embedly key
 
     //To get the correct things to fire the in viewport, wait a second and then scroll to the top
     $timeout(function() {
@@ -36,25 +40,84 @@ angular.module('linkDumpApp')
       }
     }, 2000);
 
-    //Show the find input
-    $scope.showFind = function() {
-      if ($scope.findInput) {
-        $scope.findInput = false;
-        $scope.enteredFind = "";
-      } else {
-        $scope.findInput = true;
+    //Inititalize searching
+    $scope.findInput = false;
 
-        //To get the correct things to fire the in viewport, wait a second and then scroll to the top
-        $timeout(function() {
-          if (window.scrollY == 0 && window.scrollX == 0) {
-            //focus on the field
-            document.getElementById('findInput').focus();
-          }
-        }, 300);
-      }
+    //Show the find input
+    var finding = false;
+    var originalDisplayLimit = displayDefault;
+    //Make findDelay in scope for ng model options
+    $scope.findDelay = 500;
+    //A simple function to return the filter length for the loading H1
+    $scope.findFilterLength = function() {
+
+        if(!$scope.enteredFind) return 0;
+
+        //Else keep going and find the to lowercase value
+        return $scope.dumps.filter(function(value) {
+            return (value.content.indexOf($scope.enteredFind.toLowerCase()) > -1);
+        }).length;
     }
 
-    //get our dumps
+    $scope.findRefresh = function() {
+
+        //Refresh our grid
+        //in a timeout to apply the DOM
+        $timeout(function () {
+
+            Gridify.refreshGrid();
+        }, $scope.findDelay + 375);
+    }
+
+    $scope.toggleFind = function() {
+
+        //Allow this function to only be called once per half second
+        //To avoid weird glitching
+        if(!finding) {
+
+            finding = true;
+
+            //Return our results to the find Filter
+
+            if ($scope.findInput &&
+            (!$scope.enteredFind ||
+            $scope.enteredFind == "")) {
+
+              $scope.findInput = false;
+
+              //Also set our original display limit back
+              $scope.displayLinks = originalDisplayLimit;
+            }
+            else if(!$scope.findInput) {
+
+                  $scope.findInput = true;
+
+                  //Also, set our display limit back to default
+                  originalDisplayLimit = $scope.displayLinks;
+                  $scope.displayLinks = displayDefault;
+
+                  //To get the correct things to fire the in viewport, wait a second and then scroll to the top
+                  $timeout(function() {
+                    if (window.scrollY == 0 && window.scrollX == 0) {
+
+                      //focus on the field
+                      document.getElementById('findInput').focus();
+
+                    }
+                }, 150);
+             }
+
+             //Set finding back to false
+            $timeout(function () {
+
+                //Reset finding
+                finding = false;
+
+            }, $scope.findDelay);
+        }
+    }
+
+    //get our dumps, on init
     $scope.getDumps = function() {
       //Our json we will submit to the backend
       var dumpJson = {
@@ -63,24 +126,28 @@ angular.module('linkDumpApp')
 
       Dumps.get(dumpJson,
         function(data, status) {
+
+          //Save our dumps to scope
           $scope.dumps = data;
+
+          //Re-order our dumps
+          $timeout(function () {
+              Gridify.refreshGrid();
+          }, 10);
         },
         function(err) {
           if (err.status == 401) {
             //Session is invalid! Redirect.
             $location.path("/");
           } else {
-            //Something else happened
-            $mdToast.show(
-              $mdToast.simple()
-                .content(err.data.msg)
-                .position('top right')
-                .hideDelay(3000)
-            );
+
+            //Show a toast
+            Toasty.show(err.data.msg);
           }
         }
       );
     }
+    $scope.getDumps();
 
     //Get the title of a link
     $scope.getTitle = function(dump, index) {
@@ -97,115 +164,17 @@ angular.module('linkDumpApp')
           {
               element.innerHTML = response.data.title;
           }
+
         });
-    }
-
-    //Get a sce trusted noembed
-    $scope.getEmbed = function(dump) {
-      //Get the response from noembed
-      $http.get("https://noembed.com/embed?url=" + dump.content + "&nowrap=on")
-        .then(function(response) {
-
-          //Check for no error
-          if (!response.data.error) {
-            //Get the document
-            var element = document.getElementById("embed-" + dump.content);
-
-            if(element != null) {
-                element.innerHTML = $sce.trustAsHtml(response.data.html);
-            }
-
-            // say the dump has been lazy loaded
-            dump.lazyEmbed = true;
-          }
-        });
-    }
-
-    //Embed an image link
-    $scope.getImage = function(dump) {
-
-        //pass through the function
-        elemUrl("img", dump);
-    }
-
-    //Embed a Kickstarter thing
-    $scope.getKickStarter = function(dump) {
-
-        //Get the embed url
-        var kickUrl = dump.content.split("?")[0] + "/widget/card.html?v=2";
-
-        //pass through the function
-        elemUrl("kick", dump, kickUrl);
-    }
-
-    //Embed a vine thing
-    $scope.getVine = function(dump) {
-
-        //Get the embed url
-        var vineUrl = dump.content+ "/embed/simple";
-
-        //pass through the function
-        elemUrl("vine", dump, vineUrl);
-    }
-
-    //Embed a spotify (artist, albulm, track) thing
-    $scope.getSpotify = function(dump) {
-
-        //Get the spotify link type and id , last 2 out of 5 elemnts
-        var splitUrl = dump.content.split("/");
-
-        //pass through the function
-        elemUrl("spotify", dump,
-        "https://embed.spotify.com/?uri=spotify:"
-        + splitUrl[3] + ":" +splitUrl[4].split("?")[0]);
-    }
-
-    //get a sce trusted soundcloud thingy
-    $scope.getSoundCloud = function(dump) {
-      //Used this
-      //https://developers.soundcloud.com/docs/api/guide#playing
-
-      SC.get('/resolve', {
-        url: dump.content
-      }, function(track) {
-
-          //pass through the function
-          elemUrl("scWidget", dump,
-      "https://w.soundcloud.com/player/?url=https%3A" +
-        track.uri.substring(track.uri.indexOf("//api.soundcloud.com")) +
-        "&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true");
-
-      });
-    }
-
-    function elemUrl(id, dump, url) {
-        //Get the document
-        var element = document.getElementById( id + "-" + dump.content);
-
-        if(!url) {
-            url = dump.content;
-        }
-
-        //Set the element src
-        if(element != null)
-        {
-            element.src = $sce.trustAsResourceUrl(url);
-        }
-
-        // say the dump has been lazy loaded
-        dump.lazyEmbed = true;
     }
 
     //Check if a link already exists
     function linkExists() {
       for (var i = 0; i < $scope.dumps.length; i++) {
         if ($scope.dumps[i].content == $scope.enteredLink) {
-            $mdToast.show(
-              $mdToast.simple()
-                .content('Link already exists!')
-                .position('top right')
-                .hideDelay(3000)
-            );
+
+            //Show a toast
+            Toasty.show("Link already exists!")
 
           //Set the input back to empty
           $scope.enteredLink = "";
@@ -237,24 +206,20 @@ angular.module('linkDumpApp')
                 //Set enetered link back to null
                 $scope.enteredLink = "";
 
-                //Inform user of the dump
-                $mdToast.show(
-                  $mdToast.simple()
-                    .content('Dropped!')
-                    .position('top right')
-                    .hideDelay(3000)
-                );
+                //Show a toast
+                Toasty.show("Dropped!");
 
                 //Add new dump to dump array
                 $scope.dumps.unshift(data);
+
+                //Refresh our grid
+                Gridify.refreshGrid();
+
               },
               function(err) {
-                  $mdToast.show(
-                    $mdToast.simple()
-                      .content(err.data.msg)
-                      .position('top right')
-                      .hideDelay(3000)
-                  );
+
+                 //Error a toast
+                 Toasty.show(err.data.msg);
               });
           }
         }, 1);
@@ -279,21 +244,17 @@ angular.module('linkDumpApp')
 
       //Save the link
       Dump.delete(remJson, function(data, status) {
-        //Inform user
-        $mdToast.show(
-          $mdToast.simple()
-            .content("Deleted " + data.content + "!")
-            .position('top right')
-            .hideDelay(3000)
-        );
+
+        //Show a confirm Toast
+        Toasty.show("Deleted " + data.content + "!");
+
+        //Refresh our grid
+        Gridify.refreshGrid();
 
       }, function(err) {
-          $mdToast.show(
-            $mdToast.simple()
-              .content(err.data.msg)
-              .position('top right')
-              .hideDelay(3000)
-          );
+
+          //Error a toast
+          Toasty.show(err.data.msg);
       });;
     }
 
@@ -308,19 +269,22 @@ angular.module('linkDumpApp')
         var index = $scope.dumps.indexOf(dump);
         $scope.dumps[index].labels.push(data);
         dump.newLabel = "";
+
+        //Refresh our grid
+        Gridify.refreshGrid();
       }, function(err) {
-          $mdToast.show(
-            $mdToast.simple()
-              .content(err.data.msg)
-              .position('top right')
-              .hideDelay(3000)
-          );
+
+          //Toast the error
+          Toasty.show(err.data.msg);
       });
     }
 
     $scope.filterLabel = function(label){
         $scope.enteredFind = label.title;
         $scope.findInput = true;
+
+        //Refresh our grid
+        Gridify.refreshGrid();
     }
 
     $scope.removeLabel = function(dump, label) {
@@ -333,13 +297,37 @@ angular.module('linkDumpApp')
         var i1 = $scope.dumps.indexOf(dump);
         var i2 = $scope.dumps[i1].labels.indexOf(label);
         $scope.dumps[i1].labels.splice(i2, 1);
+
+        //Refresh our grid
+        Gridify.refreshGrid();
+
       }, function(err) {
-          $mdToast.show(
-            $mdToast.simple()
-              .content(err.data.msg)
-              .position('top right')
-              .hideDelay(3000)
-          );
+
+          //Toast the error
+          Toasty.show(err.data.msg);
       });
     }
+
+    //Function to increase the amount of display links
+    var loading = false;
+    var timeout = 750;
+    $scope.infiniteScroll = function() {
+
+        //Stop spamming of link increases
+        if(loading) return;
+
+        loading = true;
+
+        //Increase display links
+        $timeout(function () {
+
+            $scope.displayLinks = $scope.displayLinks + displayRate;
+
+            //Refresh our grid
+            Gridify.refreshGrid();
+            loading = false;
+        }, timeout);
+    }
+
+
   });

@@ -2,313 +2,36 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 // bower:scss
 // endbower
 
-//imports of our other files
-@import "navbar";
-@import "colors";
-@import "default";
-@import "animate";
-@import "materialChanges";
-
-//Some content variables
-$pageWidth: auto;
-$linkCardWidth: 425px;
-
 /**************************
-    GENERAL STYLES
+    IMPORTS
 **************************/
 
-//Our Body Styles
-body {
-  padding: 0;
-  overflow:hidden;
-  height: 100%;
-  background-color: $pageBGColor;
-  color: $pageText;
+//Variables
+@import "variables";
 
-  //Link colors
-  a {
-      color: $buttonBG;
-      font-size: 16px;
-      font-weight: 500;
+//Animations
+@import "animations/animate";
+@import "animations/nganimations";
+@import "animations/keyframes";
 
-      &:hover {
-          color: $buttonBGHover;
-      }
-  }
-}
+//Defaults
+@import "defaults/yeoman";
+@import "defaults/materialChanges";
 
-//The infamous center class. The backbone of every CSS framework (jk)
-.center {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-}
+//Templates
+@import "templates/navbar";
+@import "templates/linkCards";
 
-//Julian made a gang of inline styles for this in the myaccount page
-.noMargin {
-    margin: 0px;
-    margin-top: 0px;
-    margin-left: 0px;
-    margin-right: 0px !important;
-    margin-bottom: 0px;
-}
-
-//Anhgular animate fix
-.ng-hide {
-    display: none !important;
-}
-
-//Placeholder text color throughout the page
-::-webkit-input-placeholder {
-   color: $placeholderText;
-}
-
-:-moz-placeholder { /* Firefox 18- */
-   color: $placeholderText;
-}
-
-::-moz-placeholder {  /* Firefox 19+ */
-   color: $placeholderText;
-}
-
-:-ms-input-placeholder {
-   color: $placeholderText;
-}
-
-h1 {
-    margin-top: 2px;
-    margin-bottom: 2px;
-}
-
-//Our navbar
-.header {
-    padding: 0px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 20;
-}
-
-.mainNav {
-    background-color: $navBG;
-    border-color: $navBG;
-    color: $navText;
-    border-radius: 0px;
-}
-
-.activeTab {
-    background-color: $navActiveTab !important;
-}
-
-.navText {
-        color: $navText !important;
-}
-
-.navbar-toggle {
-    background-color: $navBG;
-    border-color: $navBG !important;
-
-    &:hover {
-        @extend .activeTab;
-    }
-
-    &:focus {
-        @extend .activeTab;
-    }
-}
-
-//Container overrides
-body > .container {
-    margin-top: 50px;
-    padding-top: 15px;
-    position: fixed;
-    right: 0;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    overflow: auto;
-    width: $pageWidth;
-    max-width: none;
-}
-
-.pageView {
-
-    width: 95%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-//our cards
-.card {
-    background-color:  $cardBG;
-    border-radius: 3px;
-    color: $pageText;
-}
-
-//Our Buttons
-.colorButton {
-    background-color: $buttonBG;
-    color: $navText;
-    font-weight: 600;
-
-    &:hover {
-        background-color: $buttonBGHover;
-    }
-}
-
-.card-panel {
-    @extend .card;
-
-    overflow: inherit;
-
-    //Our embeds for our links
-    iframe {
-        //Wanted to add some border, but didnt really look that good haha
-        //Also soundcloud was NOT having borders
-        //border-radius: 2px !important;
-    }
-}
-
-//Siwtitching buttons to our pallette
-md-button {
-    background-color: $buttonBG;
-
-    &:hover {
-        background-color: $buttonBGHover;
-    }
-}
-
-//our buttons
-.btn-large {
-    background-color: $buttonBG;
-
-    &:hover {
-        background-color: $buttonBGHover;
-    }
-
-    &:focus {
-        background-color: $buttonBGHover;
-    }
-}
-
-.btn {
-    background-color: $buttonBG;
-
-    &:hover {
-        background-color: $buttonBGHover;
-    }
-
-    &:focus {
-        background-color: $buttonBGHover;
-    }
-}
-
-//link colors (Same as background)
-a {
-    color: $linkText;
-}
-
-//The footer
-.footerText {
-    margin-top: 15px;
-    color: $pageText;
-    border-top: 1px solid $navBG;
-
-    a {
-        color: $buttonBG;
-
-        &:hover {
-            color: $buttonBGHover;
-        }
-    }
-}
-
-//Iframes and images, need to be responsive and things
-.embed {
-
-    //General/neccessary
-    margin-left: auto;
-    margin-right: auto;
-    overflow:hidden;
-
-    .noembed-embed-inner {
-        width: 90%;
-        max-width: 90%;
-        max-height: 350px;
-        margin: auto;
-    }
-
-    iframe {
-        max-width: 90%;
-        height: auto;
-    }
-
-    img {
-        max-width: 90%;
-        height: auto;
-    }
-
-    .noembed-instagram {
-
-        img {
-            width: 320px;
-            width: 320px;
-        }
-
-    }
-
-    .noembed-soundcloud {
-        width: 100%;
-        height: 450px;
-
-        max-width: 100%;
-        max-height: 450px;
-
-        iframe {
-            width: 100%;
-            height: 450px;
-            max-width: 100%;
-            max-height: 450px;
-        }
-    }
-
-    .spotifyEmbed {
-        width: 300px;
-        height: 380px;
-    }
-
-    .kickEmbed {
-        height: 420px;
-        width: 220px;
-    }
-
-    .vineEmbed {
-        height: 300px;
-        width: 300px;
-    }
-}
+//General Styles
+@import "general";
 
 /**************************
-    SPECIFIC STYLES
+    BEGIN MAIN STYLES
 **************************/
-.navbarIcon {
-    height: 32px;
-    width: 32px;
-    display: inline-block !important;
 
-    margin-right: 5px;
-    vertical-align: -webkit-baseline-middle;
-}
-
-md-content {
-    background-color: $pageBGColor;
-}
-
-.mainIcon {
-    height: 128px;
-    width: 128px;
-}
+/**************************
+    HOME
+**************************/
 
 .homeCard {
     padding-top: 10px;
@@ -319,6 +42,11 @@ md-content {
     h1 {
         font-size: 55px;
     }
+}
+
+.mainIcon {
+    height: 128px;
+    width: 128px;
 }
 
 .homeTagLine {
@@ -336,6 +64,10 @@ md-content {
 .homeLogIn {
     margin-left: 10px;
 }
+
+/**************************
+    LOG IN / SIGN UP
+**************************/
 
 .authCard {
     padding-bottom: 25px;
@@ -392,193 +124,43 @@ md-content {
     margin-bottom: 5px;
 }
 
+/**************************
+    DUMPS/LINKS
+**************************/
+.findContainer {
+    margin-top: 15px;
+    height: 75px !important;
+}
+
 .findButton {
     margin-right: 10px;
     font-weight: 550;
 }
 
 .findInput {
+    margin-top: 15px;
     width: 80% !important;
     margin-left: auto;
     margin-right: auto;
 }
 
-.dropFavicon {
-    vertical-align: -webkit-baseline-middle;
-    width: 16px;
-    height: 16px;
-    margin-right: 5px;
-}
+//Loading more links
+.linkLimitLoad {
 
-.dropURL {
-    vertical-align: -webkit-baseline-middle;
-    word-wrap: break-word;
-}
+    @extend .embedLoad;
 
-.linkSubTextLeftContainer {
-    padding-top: 5px;
-    text-align: center;
-    float: none;
-}
-
-.linkSubTextRightContainer {
-    padding-bottom: 5px;
-    text-align: center;
-    float:none;
-}
-
-.linkSubText {
-    display: inline !important;
-}
-
-.linkSubTextInput {
-    height: 16px !important;
-    width: 80% !important;
-    text-align: left;
-}
-
-.linkLabelDelete {
-    height: 12px;
-    width: auto;
-    margin-right: 2px;
-}
-
-.linkLabelText {
-    margin-right: 5px;
-    font-size: 15px;
-    color: $navBG;
-}
-
-.columns {
-    position: relative;
-
+    font-weight: normal;
+    font-size: 30px;
     margin-left: auto;
     margin-right: auto;
-
-    .linkCard {
-
-        position: absolute;
-        display: table;
-
-        margin-left: auto;
-        margin-right: auto;
-        text-align: center;
-
-        max-width: $linkCardWidth;
-        width: 100%;
-
-        padding-top: 10px;
-        padding-left: 15px;
-        padding-right: 15px;
-        padding-bottom: 10px;
-
-        //Bottoms lables and things
-        //Make our containers better
-        .linkSubTextLeftContainer {
-            padding-top: 5px;
-            text-align: left;
-            float: left;
-        }
-
-        .linkSubTextRightContainer {
-            padding-top: 5px;
-            text-align: right;
-            float:right;
-        }
-
-        .labelInputContainer {
-            padding: 0px;
-            padding-bottom: 0px;
-        }
-
-        .deleteDump {
-            p {
-                margin-bottom: 0px;
-                padding-top: 16px;
-            }
-        }
-
-        .urlContainer {
-            @extend .center;
-            max-width: $linkCardWidth / 1.25;
-        }
-
-        .dropURL {
-            width: 100%;
-        }
-
-
-        //Iframes and images, need to be responsive and things. Tablets and up!
-        .embed {
-
-            //General/neccessary
-            margin-left: auto;
-            margin-right: auto;
-            overflow:hidden;
-
-            .noembed-embed-inner {
-                width: 95%;
-                max-width: 95%;
-                max-height: 350px;
-                margin: auto;
-            }
-
-            iframe {
-                height: inherit;
-            }
-
-            .noembed-youtube {
-                max-width: none;
-                height: 315px;
-            }
-
-            .noembed-vimeo {
-                max-width: none;
-                width: 500px;
-                height: 260px;
-            }
-
-            .noembed-soundcloud {
-                width: 100%;
-                height: 450px;
-
-                max-width: none;
-                max-height: none;
-            }
-
-            img {
-                max-width: 80%;
-                height: auto;
-            }
-
-            .noembed-instagram {
-
-                img {
-                    width: 250px;
-                    width: 250px;
-                }
-
-            }
-
-            .vineEmbed {
-                height: 480px;
-                width: 480px;
-            }
-        }
-    }
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-
-  //Container overrides
-  .container {
-      width: $pageWidth;
-      max-width: $pageWidth;
-  }
-
-}
+/**************************
+    END OF MAIN STYLES
+**************************/
 
 //Our quickfixes
 @import "quickFixes";

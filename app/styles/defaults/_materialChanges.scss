@@ -1,0 +1,67 @@
+
+//Make the text bigger
+body {
+    font-size: $fontSize;
+
+    a {
+        font-size: $linkSize;
+        transition: text-decoration $baseAnimationSpeed, color $baseAnimationSpeed;
+
+        color: $linkText;
+        text-decoration: initial;
+
+        &:hover {
+
+            color: $buttonBGHover;
+            text-decoration: underline;
+        }
+    }
+
+    .linkCard {
+        font-size: $fontSize;
+
+        a {
+            font-size: $linkSize;
+            transition: text-decoration $baseAnimationSpeed, color $baseAnimationSpeed;
+
+            color: $linkText;
+            text-decoration: initial;
+
+            &:hover {
+
+                color: $buttonBGHover;
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.footerText {
+    font-size: $fontSize;
+
+    a {
+        font-size: $linkSize;
+        transition: text-decoration $baseAnimationSpeed, color $baseAnimationSpeed;
+
+        color: $linkText;
+        text-decoration: initial;
+
+        &:hover {
+
+            color: $buttonBGHover;
+            text-decoration: underline;
+        }
+    }
+}
+
+//Our buttons
+.md-button {
+
+    font-size: $buttonSize !important;
+    color: $cardBG !important;
+    font-weight: 600;
+    background-color: $buttonBG !important;
+    padding: 5px;
+    width: 155px;
+
+}
