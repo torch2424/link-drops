@@ -8,7 +8,8 @@
  * Controller of the linkDumpApp
  */
 angular.module('linkDumpApp')
-  .controller('MyaccountCtrl', function($scope, $cookies, UserUpdate) {
+  .controller('MyaccountCtrl', function($scope, $cookies,
+      UserUpdate, Toasty) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -27,12 +28,9 @@ angular.module('linkDumpApp')
 
             UserUpdate.update(payload,
               function(data, status) {
-                  $mdToast.show(
-                    $mdToast.simple()
-                      .content("New Email Saved!")
-                      .position('top right')
-                      .hideDelay(3000)
-                  );
+
+                  //Toast the confirmation
+                  Toasty.show("New Email Saved!");
               },
               function(err) {
                 if (err.status == 401) {
@@ -40,21 +38,14 @@ angular.module('linkDumpApp')
                   $location.path("/");
                 } else {
                   //Something else happened
-                  $mdToast.show(
-                    $mdToast.simple()
-                      .content(err.data.msg)
-                      .position('top right')
-                      .hideDelay(3000)
-                  );
+                  //Toast the error
+                  Toasty.show(err.data.msg);
                 }
             });
         } else {
-            $mdToast.show(
-              $mdToast.simple()
-                .content("Username confirm doesn't match!")
-                .position('top right')
-                .hideDelay(3000)
-            );
+
+            //Toast the mistmatch
+            Toasty.show("Username confirm doesn't match!");
         }
     }
 
@@ -67,34 +58,24 @@ angular.module('linkDumpApp')
 
             UserUpdate.update(payload,
               function(data, status) {
-                  $mdToast.show(
-                    $mdToast.simple()
-                      .content("New password saved!")
-                      .position('top right')
-                      .hideDelay(3000)
-                  );
+
+                  //Toast the password
+                  Toasty.show("New password saved!");
               },
               function(err) {
                 if (err.status == 401) {
                   //Session is invalid! Redirect.
                   $location.path("/");
                 } else {
-                  //Something else happened
-                  $mdToast.show(
-                    $mdToast.simple()
-                      .content(err.data.msg)
-                      .position('top right')
-                      .hideDelay(3000)
-                  );
+
+                  //Toast the error
+                  Toasty.show(err.data.msg);
                 }
             });
         } else {
-            $mdToast.show(
-              $mdToast.simple()
-                .content("Username confirm doesn't match!")
-                .position('top right')
-                .hideDelay(3000)
-            );
+
+            //Toast the mistmatch
+            Toasty.show("Username confirm doesn't match!");
         }
     }
 

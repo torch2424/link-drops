@@ -9,7 +9,7 @@
  */
 angular.module('linkDumpApp')
   .controller('SignupCtrl', function($scope, $location, $cookies,
-      Join, $mdToast) {
+      Join, Toasty) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -30,43 +30,30 @@ angular.module('linkDumpApp')
               //Signup the user, and save their session token
               var joinResponse = Join.submit($scope.signup,
                 function(data, status) {
+
                   //Save the sessionToken in cookies
                   $cookies.put("sessionToken", data.token);
 
-                  $mdToast.show(
-                    $mdToast.simple()
-                      .content('Welcome to linkDrops!')
-                      .position('top right')
-                      .hideDelay(3000)
-                  );
+                  //Toast the welcome
+                  Toasty.show('Welcome to linkDrops!');
 
                   //Send them to the links page
                   $location.path("/dumps");
                 },
                 function(err) {
-                    $mdToast.show(
-                      $mdToast.simple()
-                        .content(err.data.msg)
-                        .position('top right')
-                        .hideDelay(3000)
-                    );
+
+                    //Toast the error
+                    Toasty.show(err.data.msg);
                 });
           } else {
-              $mdToast.show(
-                $mdToast.simple()
-                  .content('Email is not valid!')
-                  .position('top right')
-                  .hideDelay(3000)
-              );
+
+              //Toast email error
+              Toasty.show('Email is not valid!');
           }
       } else {
-        //If they dont error to the users
-        $mdToast.show(
-          $mdToast.simple()
-            .content('Passwords do no match!')
-            .position('top right')
-            .hideDelay(3000)
-        );
+
+        //Toast password error
+        Toasty.show('Passwords is not valid!');
       }
     }
 
