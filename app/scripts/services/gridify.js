@@ -8,7 +8,7 @@
  * Service in the linkDumpApp.
  */
 angular.module('linkDumpApp')
-  .service('Gridify', function ($timeout) {
+  .service('Gridify', function ($scope, $timeout) {
 
       //Our gridId
       var gridId = 'linkGrid'
@@ -28,13 +28,9 @@ angular.module('linkDumpApp')
       var gridifyFunctions = {
 
           refreshGrid: function() {
-
-              //Do a slight timeout to cause a $scope.$apply();
-              $timeout(function () {
-
-                 if(document.getElementById(gridId)) document.getElementById(gridId).gridify(options);
-                 else console.log("Grid not found!");
-             }, 100);
+             if(document.getElementById(gridId)) document.getElementById(gridId).gridify(options);
+             else console.log("Grid not found!");
+             $scope.$apply();
           }
       }
 

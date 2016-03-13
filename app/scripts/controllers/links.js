@@ -65,7 +65,7 @@ angular.module('linkDumpApp')
         //in a timeout to apply the DOM
         $timeout(function () {
 
-            Gridify.refreshGrid();
+            Gridify.refreshGrid($scope);
         }, $scope.findDelay + 375);
     }
 
@@ -131,9 +131,8 @@ angular.module('linkDumpApp')
           $scope.dumps = data;
 
           //Re-order our dumps
-          $timeout(function () {
-              Gridify.refreshGrid();
-          }, 10);
+          Gridify.refreshGrid();
+          //$scope.$apply();
         },
         function(err) {
           if (err.status == 401) {
@@ -213,7 +212,7 @@ angular.module('linkDumpApp')
                 $scope.dumps.unshift(data);
 
                 //Refresh our grid
-                Gridify.refreshGrid();
+                Gridify.refreshGrid($scope);
 
               },
               function(err) {
@@ -249,7 +248,7 @@ angular.module('linkDumpApp')
         Toasty.show("Deleted " + data.content + "!");
 
         //Refresh our grid
-        Gridify.refreshGrid();
+        Gridify.refreshGrid($scope);
 
       }, function(err) {
 
@@ -271,7 +270,7 @@ angular.module('linkDumpApp')
         dump.newLabel = "";
 
         //Refresh our grid
-        Gridify.refreshGrid();
+        Gridify.refreshGrid($scope);
       }, function(err) {
 
           //Toast the error
@@ -284,7 +283,7 @@ angular.module('linkDumpApp')
         $scope.findInput = true;
 
         //Refresh our grid
-        Gridify.refreshGrid();
+        Gridify.refreshGrid($scope);
     }
 
     $scope.removeLabel = function(dump, label) {
@@ -299,7 +298,7 @@ angular.module('linkDumpApp')
         $scope.dumps[i1].labels.splice(i2, 1);
 
         //Refresh our grid
-        Gridify.refreshGrid();
+        Gridify.refreshGrid($scope);
 
       }, function(err) {
 
@@ -324,7 +323,7 @@ angular.module('linkDumpApp')
             $scope.displayLinks = $scope.displayLinks + displayRate;
 
             //Refresh our grid
-            Gridify.refreshGrid();
+            Gridify.refreshGrid($scope);
             loading = false;
         }, timeout);
     }
