@@ -16,13 +16,19 @@ angular.module('linkDumpApp')
       //With embedly as a backup to keep costs low
       //our embedly key
 
-
+    //##############################
+    // Global Information
+    //##############################
 
     //Initialize Dumps
     $scope.dumps = [];
 
     //Initialize our embedder
     $scope.embedder = Embedder;
+
+    //##############################
+    // Link Operations
+    //##############################
 
     //Initialize how many dumps we are showing
     var linkCountRate = 20;
@@ -31,83 +37,6 @@ angular.module('linkDumpApp')
 
     //Get our sessions token
     var sessionToken = $cookies.get("sessionToken");
-
-    //Inititalize searching
-    $scope.findInput = false;
-
-    //Show the find input
-    var finding = false;
-    var originalDisplayLimit = linkCountDefault;
-    //Make findDelay in scope for ng model options
-    $scope.findDelay = 500;
-    //A simple function to return the filter length for the loading H1
-    $scope.findFilterLength = function() {
-
-        if(!$scope.enteredFind) return 0;
-
-        //Else keep going and find the to lowercase value
-        return $scope.dumps.filter(function(value) {
-            return (value.content.indexOf($scope.enteredFind.toLowerCase()) > -1);
-        }).length;
-    }
-
-    $scope.findRefresh = function() {
-
-        //Refresh our grid
-        //in a timeout to apply the DOM
-        $timeout(function () {
-
-            Gridify.refreshGrid($scope);
-        }, $scope.findDelay + 375);
-    }
-
-    $scope.toggleFind = function() {
-
-        //Allow this function to only be called once per half second
-        //To avoid weird glitching
-        if(!finding) {
-
-            finding = true;
-
-            //Return our results to the find Filter
-
-            if ($scope.findInput &&
-            (!$scope.enteredFind ||
-            $scope.enteredFind == "")) {
-
-              $scope.findInput = false;
-
-              //Also set our original display limit back
-              $scope.linkCount = originalDisplayLimit;
-            }
-            else if(!$scope.findInput) {
-
-                  $scope.findInput = true;
-
-                  //Also, set our display limit back to default
-                  originalDisplayLimit = $scope.linkCount;
-                  $scope.linkCount = linkCountDefault;
-
-                  //To get the correct things to fire the in viewport, wait a second and then scroll to the top
-                  $timeout(function() {
-                    if (window.scrollY == 0 && window.scrollX == 0) {
-
-                      //focus on the field
-                      document.getElementById('findInput').focus();
-
-                    }
-                }, 150);
-             }
-
-             //Set finding back to false
-            $timeout(function () {
-
-                //Reset finding
-                finding = false;
-
-            }, $scope.findDelay);
-        }
-    }
 
     //get our dumps, on init
     $scope.getDumps = function() {
@@ -247,6 +176,91 @@ angular.module('linkDumpApp')
           Toasty.show(err.data.msg);
       });;
     }
+
+    //##############################
+    // Find Operations
+    //##############################
+
+    //Inititalize searching
+    $scope.findInput = false;
+
+    //Show the find input
+    var finding = false;
+    var originalDisplayLimit = linkCountDefault;
+    //Make findDelay in scope for ng model options
+    $scope.findDelay = 500;
+    //A simple function to return the filter length for the loading H1
+    $scope.findFilterLength = function() {
+
+        if(!$scope.enteredFind) return 0;
+
+        //Else keep going and find the to lowercase value
+        return $scope.dumps.filter(function(value) {
+            return (value.content.indexOf($scope.enteredFind.toLowerCase()) > -1);
+        }).length;
+    }
+
+    $scope.findRefresh = function() {
+
+        //Refresh our grid
+        //in a timeout to apply the DOM
+        $timeout(function () {
+
+            Gridify.refreshGrid($scope);
+        }, $scope.findDelay + 375);
+    }
+
+    $scope.toggleFind = function() {
+
+        //Allow this function to only be called once per half second
+        //To avoid weird glitching
+        if(!finding) {
+
+            finding = true;
+
+            //Return our results to the find Filter
+
+            if ($scope.findInput &&
+            (!$scope.enteredFind ||
+            $scope.enteredFind == "")) {
+
+              $scope.findInput = false;
+
+              //Also set our original display limit back
+              $scope.linkCount = originalDisplayLimit;
+            }
+            else if(!$scope.findInput) {
+
+                  $scope.findInput = true;
+
+                  //Also, set our display limit back to default
+                  originalDisplayLimit = $scope.linkCount;
+                  $scope.linkCount = linkCountDefault;
+
+                  //To get the correct things to fire the in viewport, wait a second and then scroll to the top
+                  $timeout(function() {
+                    if (window.scrollY == 0 && window.scrollX == 0) {
+
+                      //focus on the field
+                      document.getElementById('findInput').focus();
+
+                    }
+                }, 150);
+             }
+
+             //Set finding back to false
+            $timeout(function () {
+
+                //Reset finding
+                finding = false;
+
+            }, $scope.findDelay);
+        }
+    }
+
+    //##############################
+    // Label Operations
+    //##############################
 
     //Submit a dumped link
     $scope.submitLabel = function(dump) {
