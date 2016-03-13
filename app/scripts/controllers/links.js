@@ -16,6 +16,8 @@ angular.module('linkDumpApp')
       //With embedly as a backup to keep costs low
       //our embedly key
 
+
+
     //Initialize Dumps
     $scope.dumps = [];
 
@@ -23,26 +25,19 @@ angular.module('linkDumpApp')
     $scope.embedder = Embedder;
 
     //Initialize how many dumps we are showing
-    var displayRate = 20;
-    var displayDefault = 26;
-    $scope.displayLinks = displayDefault;
+    var linkCountRate = 20;
+    var linkCountDefault = 26;
+    $scope.linkCount = linkCountDefault;
 
     //Get our sessions token
     var sessionToken = $cookies.get("sessionToken");
-
-    //To get the correct things to fire the in viewport, wait a second and then scroll to the top
-    $timeout(function() {
-      if (window.scrollY == 0 && window.scrollX == 0) {
-        window.scrollTo(0, 1);
-      }
-    }, 2000);
 
     //Inititalize searching
     $scope.findInput = false;
 
     //Show the find input
     var finding = false;
-    var originalDisplayLimit = displayDefault;
+    var originalDisplayLimit = linkCountDefault;
     //Make findDelay in scope for ng model options
     $scope.findDelay = 500;
     //A simple function to return the filter length for the loading H1
@@ -83,15 +78,15 @@ angular.module('linkDumpApp')
               $scope.findInput = false;
 
               //Also set our original display limit back
-              $scope.displayLinks = originalDisplayLimit;
+              $scope.linkCount = originalDisplayLimit;
             }
             else if(!$scope.findInput) {
 
                   $scope.findInput = true;
 
                   //Also, set our display limit back to default
-                  originalDisplayLimit = $scope.displayLinks;
-                  $scope.displayLinks = displayDefault;
+                  originalDisplayLimit = $scope.linkCount;
+                  $scope.linkCount = linkCountDefault;
 
                   //To get the correct things to fire the in viewport, wait a second and then scroll to the top
                   $timeout(function() {
@@ -316,7 +311,7 @@ angular.module('linkDumpApp')
         //Increase display links
         $timeout(function () {
 
-            $scope.displayLinks = $scope.displayLinks + displayRate;
+            $scope.linkCount = $scope.linkCount + linkCountRate;
 
             //Refresh our grid
             Gridify.refreshGrid($scope);
