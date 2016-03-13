@@ -22,9 +22,6 @@ angular.module('linkDumpApp')
     //Initialize our embedder
     $scope.embedder = Embedder;
 
-    //Initialize our grid
-    $scope.gridify = Gridify;
-
     //Initialize how many dumps we are showing
     var displayRate = 20;
     var displayDefault = 26;
@@ -132,7 +129,6 @@ angular.module('linkDumpApp')
 
           //Re-order our dumps
           Gridify.refreshGrid();
-          //$scope.$apply();
         },
         function(err) {
           if (err.status == 401) {
