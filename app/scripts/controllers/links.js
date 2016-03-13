@@ -26,8 +26,8 @@ angular.module('linkDumpApp')
     $scope.gridify = Gridify;
 
     //Initialize how many dumps we are showing
-    var displayRate = 10;
-    var displayDefault = 25;
+    var displayRate = 20;
+    var displayDefault = 26;
     $scope.displayLinks = displayDefault;
 
     //Get our sessions token

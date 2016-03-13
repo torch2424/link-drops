@@ -70,10 +70,12 @@ Element.prototype.gridify = function (options)
             }
             for (var i = 0; i < column_count; i++)
             {
+                console.log("columnPush")
                 columns.push(0);
             }
             for (var i= 0, length = items.length; i < length; i++)
             {
+                console.log("items")
                 var idx = indexOfSmallest(columns);
                 items[i].setAttribute('style', 'width: ' + item_width + 'px; ' +
                     'position: absolute; ' +
