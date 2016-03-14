@@ -57,12 +57,12 @@
     <!-- Doing crazy checks since we can use finding -->
     <div class = "linkLimitContainer"
     ng-if = "(findInput &&
-        displayLinks < findFilterLength())
+        linkCount < findFilterLength())
         ||
         ((!findInput ||
         !enteredFind ||
         enteredFind == '') &&
-        displayLinks < dumps.length)">
+        linkCount < dumps.length)">
 
         <h1 class="linkLimitLoad"
         in-view="$inview && infiniteScroll()">

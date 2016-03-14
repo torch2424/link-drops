@@ -1,6 +1,6 @@
 <ul id = "linkGrid">
     <li class = "card-panel linkCard md-whiteframe-10dp"
-    ng-repeat='dump in dumps | filter:enteredFind | limitTo:displayLinks'
+    ng-repeat='dump in dumps | filter:enteredFind | limitTo:linkCount'
     ng-mouseover="dump.hovering = true; embedder.lazyEmbed(dump)"
     ng-mouseleave="dump.hovering = false; embedder.cancelEmbed(dump)">
 
