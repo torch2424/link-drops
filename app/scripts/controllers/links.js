@@ -32,7 +32,7 @@ angular.module('linkDumpApp')
 
     //Initialize how many dumps we are showing
     var linkCountRate = 20;
-    var linkCountDefault = 26;
+    var linkCountDefault = 24;
     $scope.linkCount = linkCountDefault;
 
     //Get our sessions token
