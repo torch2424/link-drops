@@ -132,7 +132,7 @@ angular.module('linkDumpApp')
                 $scope.dumps.unshift(data);
 
                 //Refresh our grid
-                Gridify.refreshGrid($scope);
+                Gridify.refreshGrid();
 
               },
               function(err) {
@@ -168,7 +168,7 @@ angular.module('linkDumpApp')
         Toasty.show("Deleted " + data.content + "!");
 
         //Refresh our grid
-        Gridify.refreshGrid($scope);
+        Gridify.refreshGrid();
 
       }, function(err) {
 
@@ -206,7 +206,7 @@ angular.module('linkDumpApp')
         //in a timeout to apply the DOM
         $timeout(function () {
 
-            Gridify.refreshGrid($scope);
+            Gridify.refreshGrid();
         }, $scope.findDelay + 375);
     }
 
@@ -275,7 +275,7 @@ angular.module('linkDumpApp')
         dump.newLabel = "";
 
         //Refresh our grid
-        Gridify.refreshGrid($scope);
+        Gridify.refreshGrid();
       }, function(err) {
 
           //Toast the error
@@ -288,7 +288,7 @@ angular.module('linkDumpApp')
         $scope.findInput = true;
 
         //Refresh our grid
-        Gridify.refreshGrid($scope);
+        Gridify.refreshGrid();
     }
 
     $scope.removeLabel = function(dump, label) {
@@ -303,7 +303,7 @@ angular.module('linkDumpApp')
         $scope.dumps[i1].labels.splice(i2, 1);
 
         //Refresh our grid
-        Gridify.refreshGrid($scope);
+        Gridify.refreshGrid();
 
       }, function(err) {
 
@@ -328,7 +328,7 @@ angular.module('linkDumpApp')
             $scope.linkCount = $scope.linkCount + linkCountRate;
 
             //Refresh our grid
-            Gridify.refreshGrid($scope);
+            Gridify.refreshGrid();
             loading = false;
         }, timeout);
     }

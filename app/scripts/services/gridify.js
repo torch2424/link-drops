@@ -27,10 +27,11 @@ angular.module('linkDumpApp')
 
       var gridifyFunctions = {
 
-          refreshGrid: function($scope) {
-             if(document.getElementById(gridId)) document.getElementById(gridId).gridify(options);
-             else console.log("Grid not found!");
-             if($scope) $scope.$apply();
+          refreshGrid: function() {
+              $timeout(function(){
+                  if(document.getElementById(gridId)) document.getElementById(gridId).gridify(options);
+                  else console.log("Grid not found!");
+              }, 0);
           }
       }
 
