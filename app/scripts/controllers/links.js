@@ -10,7 +10,7 @@
 angular.module('linkDumpApp')
   .controller('LinksCtrl', function($scope, $sce,
       $cookies, $timeout, Dumps, Dump, Labels, Label,
-      $location, $http, Embedder, Gridify, Toasty) {
+      $location, $http, Embedder, Toasty) {
 
       //Our main scraper will be noembed, since it is free and open soruce
       //With embedly as a backup to keep costs low
@@ -51,8 +51,6 @@ angular.module('linkDumpApp')
           //Save our dumps to scope
           $scope.dumps = data;
 
-          //Re-order our dumps
-          Gridify.refreshGrid();
         },
         function(err) {
           if (err.status == 401) {
@@ -92,8 +90,8 @@ angular.module('linkDumpApp')
       for (var i = 0; i < $scope.dumps.length; i++) {
         if ($scope.dumps[i].content == $scope.enteredLink) {
 
-            //Show a toast
-            Toasty.show("Link already exists!")
+          //Show a toast
+          Toasty.show("Link already exists!")
 
           //Set the input back to empty
           $scope.enteredLink = "";
@@ -131,9 +129,6 @@ angular.module('linkDumpApp')
                 //Add new dump to dump array
                 $scope.dumps.unshift(data);
 
-                //Refresh our grid
-                Gridify.refreshGrid();
-
               },
               function(err) {
 
@@ -167,9 +162,6 @@ angular.module('linkDumpApp')
         //Show a confirm Toast
         Toasty.show("Deleted " + data.content + "!");
 
-        //Refresh our grid
-        Gridify.refreshGrid();
-
       }, function(err) {
 
           //Error a toast
@@ -198,16 +190,6 @@ angular.module('linkDumpApp')
         return $scope.dumps.filter(function(value) {
             return (value.content.indexOf($scope.enteredFind.toLowerCase()) > -1);
         }).length;
-    }
-
-    $scope.findRefresh = function() {
-
-        //Refresh our grid
-        //in a timeout to apply the DOM
-        $timeout(function () {
-
-            Gridify.refreshGrid();
-        }, $scope.findDelay + 375);
     }
 
     $scope.toggleFind = function() {
@@ -274,8 +256,6 @@ angular.module('linkDumpApp')
         $scope.dumps[index].labels.push(data);
         dump.newLabel = "";
 
-        //Refresh our grid
-        Gridify.refreshGrid();
       }, function(err) {
 
           //Toast the error
@@ -286,9 +266,6 @@ angular.module('linkDumpApp')
     $scope.filterLabel = function(label){
         $scope.enteredFind = label.title;
         $scope.findInput = true;
-
-        //Refresh our grid
-        Gridify.refreshGrid();
     }
 
     $scope.removeLabel = function(dump, label) {
@@ -301,9 +278,6 @@ angular.module('linkDumpApp')
         var i1 = $scope.dumps.indexOf(dump);
         var i2 = $scope.dumps[i1].labels.indexOf(label);
         $scope.dumps[i1].labels.splice(i2, 1);
-
-        //Refresh our grid
-        Gridify.refreshGrid();
 
       }, function(err) {
 
@@ -327,8 +301,6 @@ angular.module('linkDumpApp')
 
             $scope.linkCount = $scope.linkCount + linkCountRate;
 
-            //Refresh our grid
-            Gridify.refreshGrid();
             loading = false;
         }, timeout);
     }
