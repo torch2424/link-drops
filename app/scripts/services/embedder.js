@@ -8,8 +8,7 @@
  * Service in the linkDumpApp.
  */
 angular.module('linkDumpApp')
-  .service('Embedder', function ($timeout, $sce,
-        $http, Gridify) {
+  .service('Embedder', function ($timeout, $sce, $http) {
 
       //Initialize our embedQueue
       var embeds = [];
@@ -111,12 +110,6 @@ angular.module('linkDumpApp')
           // say the dump has been lazy loaded
           dump.lazyEmbed = true;
 
-          //Also, refresh our grid
-          //Timeout since we need to apply our new html
-          $timeout(function () {
-              Gridify.refreshGrid();
-          }, refreshTimeout);
-
           //Return the dump
           return dump;
       }
@@ -211,12 +204,6 @@ angular.module('linkDumpApp')
 
                       // say the dump has been lazy loaded
                       dump.lazyEmbed = true;
-
-                      //Also, refresh our grid
-                      //Timeout since we need to apply our new html
-                      $timeout(function () {
-                          Gridify.refreshGrid();
-                      }, refreshTimeout);
 
                       //Return the dump
                       return dump;
