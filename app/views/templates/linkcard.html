@@ -8,9 +8,8 @@
           <img ng-src="{{::dump.content | favicon}}" alt="Drop Icon" class = "dropFavicon">
           <a id = "linkTitle-{{::$index}}"
           href="{{::dump.content}}" target="_blank"
-          class = "dropURL"
-          ng-init = "getTitle(dump, $index)">
-          {{dump.content}}
+          class = "dropURL">
+          {{::(dump.title || dump.content).substring(0,100)}}
           </a>
 
       </div>

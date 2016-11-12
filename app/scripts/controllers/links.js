@@ -67,20 +67,13 @@ angular.module('linkDumpApp')
     $scope.getDumps();
 
     //Get the title of a link
-    $scope.getTitle = function(dump, index) {
+    function getURLTitle(url, callback) {
 
       //Get the response from noembed
-      $http.get("https://dev.kondeo.com/api/title-scraper.php?q=" + dump.content)
+      $http.get("https://dev.kondeo.com/api/title-scraper.php?q=" + url)
         .then(function(response) {
 
-          //Get the document
-          var element = document.getElementById("linkTitle-" + index);
-
-          //Make sure the element isnt null and we got the object
-          if(element != null)
-          {
-              element.innerHTML = response.data.title;
-          }
+					callback(response.data.title);
 
         });
     }
@@ -111,30 +104,33 @@ angular.module('linkDumpApp')
         $timeout(function() {
           //Also check if the link already exists
           if (!linkExists()) {
-            //Our json we will submit to the backend
-            var enterJson = {
-              "token": sessionToken,
-              "content": $scope.enteredLink
-            };
+						getURLTitle($scope.enteredLink, function(title){
+							//Our json we will submit to the backend
+	            var enterJson = {
+	              "token": sessionToken,
+	              "content": $scope.enteredLink,
+								"title": title
+	            };
 
-            //Save the link
-            Dumps.save(enterJson,
-              function(data, status) {
-                //Set enetered link back to null
-                $scope.enteredLink = "";
+	            //Save the link
+	            Dumps.save(enterJson,
+	              function(data, status) {
+	                //Set enetered link back to null
+	                $scope.enteredLink = "";
 
-                //Show a toast
-                Toasty.show("Dropped!");
+	                //Show a toast
+	                Toasty.show("Dropped!");
 
-                //Add new dump to dump array
-                $scope.dumps.unshift(data);
+	                //Add new dump to dump array
+	                $scope.dumps.unshift(data);
 
-              },
-              function(err) {
+	              },
+	              function(err) {
 
-                 //Error a toast
-                 Toasty.show(err.data.msg);
-              });
+	                 //Error a toast
+	                 Toasty.show(err.data.msg);
+	              });
+						});
           }
         }, 1);
       }

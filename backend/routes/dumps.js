@@ -25,6 +25,7 @@ router.post('/', function(req, res, next) {
           //json object the a link object contains
           user_id: session.user_id,
           content: req.body.content,
+					title: req.body.title,
           updated_at: Date.now()
         }).save(function(err, dump, count) {
           //.save will save our new link object in the backend
