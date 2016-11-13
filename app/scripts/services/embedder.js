@@ -12,6 +12,11 @@ angular.module('linkDumpApp')
 			var embedded = null;
 			var visible = false;
 
+			var styling = {
+				backdrop: {},
+				container: {}
+			}
+
       //Array of supported embeds
       var supportedEmbed = [
           "noembed",
@@ -26,6 +31,43 @@ angular.module('linkDumpApp')
       SC.initialize({
         client_id: 'b9513e908ef7793171225f04e87cf362'
       });
+
+			var setStyling = function(mode){
+				switch(mode){
+					case "full":
+						styling.container = {
+							position: "absolute",
+							right: "20%",
+							left: "20%",
+							top: "200px",
+							textAlign: "center",
+							padding: "15px"
+						}
+						styling.backdrop = {
+							position: "absolute",
+							left: 0,
+							right: 0,
+							bottom: 0,
+							top: 0,
+							backgroundColor: "rgba(0,0,0,0.45)"
+						}
+						break;
+					case "min":
+						styling.container = {
+							position: "absolute",
+							right: "20%",
+							left: "20%",
+							top: "200px",
+							textAlign: "center",
+							padding: "15px"
+						}
+						styling.backdrop = {
+							display: "none"
+						}
+						break;
+				}
+			}
+			setStyling("full");
 
       //Function to verify if a dump is embbedable
       //First param is the dump
@@ -171,6 +213,10 @@ angular.module('linkDumpApp')
 							return embedded;
 					},
 
+					getStyle: function(){
+							return styling;
+					},
+
           //Function that will timeout our mouseover
           //And allow embedding by hovering link
           open: function(dump) {
@@ -190,7 +236,11 @@ angular.module('linkDumpApp')
           close: function(dump) {
 						  visible = false;
 							embedded = null;
-          }
+          },
+
+					minimize: function(){
+
+					}
       }
 
       //Simply return the embedder functions
