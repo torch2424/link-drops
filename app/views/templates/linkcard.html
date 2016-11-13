@@ -14,76 +14,7 @@
 
       </div>
 
-      <!-- Firstly, our loading ellipses if we are currently attempting to embed -->
-      <!-- With some nice help from https://martinwolf.org/blog/2015/01/pure-css-savingloading-dots-animation -->
-      <div class = "embedLoadContainer">
-          <p class="embedLoad"
-          ng-if="!dump.lazyEmbed && dump.embed && dump.hovering">
-              Loading<span>.</span><span>.</span><span>.</span>
-          </p>
-
-          <!-- Show an error here if couldn't embed -->
-          <div ng-if="dump.embed == 'error' &&
-                dump.hovering"
-            class="embedLoadError">
-              Error, could not embed link (Sorry!)
-          </div>
-    	</div>
-
-      <!-- This need to be only noembed, and another div should be created under for embedly, followed by various native apis -->
-      <!-- Use our Fallbacks (NoEmbed And then Embedly), Display Media Embeds (Bandcamp, Youtube, Vimeo, etc... -->
-      <div class = "embed"
-      ng-if = "dump.embed == embedder.supported[0]"
-          id = "embed-{{::dump.content}}">
-      </div>
-
-      <!-- Image Files -->
-      <div class = "embed"
-      ng-if = "dump.embed == embedder.supported[1]">
-          <img id = "img-{{::dump.content}}" />
-      </div>
-
-      <!-- Soundcloud -->
-      <div class = "embed"
-      ng-if = "dump.embed == embedder.supported[2]">
-          <div class = "noembed-soundcloud">
-              <iframe
-              id = "scWidget-{{::dump.content}}"
-              width = "100%" height = "450"
-              frameborder="0" scrolling="no">
-              </iframe>
-          </div>
-      </div>
-
-      <!-- KickStarter -->
-      <div class = "embed"
-      ng-if = "dump.embed == embedder.supported[3]">
-          <iframe
-          id = "kick-{{::dump.content}}"
-          class = "kickEmbed"
-          frameborder="0" scrolling="no">
-          </iframe>
-      </div>
-
-      <!-- Vine -->
-      <div class = "embed"
-      ng-if = "dump.embed == embedder.supported[4]">
-          <iframe
-          id = "vine-{{::dump.content}}"
-          class = "vineEmbed"
-          frameborder="0" scrolling="no">
-          </iframe>
-      </div>
-
-      <!-- Spotify -->
-      <div class = "embed"
-      ng-if = "dump.embed == embedder.supported[5]">
-          <iframe
-          id = "spotify-{{::dump.content}}"
-          class = "spotifyEmbed"
-          frameborder="0" scrolling="no">
-          </iframe>
-      </div>
+			<div ng-if="::Embedder.isEmbeddable(dump)" ng-click="Embedder.open(dump)">Show Embed</div>
 
       <br>
       <!-- Sharing/Categories -->

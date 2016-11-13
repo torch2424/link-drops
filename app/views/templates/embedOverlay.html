@@ -1,0 +1,79 @@
+<div class="embedContainer" ng-if="Embedder.getVisible()">
+
+		<!-- Firstly, our loading ellipses if we are currently attempting to embed -->
+		<!-- With some nice help from https://martinwolf.org/blog/2015/01/pure-css-savingloading-dots-animation -->
+		<div class = "embedLoadContainer">
+				<!-- <p class="embedLoad"
+				ng-if="!Embedder.getEmbed().lazyEmbed && Embedder.getEmbed().embed && Embedder.getEmbed().hovering">
+						Loading<span>.</span><span>.</span><span>.</span>
+				</p> -->
+
+				<!-- Show an error here if couldn't embed -->
+				<div ng-if="Embedder.getEmbed().embed == 'error'"
+					class="embedLoadError">
+						Error, could not embed link (Sorry!)
+				</div>
+		</div>
+
+		<!-- This need to be only noembed, and another div should be created under for embedly, followed by various native apis -->
+		<!-- Use our Fallbacks (NoEmbed And then Embedly), Display Media Embeds (Bandcamp, Youtube, Vimeo, etc... -->
+		<div class = "embed"
+				ng-if = "Embedder.getEmbed().embedType == Embedder.supported[0]"
+				id = "embed-{{::Embedder.getEmbed().content}}"
+				ng-bind-html="Embedder.getEmbed().embedHtml">
+		</div>
+
+		<!-- Image Files -->
+		<div class = "embed"
+				ng-if = "Embedder.getEmbed().embedType == Embedder.supported[1]">
+				<img id = "img-{{::Embedder.getEmbed().content}}"
+				 	ng-src="{{Embedder.getEmbed().embedSrc}}"/>
+		</div>
+
+		<!-- Soundcloud -->
+		<div class = "embed"
+				ng-if = "Embedder.getEmbed().embedType == Embedder.supported[2]">
+				<div class = "noembed-soundcloud">
+						<iframe
+						id = "scWidget-{{::Embedder.getEmbed().content}}"
+						width = "100%" height = "450"
+						frameborder="0" scrolling="no"
+						ng-src="{{Embedder.getEmbed().embedSrc}}">
+						</iframe>
+				</div>
+		</div>
+
+		<!-- KickStarter -->
+		<div class = "embed"
+				ng-if = "Embedder.getEmbed().embedType == Embedder.supported[3]">
+				<iframe
+				id = "kick-{{::Embedder.getEmbed().content}}"
+				src=""
+				class = "kickEmbed"
+				frameborder="0" scrolling="no"
+				ng-src="{{Embedder.getEmbed().embedSrc}}">
+				</iframe>
+		</div>
+
+		<!-- Vine -->
+		<div class = "embed"
+				ng-if = "Embedder.getEmbed().embedType == Embedder.supported[4]">
+				<iframe
+				id = "vine-{{::Embedder.getEmbed().content}}"
+				class = "vineEmbed"
+				frameborder="0" scrolling="no"
+				ng-src="{{Embedder.getEmbed().embedSrc}}">
+				</iframe>
+		</div>
+
+		<!-- Spotify -->
+		<div class = "embed"
+				ng-if = "Embedder.getEmbed().embedType == Embedder.supported[5]">
+				<iframe
+				id = "spotify-{{::Embedder.getEmbed().content}}"
+				class = "spotifyEmbed"
+				frameborder="0" scrolling="no"
+				ng-src="{{Embedder.getEmbed().embedSrc}}">
+				</iframe>
+		</div>
+</div>

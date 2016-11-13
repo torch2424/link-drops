@@ -24,7 +24,7 @@ angular.module('linkDumpApp')
     $scope.dumps = [];
 
     //Initialize our embedder
-    $scope.embedder = Embedder;
+    $scope.Embedder = Embedder;
 
     //##############################
     // Link Operations
@@ -300,6 +300,10 @@ angular.module('linkDumpApp')
             loading = false;
         }, timeout);
     }
+
+		$scope.showEmbed = function(dump){
+			  Embedder.open(dump);
+		}
 
 
   });
