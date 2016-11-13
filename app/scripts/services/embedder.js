@@ -36,6 +36,7 @@ angular.module('linkDumpApp')
 				switch(mode){
 					case "full":
 						styling.container = {
+							transition: "none",
 							position: "absolute",
 							right: "20%",
 							left: "20%",
@@ -54,6 +55,7 @@ angular.module('linkDumpApp')
 						break;
 					case "min":
 						styling.container = {
+							transition: "none",
 							position: "absolute",
 							right: "20%",
 							left: "20%",
