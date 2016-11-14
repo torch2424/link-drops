@@ -23,6 +23,8 @@ angular.module('linkDumpApp')
     //Initialize Dumps
     $scope.dumps = [];
 
+		$scope.labels = [];
+
     //Initialize our embedder
     $scope.Embedder = Embedder;
 
@@ -65,6 +67,32 @@ angular.module('linkDumpApp')
       );
     }
     $scope.getDumps();
+
+		$scope.getLabels = function(){
+      var payload = {
+        "token": sessionToken,
+      }
+
+      Labels.get(payload,
+        function(data, status) {
+
+          //Save our dumps to scope
+          $scope.labels = data;
+
+        },
+        function(err) {
+          if (err.status == 401) {
+            //Session is invalid! Redirect.
+            $location.path("/");
+          } else {
+
+            //Show a toast
+            Toasty.show(err.data.msg);
+          }
+        }
+			);
+		}
+		$scope.getLabels();
 
     //Get the title of a link
     function getURLTitle(url, callback) {
@@ -250,6 +278,22 @@ angular.module('linkDumpApp')
       Labels.save(payload, function(data) {
         var index = $scope.dumps.indexOf(dump);
         $scope.dumps[index].labels.push(data);
+
+				var labelExists = false;
+				for(var i=0;i<$scope.labels.length;i++){
+					if($scope.labels[i].title == dump.newLabel){
+						labelExists = i;
+						break;
+					}
+				}
+				
+				if(typeof labelExists == "number"){
+					console.log("labelExisted")
+					$scope.labels[labelExists] = data;
+				} else {
+					$scope.labels.push(data);
+				}
+
         dump.newLabel = "";
 
       }, function(err) {
@@ -274,6 +318,27 @@ angular.module('linkDumpApp')
         var i1 = $scope.dumps.indexOf(dump);
         var i2 = $scope.dumps[i1].labels.indexOf(label);
         $scope.dumps[i1].labels.splice(i2, 1);
+
+				var labelIdx;
+				for(var i=0;i<$scope.labels.length;i++){
+					if($scope.labels[i].title == label.title){
+						labelIdx = i;
+						break;
+					}
+				}
+				if($scope.labels[labelIdx].dumps.length > 1){
+					var dumpIdx;
+					for(var i=0;i<$scope.dumps.length;i++){
+						if($scope.labels[labelIdx].dumps.content == dump.content){
+							dumpIdx = i;
+						}
+					}
+					$scope.labels[labelIdx].dumps.splice(dumpIdx, 1);
+				} else {
+					$scope.labels.splice(labelIdx, 1);
+				}
+
+
 
       }, function(err) {
 
