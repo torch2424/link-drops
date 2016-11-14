@@ -14,8 +14,7 @@ angular.module('linkDumpApp')
 
 			var styling = {
 				backdrop: {},
-				container: {},
-				iframe: {}
+				container: {}
 			}
 
       //Array of supported embeds
@@ -56,9 +55,6 @@ angular.module('linkDumpApp')
 							backgroundColor: "rgba(0,0,0,0.45)",
 							zIndex: 19
 						}
-						styling.iframe = {
-							minHeight: "500px"
-						}
 						break;
 					case "min":
 						styling.container = {
@@ -74,9 +70,6 @@ angular.module('linkDumpApp')
 						}
 						styling.backdrop = {
 							display: "none"
-						}
-						styling.iframe = {
-							minHeight: "300px"
 						}
 						break;
 				}
