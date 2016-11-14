@@ -8,7 +8,8 @@
           <img ng-src="{{::dump.content | favicon}}" alt="Drop Icon" class = "dropFavicon">
           <a id = "linkTitle-{{::$index}}"
           href="{{::dump.content}}" target="_blank"
-          class = "dropURL">
+          class = "dropURL"
+					title="Click to open this link in a new tab">
           {{::(dump.title || dump.content).substring(0,80)}}<span ng-show="(dump.title || dump.content).length > 80">...</span>
           </a>
 
@@ -19,7 +20,7 @@
 				ng-click="Embedder.open(dump); Embedder.getStyle().mode == 'min'? Embedder.smallsize() : false">
 
 				<i class="material-icons" style="vertical-align: top;">featured_video</i>
-				<span >
+				<span title="Click to show a preview window for this link">
 					Preview This
 				</span>
 			</div>
@@ -34,7 +35,9 @@
               ng-click="removeLabel(dump, label)">
 
               <a class="linkLabelText"
-              ng-click="filterLabel(label)">{{label.title}}
+              ng-click="filterLabel(label)"
+							title="Click to show only links with this label"
+							href="">{{label.title}}
               </a>
           </p>
           <br />
@@ -52,7 +55,7 @@
       <!-- Last updated -->
       <div class = "linkSubTextRightContainer">
           <p class = "linkSubText"><span title="{{dump.updated_at | date:'h:mm MM/dd/yyyy '}}">{{::dateFromNow(dump.updated_at)}}</span></p>
-          <a class = "deleteDump" ng-click = "removeLink(dump)" href=""><p>Delete Link</p></a>
+          <a class = "deleteDump" ng-click = "removeLink(dump)" href="" title="Delete this link permenantly"><p>Delete Link</p></a>
       </div>
     </li>
 </ul>
