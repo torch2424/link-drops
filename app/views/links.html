@@ -22,7 +22,8 @@
 				<div style="position: absolute; z-index: 2; padding: 5px; line-height: 24px;" ng-click="toggleSidebar()">
 					<i ng-show="showSidebar" class="material-icons" class="embed">keyboard_arrow_left</i>
 					<i ng-show="!showSidebar" class="material-icons" class="embed">keyboard_arrow_right</i>
-					<span style="vertical-align: top;">Show Labels</span>
+					<span ng-show="showSidebar" style="vertical-align: top;">Hide Labels</span>
+					<span ng-show="!showSidebar" style="vertical-align: top;">Show Labels</span>
 				</div>
 
         <!-- add links here -->
