@@ -359,7 +359,7 @@ angular.module('linkDumpApp')
 
     //Function to increase the amount of display links
     var loading = false;
-    var timeout = 750;
+    var timeout = 30;
     $scope.infiniteScroll = function() {
 
         //Stop spamming of link increases
