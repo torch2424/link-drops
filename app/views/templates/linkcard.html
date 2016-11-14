@@ -14,9 +14,17 @@
 
       </div>
 
-			<span ng-if="::Embedder.isEmbeddable(dump)" ng-click="Embedder.open(dump); Embedder.getStyle().mode == 'min'? Embedder.smallsize() : false">Preview This</span>
+			<div ng-if="::Embedder.isEmbeddable(dump)"
+				style="text-align: center; line-height: 24px;"
+				ng-click="Embedder.open(dump); Embedder.getStyle().mode == 'min'? Embedder.smallsize() : false">
 
-      <br>
+				<i class="material-icons" style="vertical-align: top;">featured_video</i>
+				<span >
+					Preview This
+				</span>
+			</div>
+			<br ng-if="::!Embedder.isEmbeddable(dump)" />
+			
       <!-- Sharing/Categories -->
       <div class = "linkSubTextLeftContainer">
           <p ng-repeat="label in dump.labels"
