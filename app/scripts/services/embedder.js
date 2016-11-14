@@ -61,9 +61,9 @@ angular.module('linkDumpApp')
 						styling.container = {
 							transition: "none",
 							position: "fixed",
-							right: "5%",
-							left: "65%",
-							bottom: "5%",
+							right: "2%",
+							left: "70%",
+							bottom: "2%",
 							textAlign: "center",
 							paddingTop: "15px",
 							backgroundColor: "#eeeeee",
