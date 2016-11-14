@@ -1,7 +1,11 @@
 <div ng-include="'../views/templates/embedOverlay.html'"></div>
 <div class="labelSidebar card md-whiteframe-15dp" ng-show="showSidebar">
 	<h3>All Labels</h3>
-	<p ng-repeat="label in labels" ng-click="filterLabel(label)"><i class="material-icons" style="font-size: 14px; vertical-align: middle;" class="embed">search</i> {{label.title}}</p>
+	<div class="labelSidebar-list">
+		<p ng-repeat="label in labels" ng-click="filterLabel(label)">
+			<i class="material-icons" style="font-size: 14px; vertical-align: middle;" class="embed">search</i> {{label.title}}
+		</p>
+	</div>
 </div>
 <div ng-style="{'paddingLeft': showSidebar ? '200px' : 'inherit'}">
 
