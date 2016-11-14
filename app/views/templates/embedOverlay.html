@@ -2,10 +2,10 @@
 <div class="embedContainer card md-whiteframe-10dp" ng-if="Embedder.getVisible()" ng-style="Embedder.getStyle().container">
 
 		<div style="text-align: right; padding-right: 15px;">
-			<i ng-show="Embedder.getStyle().mode == 'full'" class="material-icons" class="embed" ng-click="Embedder.minimize()">branding_watermark</i>
-			<i ng-show="Embedder.getStyle().mode == 'min'" class="material-icons" class="embed" ng-click="Embedder.maximize()">featured_video</i>
-			&nbsp;
-			<i class="material-icons" class="embed" ng-click="Embedder.close()">close</i>
+			<i ng-show="Embedder.getStyle().mode == 'full' || Embedder.getStyle().mode == 'small'" class="material-icons embedSizeSwitch" ng-click="Embedder.minimize()">remove</i>
+			<i ng-show="Embedder.getStyle().mode == 'min' || Embedder.getStyle().mode == 'full'" class="material-icons embedSizeSwitch" ng-click="Embedder.smallsize()">branding_watermark</i>
+			<i ng-show="Embedder.getStyle().mode == 'min' || Embedder.getStyle().mode == 'small'" class="material-icons embedSizeSwitch" ng-click="Embedder.maximize()">featured_video</i>
+			<i class="material-icons" ng-click="Embedder.close()">close</i>
 		</div>
 
 		<!-- Firstly, our loading ellipses if we are currently attempting to embed -->
@@ -28,19 +28,22 @@
 		<div class = "embed"
 				ng-if = "Embedder.getEmbed().embedType == Embedder.supported[0]"
 				id = "embed-{{::Embedder.getEmbed().content}}"
-				ng-bind-html="Embedder.getEmbed().embedHtml">
+				ng-bind-html="Embedder.getEmbed().embedHtml"
+				ng-style="Embedder.getStyle().embed">
 		</div>
 
 		<!-- Image Files -->
 		<div class = "embed"
 				ng-if = "Embedder.getEmbed().embedType == Embedder.supported[1]">
 				<img id = "img-{{::Embedder.getEmbed().content}}"
-				 	ng-src="{{Embedder.getEmbed().embedSrc}}"/>
+				 	ng-src="{{Embedder.getEmbed().embedSrc}}"
+					ng-style="Embedder.getStyle().embed"/>
 		</div>
 
 		<!-- Soundcloud -->
 		<div class = "embed"
-				ng-if = "Embedder.getEmbed().embedType == Embedder.supported[2]">
+				ng-if = "Embedder.getEmbed().embedType == Embedder.supported[2]"
+				ng-style="Embedder.getStyle().embed">
 				<div class = "noembed-soundcloud">
 						<iframe
 						id = "scWidget-{{::Embedder.getEmbed().content}}"
@@ -53,7 +56,8 @@
 
 		<!-- KickStarter -->
 		<div class = "embed"
-				ng-if = "Embedder.getEmbed().embedType == Embedder.supported[3]">
+				ng-if = "Embedder.getEmbed().embedType == Embedder.supported[3]"
+				ng-style="Embedder.getStyle().embed">
 				<iframe
 				id = "kick-{{::Embedder.getEmbed().content}}"
 				src=""
@@ -65,7 +69,8 @@
 
 		<!-- Vine -->
 		<div class = "embed"
-				ng-if = "Embedder.getEmbed().embedType == Embedder.supported[4]">
+				ng-if = "Embedder.getEmbed().embedType == Embedder.supported[4]"
+				ng-style="Embedder.getStyle().embed">
 				<iframe
 				id = "vine-{{::Embedder.getEmbed().content}}"
 				class = "vineEmbed"
@@ -76,7 +81,8 @@
 
 		<!-- Spotify -->
 		<div class = "embed"
-				ng-if = "Embedder.getEmbed().embedType == Embedder.supported[5]">
+				ng-if = "Embedder.getEmbed().embedType == Embedder.supported[5]"
+				ng-style="Embedder.getStyle().embed">
 				<iframe
 				id = "spotify-{{::Embedder.getEmbed().content}}"
 				class = "spotifyEmbed"

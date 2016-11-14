@@ -56,6 +56,24 @@ angular.module('linkDumpApp')
 							backgroundColor: "rgba(0,0,0,0.45)",
 							zIndex: 19
 						}
+						styling.embed = {}
+						break;
+					case "small":
+						styling.container = {
+							transition: "none",
+							position: "fixed",
+							right: "2%",
+							left: "70%",
+							bottom: "2%",
+							textAlign: "center",
+							paddingTop: "15px",
+							backgroundColor: "#eeeeee",
+							zIndex: 20
+						}
+						styling.backdrop = {
+							display: "none"
+						}
+						styling.embed = {}
 						break;
 					case "min":
 						styling.container = {
@@ -71,6 +89,10 @@ angular.module('linkDumpApp')
 						}
 						styling.backdrop = {
 							display: "none"
+						}
+						styling.embed = {
+							visibility: "hidden",
+					    height: 0
 						}
 						break;
 				}
@@ -228,6 +250,10 @@ angular.module('linkDumpApp')
 
 					maximize: function(){
 							setStyling("full");
+					},
+
+					smallsize: function(){
+							setStyling("small");
 					},
 
 					minimize: function(){

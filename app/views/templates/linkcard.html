@@ -14,7 +14,7 @@
 
       </div>
 
-			<span ng-if="::Embedder.isEmbeddable(dump)" ng-click="Embedder.open(dump)">Preview This</span>
+			<span ng-if="::Embedder.isEmbeddable(dump)" ng-click="Embedder.open(dump); Embedder.getStyle().mode == 'min'? Embedder.smallsize() : false">Preview This</span>
 
       <br>
       <!-- Sharing/Categories -->
