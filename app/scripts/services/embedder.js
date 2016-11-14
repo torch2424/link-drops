@@ -139,7 +139,7 @@ angular.module('linkDumpApp')
               return supportedEmbed[5];
           }
           else {
-              return supportedEmbed[6];
+              return false;
           }
       }
 
