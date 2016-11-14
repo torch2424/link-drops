@@ -195,6 +195,10 @@ angular.module('linkDumpApp')
       });;
     }
 
+		$scope.dateFromNow = function(date){
+				return moment(date).fromNow();
+		}
+
     //##############################
     // Find Operations
     //##############################
