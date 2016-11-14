@@ -37,31 +37,36 @@ angular.module('linkDumpApp')
 					case "full":
 						styling.container = {
 							transition: "none",
-							position: "absolute",
+							position: "fixed",
 							right: "20%",
 							left: "20%",
 							top: "200px",
 							textAlign: "center",
-							padding: "15px"
+							padding: "15px",
+							backgroundColor: "#eeeeee",
+							zIndex: 20
 						}
 						styling.backdrop = {
-							position: "absolute",
+							position: "fixed",
 							left: 0,
 							right: 0,
 							bottom: 0,
 							top: 0,
-							backgroundColor: "rgba(0,0,0,0.45)"
+							backgroundColor: "rgba(0,0,0,0.45)",
+							zIndex: 19
 						}
 						break;
 					case "min":
 						styling.container = {
 							transition: "none",
-							position: "absolute",
+							position: "fixed",
 							right: "20%",
 							left: "20%",
 							top: "200px",
 							textAlign: "center",
-							padding: "15px"
+							padding: "15px",
+							backgroundColor: "#eeeeee",
+							zIndex: 20
 						}
 						styling.backdrop = {
 							display: "none"
