@@ -1,6 +1,34 @@
-<div>
+<div ng-include="'views/templates/embedOverlay.html'"></div>
+<div class="labelSidebar card md-whiteframe-15dp" ng-show="showSidebar">
+	<h3>All Labels</h3>
+	<div class="labelSidebar-list">
+		<p ng-if="labels.length > 0 || currentLabel" ng-click="filterLabel(null)">
+			<i class="material-icons" style="font-size: 14px; vertical-align: middle;" class="embed">search</i> Show all links
+		</p>
+		<p ng-repeat="label in labels | orderBy:'title'" ng-click="filterLabel(label)">
+			<i class="material-icons" style="font-size: 14px; vertical-align: middle;" class="embed">search</i> {{label.title}} ({{label.dumps.length}})
+		</p>
+		<div ng-if="labels.length == 0">
+			<p>
+				Looks like you have no labels.
+			</p>
+			<p>
+				To create one, just type a name into the "New Label" area of one of your links. Then press enter, and it will show up here.
+				Then, you'll be able to sort and search for it!
+			</p>
+		</div>
+	</div>
+</div>
+<div ng-style="{'paddingLeft': showSidebar ? '200px' : 'inherit'}">
 
     <div class = "card md-whiteframe-15dp linkFormCard">
+				<div style="position: absolute; z-index: 2; padding: 5px; line-height: 24px;" ng-click="toggleSidebar()">
+					<i ng-show="showSidebar" class="material-icons" class="embed">keyboard_arrow_left</i>
+					<i ng-show="!showSidebar" class="material-icons" class="embed">keyboard_arrow_right</i>
+					<span ng-show="showSidebar" style="vertical-align: top;">Hide Labels</span>
+					<span ng-show="!showSidebar" style="vertical-align: top;">Show Labels</span>
+				</div>
+
         <!-- add links here -->
         <form name = "linkForm" class = "center animated fadeIn">
             <md-input-container class = "authInputContainer">
@@ -42,13 +70,17 @@
 
         </div>
 
+				<div ng-if="currentLabel && currentLabel.title && currentLabel.title.length > 0" style="text-align: center;">
+					<a href="" ng-click="filterLabel(null)">Currently only showing links with label "{{currentLabel.title}}"<br />Click to show all links</a>
+				</div>
+
     </div>
 
     <!-- ng repeat all of our
     links in a custom pintrest style drective
     Using our linkcard template-->
     <div class = "gridInclude"
-    ng-include="'../views/templates/linkcard.html'">
+    ng-include="'views/templates/linkcard.html'">
 
     </div>
 
@@ -57,12 +89,12 @@
     <!-- Doing crazy checks since we can use finding -->
     <div class = "linkLimitContainer"
     ng-if = "(findInput &&
-        displayLinks < findFilterLength())
+        linkCount < findFilterLength())
         ||
         ((!findInput ||
         !enteredFind ||
         enteredFind == '') &&
-        displayLinks < dumps.length)">
+        linkCount < dumps.length)">
 
         <h1 class="linkLimitLoad"
         in-view="$inview && infiniteScroll()">
