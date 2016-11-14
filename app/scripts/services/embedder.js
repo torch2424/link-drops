@@ -14,7 +14,8 @@ angular.module('linkDumpApp')
 
 			var styling = {
 				backdrop: {},
-				container: {}
+				container: {},
+				iframe: {}
 			}
 
       //Array of supported embeds
@@ -55,14 +56,17 @@ angular.module('linkDumpApp')
 							backgroundColor: "rgba(0,0,0,0.45)",
 							zIndex: 19
 						}
+						styling.iframe = {
+							minHeight: "500px"
+						}
 						break;
 					case "min":
 						styling.container = {
 							transition: "none",
 							position: "fixed",
-							right: "20%",
-							left: "20%",
-							top: "200px",
+							right: "5%",
+							left: "65%",
+							bottom: "5%",
 							textAlign: "center",
 							padding: "15px",
 							backgroundColor: "#eeeeee",
@@ -71,10 +75,13 @@ angular.module('linkDumpApp')
 						styling.backdrop = {
 							display: "none"
 						}
+						styling.iframe = {
+							minHeight: "300px"
+						}
 						break;
 				}
 			}
-			setStyling("full");
+			setStyling("min");
 
       //Function to verify if a dump is embbedable
       //First param is the dump
