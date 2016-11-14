@@ -1,6 +1,13 @@
 <div ng-if="Embedder.getVisible()" ng-style="Embedder.getStyle().backdrop" ng-click="Embedder.close()"></div>
 <div class="embedContainer card md-whiteframe-10dp" ng-if="Embedder.getVisible()" ng-style="Embedder.getStyle().container">
 
+		<div style="text-align: right;">
+			<i ng-show="Embedder.getStyle().mode == 'full'" class="material-icons" class="embed" ng-click="Embedder.minimize()">branding_watermark</i>
+			<i ng-show="Embedder.getStyle().mode == 'min'" class="material-icons" class="embed" ng-click="Embedder.maximize()">featured_video</i>
+			&nbsp;
+			<i class="material-icons" class="embed" ng-click="Embedder.close()">close</i>
+		</div>
+
 		<!-- Firstly, our loading ellipses if we are currently attempting to embed -->
 		<!-- With some nice help from https://martinwolf.org/blog/2015/01/pure-css-savingloading-dots-animation -->
 		<div class = "embedLoadContainer">

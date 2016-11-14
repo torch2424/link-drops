@@ -13,6 +13,7 @@ angular.module('linkDumpApp')
 			var visible = false;
 
 			var styling = {
+				mode: "full",
 				backdrop: {},
 				container: {}
 			}
@@ -73,8 +74,9 @@ angular.module('linkDumpApp')
 						}
 						break;
 				}
+				styling.mode = mode;
 			}
-			setStyling("min");
+			setStyling("full");
 
       //Function to verify if a dump is embbedable
       //First param is the dump
@@ -224,6 +226,14 @@ angular.module('linkDumpApp')
 							return styling;
 					},
 
+					maximize: function(){
+							setStyling("full");
+					},
+
+					minimize: function(){
+							setStyling("min");
+					},
+
           //Function that will timeout our mouseover
           //And allow embedding by hovering link
           open: function(dump) {
@@ -243,11 +253,7 @@ angular.module('linkDumpApp')
           close: function(dump) {
 						  visible = false;
 							embedded = null;
-          },
-
-					minimize: function(){
-
-					}
+          }
       }
 
       //Simply return the embedder functions
