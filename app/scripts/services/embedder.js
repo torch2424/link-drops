@@ -43,7 +43,7 @@ angular.module('linkDumpApp')
 							left: "20%",
 							top: "200px",
 							textAlign: "center",
-							padding: "15px",
+							paddingTop: "15px",
 							backgroundColor: "#eeeeee",
 							zIndex: 20
 						}
@@ -65,7 +65,7 @@ angular.module('linkDumpApp')
 							left: "65%",
 							bottom: "5%",
 							textAlign: "center",
-							padding: "15px",
+							paddingTop: "15px",
 							backgroundColor: "#eeeeee",
 							zIndex: 20
 						}
