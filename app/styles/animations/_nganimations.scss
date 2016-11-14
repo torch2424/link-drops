@@ -1,0 +1,35 @@
+//Adding preety animations to our ng classes
+//Using animate.css
+
+.ngAnimated {
+    @extend .animated;
+
+    animation-duration: $slowAnimationSpeed;
+}
+
+
+//Class to fade ngif
+.ngIfFade {
+    @extend .ngAnimated;
+
+    &.ng-enter {
+        @extend .fadeIn;
+    }
+
+    &.ng-leave {
+        @extend .fadeOut;
+    }
+}
+
+//Class to fade ngif
+.ngShowFade {
+    @extend .ngAnimated;
+
+    &.ng-hide-remove {
+        @extend .fadeIn;
+    }
+
+    &.ng-hide-remove-add {
+        @extend .fadeOut;
+    }
+}
