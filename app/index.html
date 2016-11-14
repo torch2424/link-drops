@@ -26,7 +26,7 @@
     <![endif]-->
 
   <!-- Add your site or application content here -->
-  <div ng-include src="'views/nav.html'"></div>
+  <div ng-include src="'views/templates/nav.html'"></div>
 
   <md-content flex class="container" in-view-container>
     <div class = "pageView" ng-view=""></div>
@@ -58,22 +58,23 @@
   </script>
 
   <!-- build:js(.) scripts/vendor.js -->
-  <!-- bower:js -->
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/angular-animate/angular-animate.js"></script>
-  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-  <script src="bower_components/angular-favicon/angular-favicon.js"></script>
-  <script src="bower_components/angular-inview/angular-inview.js"></script>
-  <script src="bower_components/angular-aria/angular-aria.js"></script>
-  <script src="bower_components/angular-material/angular-material.js"></script>
-  <script src="bower_components/angular-resource/angular-resource.js"></script>
-  <script src="bower_components/angular-route/angular-route.js"></script>
-  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-  <script src="bower_components/angular-touch/angular-touch.js"></script>
-  <!-- endbower -->
+    <!-- bower:js -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-favicon/angular-favicon.js"></script>
+    <script src="bower_components/angular-inview/angular-inview.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <!-- endbower -->
   <!-- endbuild -->
 
-    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+  <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/about.js"></script>
@@ -86,11 +87,10 @@
     <script src="scripts/services/users.js"></script>
     <script src="scripts/services/dumps.js"></script>
     <script src="scripts/services/labels.js"></script>
-    <script src="scripts/directives/resizeable.js"></script>
-    <script src="scripts/directives/grid.js"></script>
-    <!-- endbuild -->
-
-  <script src="/scripts/config/env.js"></script>
+    <script src="scripts/services/embedder.js"></script>
+    <script src="scripts/services/toasty.js"></script>
+    <script src="scripts/config/env.js"></script>
+  <!-- endbuild -->
 
   <!-- Other Apis for embedding -->
   <script src="//connect.soundcloud.com/sdk-2.0.0.js"></script>

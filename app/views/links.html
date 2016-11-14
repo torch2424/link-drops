@@ -1,11 +1,43 @@
-<div ng-init="getDumps()">
+<div ng-include="'views/templates/embedOverlay.html'"></div>
+<div class="labelSidebar card md-whiteframe-15dp" ng-show="showSidebar">
+	<h3>All Labels</h3>
+	<div class="labelSidebar-list">
+		<p ng-if="labels.length > 0 || currentLabel" ng-click="filterLabel(null)">
+			<i class="material-icons" style="font-size: 14px; vertical-align: middle;" class="embed">search</i> Show all links
+		</p>
+		<p ng-repeat="label in labels | orderBy:'title'" ng-click="filterLabel(label)">
+			<i class="material-icons" style="font-size: 14px; vertical-align: middle;" class="embed">search</i> {{label.title}} ({{label.dumps.length}})
+		</p>
+		<div ng-if="labels.length == 0">
+			<p>
+				Looks like you have no labels.
+			</p>
+			<p>
+				To create one, just type a name into the "New Label" area of one of your links. Then press enter, and it will show up here.
+				Then, you'll be able to sort and search for it!
+			</p>
+		</div>
+	</div>
+</div>
+<div ng-style="{'paddingLeft': showSidebar ? '200px' : 'inherit'}">
 
     <div class = "card md-whiteframe-15dp linkFormCard">
+				<div style="position: absolute; z-index: 2; padding: 5px; line-height: 24px;" ng-click="toggleSidebar()">
+					<i ng-show="showSidebar" class="material-icons" class="embed">keyboard_arrow_left</i>
+					<i ng-show="!showSidebar" class="material-icons" class="embed">keyboard_arrow_right</i>
+					<span ng-show="showSidebar" style="vertical-align: top;">Hide Labels</span>
+					<span ng-show="!showSidebar" style="vertical-align: top;">Show Labels</span>
+				</div>
+
         <!-- add links here -->
         <form name = "linkForm" class = "center animated fadeIn">
             <md-input-container class = "authInputContainer">
             <label>Drop a new link here</label>
-            <input type = "url" name = "linkInput" class = "center linkInput" ng-model="enteredLink" ng-paste = "submitLink()">
+            <input type = "url"
+            name = "linkInput"
+            class = "center linkInput"
+            ng-model="enteredLink"
+            ng-paste = "submitLink()">
             </md-input-container>
             <p class = "center linkInstructions">If you enjoy typing links by hand, don't forget to add " http:// " or " https:// " and press "Enter"</p>
 
@@ -13,29 +45,62 @@
             <button type = "submit" style = "display: none" ng-click="submitLink()"></button>
         </form>
 
-        <div class = "center" ng-show = "!findInput">
-            <md-button class="findButton md-raised"
-            ng-click = "showFind()">
-            Find...
-        </md-button>
+        <div class = "findContainer">
+            <div class = "center ngShowFade" ng-show = "!findInput">
+                <md-button class="findButton md-raised"
+                ng-click = "toggleFind()";
+                ng-mouseenter = "toggleFind()">
+                Find...
+            </md-button>
+            </div>
+
+            <div ng-show = "findInput"
+            class = "ngShowFade"
+            ng-mouseleave = "toggleFind()">
+                <md-input-container class = "authInputContainer center">
+                    <label>What are you looking for?</label>
+                    <input id = "findInput" type = "text"
+                    class = "center findInput"
+                    name = "enterFind"
+                    ng-model="enteredFind"
+                    ng-change="toggleFind();findRefresh();"
+                    ng-model-options="{ updateOn: 'default blur', debounce: { 'default': findDelay, 'blur': 0 } }">
+                </md-input-container>
+            </div>
+
         </div>
 
-        <div ng-show = "findInput">
-            <md-input-container class = "authInputContainer center">
-                <label>What are you looking for?</label>
-                <input id = "findInput" type = "text"
-                class = "center findInput"
-                name = "enterFind"
-                ng-model="enteredFind">
-            </md-input-container>
-        </div>
+				<div ng-if="currentLabel && currentLabel.title && currentLabel.title.length > 0" style="text-align: center;">
+					<a href="" ng-click="filterLabel(null)">Currently only showing links with label "{{currentLabel.title}}"<br />Click to show all links</a>
+				</div>
 
     </div>
 
     <!-- ng repeat all of our
-    links in a custom pintrest style drective-->
-    <grid
-    class = "columns animated fadeIn">
+    links in a custom pintrest style drective
+    Using our linkcard template-->
+    <div class = "gridInclude"
+    ng-include="'views/templates/linkcard.html'">
 
-    </grid>
+    </div>
+
+    <!-- If in view, increase the current amount of links -->
+    <!-- With some nice help from https://martinwolf.org/blog/2015/01/pure-css-savingloading-dots-animation -->
+    <!-- Doing crazy checks since we can use finding -->
+    <div class = "linkLimitContainer"
+    ng-if = "(findInput &&
+        linkCount < findFilterLength())
+        ||
+        ((!findInput ||
+        !enteredFind ||
+        enteredFind == '') &&
+        linkCount < dumps.length)">
+
+        <h1 class="linkLimitLoad"
+        in-view="$inview && infiniteScroll()">
+            Loading More Links<span>.</span><span>.</span><span>.</span>
+        </h1>
+
+    </div>
+
 </div>
