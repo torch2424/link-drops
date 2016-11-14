@@ -29,7 +29,8 @@
 				ng-if = "Embedder.getEmbed().embedType == Embedder.supported[0]"
 				id = "embed-{{::Embedder.getEmbed().content}}"
 				ng-bind-html="Embedder.getEmbed().embedHtml"
-				ng-style="Embedder.getStyle().embed">
+				ng-style="Embedder.getStyle().embed"
+				style="max-width: 100%; overflow: hidden;">
 		</div>
 
 		<!-- Image Files -->
@@ -37,7 +38,8 @@
 				ng-if = "Embedder.getEmbed().embedType == Embedder.supported[1]">
 				<img id = "img-{{::Embedder.getEmbed().content}}"
 				 	ng-src="{{Embedder.getEmbed().embedSrc}}"
-					ng-style="Embedder.getStyle().embed"/>
+					ng-style="Embedder.getStyle().embed"
+					style="max-width: 100%;"/>
 		</div>
 
 		<!-- Soundcloud -->
