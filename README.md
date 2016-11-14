@@ -4,7 +4,7 @@
 
 Last Update: 6/27/15, between v0.1 and v0.2
 
-![linkDrops Img](https://aaronthedev.com/images/linkdropsscreen.b44d1998.png)
+![linkDrops Img](https://files.aaronthedev.com/$/jrkhv)
 
 ##What Is linkDrops?
 It's a website that will store all of those links you wanted to go back to, but never could, in an easy to use interface. "linkDrops." is perfect for things like youtube videos, articles, and repos!
