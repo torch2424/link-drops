@@ -5,6 +5,15 @@
 		<p ng-repeat="label in labels" ng-click="filterLabel(label)">
 			<i class="material-icons" style="font-size: 14px; vertical-align: middle;" class="embed">search</i> {{label.title}}
 		</p>
+		<div ng-if="labels.length == 0">
+			<p>
+				Looks like you have no labels.
+			</p>
+			<p>
+				To create one, just type a name into the "New Label" area of one of your links. Then press enter, and it will show up here.
+				Then, you'll be able to sort and search for it!
+			</p>
+		</div>
 	</div>
 </div>
 <div ng-style="{'paddingLeft': showSidebar ? '200px' : 'inherit'}">
