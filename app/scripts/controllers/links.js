@@ -314,8 +314,7 @@ angular.module('linkDumpApp')
     }
 
     $scope.filterLabel = function(label){
-        $scope.enteredFind = label.title;
-        $scope.findInput = true;
+        $scope.currentLabel = label;
     }
 
     $scope.removeLabel = function(dump, label) {
@@ -381,4 +380,28 @@ angular.module('linkDumpApp')
 		}
 
 
-  });
+  })
+
+	.filter('labelFilter', function() {
+	  return function(dumps, labelTitle) {
+
+			if(labelTitle && labelTitle.length > 0){
+				var out = [];
+
+				angular.forEach(dumps, function(dump) {
+					angular.forEach(dump.labels, function(label) {
+
+						if (label.title === labelTitle) {
+							out.push(dump);
+						}
+					});
+				});
+
+				return out;
+			} else {
+				return dumps;
+			}
+
+	  }
+
+	});;

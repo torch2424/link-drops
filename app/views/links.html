@@ -2,6 +2,9 @@
 <div class="labelSidebar card md-whiteframe-15dp" ng-show="showSidebar">
 	<h3>All Labels</h3>
 	<div class="labelSidebar-list">
+		<p ng-if="labels.length > 0 || currentLabel" ng-click="filterLabel(null)">
+			<i class="material-icons" style="font-size: 14px; vertical-align: middle;" class="embed">search</i> Show all links
+		</p>
 		<p ng-repeat="label in labels | orderBy:'title'" ng-click="filterLabel(label)">
 			<i class="material-icons" style="font-size: 14px; vertical-align: middle;" class="embed">search</i> {{label.title}} ({{label.dumps.length}})
 		</p>
@@ -66,6 +69,10 @@
             </div>
 
         </div>
+
+				<div ng-if="currentLabel && currentLabel.title && currentLabel.title.length > 0" style="text-align: center;">
+					<a href="" ng-click="filterLabel(null)">Currently only showing links with label "{{currentLabel.title}}"<br />Click to show all links</a>
+				</div>
 
     </div>
 

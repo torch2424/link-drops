@@ -1,6 +1,6 @@
 <ul id = "linkGrid">
     <li class = "card-panel linkCard md-whiteframe-10dp"
-    ng-repeat='dump in dumps | filter:enteredFind | limitTo:linkCount'>
+    ng-repeat='dump in dumps | labelFilter:currentLabel.title | filter:enteredFind | limitTo:linkCount'>
 
       <!-- Get our favicon and link title -->
       <div class = "urlContainer">
