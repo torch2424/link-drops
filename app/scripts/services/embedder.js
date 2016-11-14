@@ -25,7 +25,8 @@ angular.module('linkDumpApp')
           "soundcloud",
           "kickstarter",
           "vine",
-          "spotify"
+          "spotify",
+					"general"
       ];
 
       //Initialize soundcloud
@@ -138,7 +139,7 @@ angular.module('linkDumpApp')
               return supportedEmbed[5];
           }
           else {
-              return false;
+              return supportedEmbed[6];
           }
       }
 
@@ -150,6 +151,7 @@ angular.module('linkDumpApp')
           else if(dump.embedType == supportedEmbed[3]) return embedderFunctions.kickStarterEmbed(dump);
           else if(dump.embedType == supportedEmbed[4]) return embedderFunctions.vineEmbed(dump);
           else if(dump.embedType == supportedEmbed[5]) return embedderFunctions.spotifyEmbed(dump);
+					else if(dump.embedType == supportedEmbed[6]) return embedderFunctions.generalEmbed(dump);
       }
 
 			var embedderFunctions = {
@@ -208,6 +210,13 @@ angular.module('linkDumpApp')
 						var splitUrl = dump.content.split("/");
 
 						dump.embedSrc = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify:" + splitUrl[3] + ":" +splitUrl[4].split("?")[0]);
+				},
+
+				generalEmbed: function(dump) {
+
+						var generalUrl = dump.content;
+
+						dump.embedSrc = $sce.trustAsResourceUrl(generalUrl);
 				},
 
 				soundCloudEmbed: function(dump) {

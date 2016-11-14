@@ -379,6 +379,19 @@ angular.module('linkDumpApp')
 			  Embedder.open(dump);
 		}
 
+		var failMsg = 'We weren\'t able to embed this site, sorry!';
+		window.generalEmbedSuccess = function(){
+				var embedMsg = document.getElementById('general-loading-' + Embedder.getEmbed().content);
+		  	if(embedMsg && embedMsg.innerHTML != failMsg) embedMsg.style.display = 'none';
+		}
+
+		window.generalEmbedFail = function(){
+		  	var embedMsg = document.getElementById('general-loading-' + Embedder.getEmbed().content);
+				if(embedMsg) {
+					embedMsg.innerHTML = failMsg;
+					embedMsg.style.display = "block";
+				}
+		}
 
   })
 
