@@ -145,6 +145,78 @@ router.put('/:id', function(req, res) {
     });
 });
 
+//Migrate to titlebased backend
+router.get('/addTitles', function(req, res) {
+
+    Dump.find({
+    }, function(err, dumps) {
+      if (err) {
+        res.status(500).json({
+          msg: "Couldn't search the database for dump!"
+        });
+      } else if (!dumps) {
+        res.status(404).json({
+          msg: "Dump does not exist!"
+        });
+      } else {
+				for(var i=0;i<dumps.length;i++){
+					if(dumps[i].title){
+						console.log("didnt need doing");
+						continue;
+					}
+					getURLTitle(dumps[i], function(title, dump){
+						//Simply change the variables of think
+		        dump.title = title;
+
+						console.log(title)
+
+		        //Save the modified
+		        dump.save(function(err, savedDump, count) {
+		          console.log("updated a dump: ", savedDump)
+		        });
+					});
+				}
+				res.status(200).json({
+					msg: "done did it!"
+				});
+
+
+      }
+    });
+
+});
+
+//Get the title of a link
+function getURLTitle(dump, callback) {
+
+		var request = require('request');
+
+	  // Set the headers
+	  var headers = {
+	      'User-Agent':       'Super Agent/0.0.1',
+	      'Content-Type':     'application/x-www-form-urlencoded',
+	      'Accept':           'application/json'
+	  }
+
+	  // Configure the request
+	  var options = {
+	      url: "https://dev.kondeo.com/api/title-scraper.php?q=" + dump.content,
+	      method: 'GET',
+	      headers: headers
+	  }
+
+	  // Start the request
+	  request(options, function (error, response, body) {
+	      if (!error) {
+	          // Print out the response body
+	          var data = JSON.parse(body);
+	          callback(data.title, dump);
+	      } else {
+	          console.log("failded");
+	      }
+	  });
+}
+
 //DELETE
 //Using the ORM (object relational mapping) which is mongoose
 //it will find a link by it's mongoose id, and remove it from the backend
