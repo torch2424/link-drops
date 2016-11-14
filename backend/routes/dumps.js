@@ -159,32 +159,38 @@ router.get('/addTitles', function(req, res) {
           msg: "Dump does not exist!"
         });
       } else {
-				for(var i=0;i<dumps.length;i++){
-					if(dumps[i].title){
-						console.log("didnt need doing");
-						continue;
-					}
-					getURLTitle(dumps[i], function(title, dump){
-						//Simply change the variables of think
-		        dump.title = title;
-
-						console.log(title)
-
-		        //Save the modified
-		        dump.save(function(err, savedDump, count) {
-		          console.log("updated a dump: ", savedDump)
-		        });
-					});
-				}
+				populateTitles(dumps, 0);
 				res.status(200).json({
-					msg: "done did it!"
+					msg: "Started Dump Titling Process"
 				});
-
-
       }
     });
 
 });
+
+function populateTitles(dumps, i){
+		if(dumps[i].title){
+			console.log("Link Already Updated");
+			if(i+1 < dumps.length){
+				populateTitles(dumps, i+1);
+			}
+		} else {
+			getURLTitle(dumps[i], function(title, dump){
+				//Simply change the variables of think
+				dump.title = title;
+
+				//Save the modified
+				dump.save(function(err, savedDump, count) {
+					console.log("updated a dump: ", savedDump)
+				});
+			});
+			if(i+1 < dumps.length){
+				setTimeout(function(){
+					populateTitles(dumps, i+1);
+				}, 750);
+			}
+		}
+}
 
 //Get the title of a link
 function getURLTitle(dump, callback) {
