@@ -183,6 +183,8 @@ angular.module('linkDumpApp')
       //Save the link
       Dump.delete(remJson, function(data, status) {
 
+				$scope.getLabels();
+
         //Show a confirm Toast
         Toasty.show("Deleted " + data.content + "!");
 
@@ -293,7 +295,6 @@ angular.module('linkDumpApp')
 				}
 
 				if(typeof labelExists == "number"){
-					console.log("labelExisted")
 					$scope.labels[labelExists] = data;
 				} else {
 					$scope.labels.push(data);
