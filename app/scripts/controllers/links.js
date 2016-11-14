@@ -268,6 +268,11 @@ angular.module('linkDumpApp')
     // Label Operations
     //##############################
 
+		$scope.showSidebar = false;
+		$scope.toggleSidebar = function(){
+			$scope.showSidebar = !$scope.showSidebar;
+		}
+
     //Submit a dumped link
     $scope.submitLabel = function(dump) {
       var payload = {
@@ -286,7 +291,7 @@ angular.module('linkDumpApp')
 						break;
 					}
 				}
-				
+
 				if(typeof labelExists == "number"){
 					console.log("labelExisted")
 					$scope.labels[labelExists] = data;

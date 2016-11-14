@@ -1,10 +1,17 @@
 <div ng-include="'../views/templates/embedOverlay.html'"></div>
-<div class="labelSidebar">
-	<p ng-repeat="label in labels">{{label.title}}</p>
+<div class="labelSidebar card md-whiteframe-15dp" ng-show="showSidebar">
+	<h3>All Labels</h3>
+	<p ng-repeat="label in labels" ng-click="filterLabel(label)"><i class="material-icons" style="font-size: 14px; vertical-align: middle;" class="embed">search</i> {{label.title}}</p>
 </div>
-<div>
+<div ng-style="{'paddingLeft': showSidebar ? '200px' : 'inherit'}">
 
     <div class = "card md-whiteframe-15dp linkFormCard">
+				<div style="position: absolute; z-index: 2; padding: 5px; line-height: 24px;" ng-click="toggleSidebar()">
+					<i ng-show="showSidebar" class="material-icons" class="embed">keyboard_arrow_left</i>
+					<i ng-show="!showSidebar" class="material-icons" class="embed">keyboard_arrow_right</i>
+					<span style="vertical-align: top;">Show Labels</span>
+				</div>
+
         <!-- add links here -->
         <form name = "linkForm" class = "center animated fadeIn">
             <md-input-container class = "authInputContainer">
