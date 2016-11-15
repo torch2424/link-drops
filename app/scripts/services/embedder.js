@@ -8,11 +8,15 @@
  * Service in the linkDumpApp.
  */
 angular.module('linkDumpApp')
-  .service('Embedder', function ($timeout, $sce,
-        $http, Gridify) {
+  .service('Embedder', function ($timeout, $sce, $http) {
+			var embedded = null;
+			var visible = false;
 
-      //Initialize our embedQueue
-      var embeds = [];
+			var styling = {
+				mode: "full",
+				backdrop: {},
+				container: {}
+			}
 
       //Array of supported embeds
       var supportedEmbed = [
@@ -21,7 +25,8 @@ angular.module('linkDumpApp')
           "soundcloud",
           "kickstarter",
           "vine",
-          "spotify"
+          "spotify",
+					"general"
       ];
 
       //Initialize soundcloud
@@ -29,14 +34,78 @@ angular.module('linkDumpApp')
         client_id: 'b9513e908ef7793171225f04e87cf362'
       });
 
-      //Our grid refresh timeout
-      var refreshTimeout = 100;
+			var setStyling = function(mode){
+				switch(mode){
+					case "full":
+						styling.container = {
+							transition: "none",
+							position: "fixed",
+							right: "20%",
+							left: "20%",
+							top: "200px",
+							textAlign: "center",
+							paddingTop: "15px",
+							backgroundColor: "#eeeeee",
+							zIndex: 20
+						}
+						styling.backdrop = {
+							position: "fixed",
+							left: 0,
+							right: 0,
+							bottom: 0,
+							top: 0,
+							backgroundColor: "rgba(0,0,0,0.45)",
+							zIndex: 19
+						}
+						styling.embed = {}
+						break;
+					case "small":
+						styling.container = {
+							transition: "none",
+							position: "fixed",
+							right: "2%",
+							left: "70%",
+							bottom: "2%",
+							textAlign: "center",
+							paddingTop: "15px",
+							backgroundColor: "#eeeeee",
+							zIndex: 20
+						}
+						styling.backdrop = {
+							display: "none"
+						}
+						styling.embed = {}
+						break;
+					case "min":
+						styling.container = {
+							transition: "none",
+							position: "fixed",
+							right: "2%",
+							left: "70%",
+							bottom: "2%",
+							textAlign: "center",
+							paddingTop: "15px",
+							backgroundColor: "#eeeeee",
+							zIndex: 20
+						}
+						styling.backdrop = {
+							display: "none"
+						}
+						styling.embed = {
+							visibility: "hidden",
+					    height: 0
+						}
+						break;
+				}
+				styling.mode = mode;
+			}
+			setStyling("full");
 
       //Function to verify if a dump is embbedable
       //First param is the dump
       //If dump is embeddable, dump.embed will be a string of embed type
       //Else it will be false
-      var isEmbeddable = function(dump) {
+      var getEmbedType = function(dump) {
 
           //Check for all of the different types of embeds
           if((dump.content.indexOf('https://www.youtube.com/watch?v=') > -1)
@@ -45,249 +114,184 @@ angular.module('linkDumpApp')
               || (dump.content.indexOf('https://instagram.com/p/') > -1)
               || (dump.content.indexOf('wikipedia.org/wiki/') > -1)
               || (dump.content.indexOf('https://vimeo.com/') > -1)
+							|| (dump.content.indexOf('flickr.com/photos') > -1)
               || (dump.content.indexOf('https://twitter.com/') > -1
               && dump.content.indexOf('/status/') > -1)
               || (dump.content.indexOf('https://gist.github.com/') > -1)) {
-                  dump.embed = supportedEmbed[0];
+                  return supportedEmbed[0];
           }
           else if((dump.content.indexOf('.jpg') > -1)
               || (dump.content.indexOf('.png') > -1)
               || (dump.content.indexOf('.gif') > -1)) {
-                  dump.embed = supportedEmbed[1];
+                  return supportedEmbed[1];
           }
           else if((dump.content.indexOf('https://soundcloud.com/') > -1)) {
-              dump.embed = supportedEmbed[2];
+              return supportedEmbed[2];
           }
           else if((dump.content.indexOf('https://www.kickstarter.com/projects/') > -1)) {
-              dump.embed = supportedEmbed[3];
+              return supportedEmbed[3];
           }
           else if((dump.content.indexOf('https://vine.co/v/') > -1)) {
-              dump.embed = supportedEmbed[4];
+              return supportedEmbed[4];
           }
           else if((dump.content.indexOf('https://play.spotify.com/') > -1)
               || (dump.content.indexOf('https://open.spotify.com/') > -1)) {
-              dump.embed = supportedEmbed[5];
+              return supportedEmbed[5];
           }
           else {
-              dump.embed = false;
+              return false;
           }
-
-          //Now return the modified dump
-          return dump;
       }
 
       //Continutation of is embeddable function, and will execute the embed
       var doEmbed = function(dump) {
-
-          if(dump.embed == supportedEmbed[0]) return embedderFunctions.noEmbed(dump);
-          else if(dump.embed == supportedEmbed[1]) return embedderFunctions.imageEmbed(dump);
-          else if(dump.embed == supportedEmbed[2]) return embedderFunctions.soundCloudEmbed(dump);
-          else if(dump.embed == supportedEmbed[3]) return embedderFunctions.kickStarterEmbed(dump);
-          else if(dump.embed == supportedEmbed[4]) return embedderFunctions.vineEmbed(dump);
-          else if(dump.embed == supportedEmbed[5]) return embedderFunctions.spotifyEmbed(dump);
-
-          //Don't Remove the dump from the embed queue,
-          //That way we are not double embedding
-
-          //Not refreshing here, since we do not want to race the embed
+          if(dump.embedType == supportedEmbed[0]) return embedderFunctions.noEmbed(dump);
+          else if(dump.embedType == supportedEmbed[1]) return embedderFunctions.imageEmbed(dump);
+          else if(dump.embedType == supportedEmbed[2]) return embedderFunctions.soundCloudEmbed(dump);
+          else if(dump.embedType == supportedEmbed[3]) return embedderFunctions.kickStarterEmbed(dump);
+          else if(dump.embedType == supportedEmbed[4]) return embedderFunctions.vineEmbed(dump);
+          else if(dump.embedType == supportedEmbed[5]) return embedderFunctions.spotifyEmbed(dump);
+					else if(dump.embedType == supportedEmbed[6]) return embedderFunctions.generalEmbed(dump);
       }
 
-      //Function to assign embed divs to ids
-      var srcUrl = function(id, dump, url) {
+			var embedderFunctions = {
+				//No embed
+				noEmbed : function(dump, callback) {
 
-          //Get the document
-          var element = document.getElementById( id + "-" + dump.content);
+					//Get the response from noembed
+					$http.get("https://noembed.com/embed?url=" + dump.content + "&nowrap=on")
+						.then(function(response) {
 
-          if(!url) {
-              url = dump.content;
-          }
+							//Check for no error
+							if (!response.data.error) {
 
-          //Set the element src
-          if(element != null)
-          {
-              element.src = $sce.trustAsResourceUrl(url);
-          }
+										dump.embedHtml = $sce.trustAsHtml(response.data.html);
 
-          // say the dump has been lazy loaded
-          dump.lazyEmbed = true;
+										//Return the dump
+										return dump;
+							}
+							//Error
+							else {
+									console.log("No Embed Error!, response: " + JSON.stringify(response));
 
-          //Also, refresh our grid
-          //Timeout since we need to apply our new html
-          $timeout(function () {
-              Gridify.refreshGrid();
-          }, refreshTimeout);
+									//Make the embed error
+									dump.embed = "error";
+									return dump;
+							}
 
-          //Return the dump
-          return dump;
-      }
+						});
+				},
 
-      var embedderFunctions = {
+				//Image embeds
+				imageEmbed: function(dump) {
+
+						dump.embedSrc = $sce.trustAsResourceUrl(dump.content);
+				},
+
+				kickStarterEmbed: function(dump) {
+
+						//Get the embed url
+						var kickUrl = dump.content.split("?")[0] + "/widget/card.html?v=2";
+
+						dump.embedSrc = $sce.trustAsResourceUrl(kickUrl);
+				},
+
+				vineEmbed: function(dump) {
+
+						//Get the embed url
+						var vineUrl = dump.content+ "/embed/simple";
+
+						dump.embedSrc = $sce.trustAsResourceUrl(vineUrl);
+				},
+
+				spotifyEmbed: function(dump) {
+
+						//Get the spotify link type and id , last 2 out of 5 elemnts
+						var splitUrl = dump.content.split("/");
+
+						dump.embedSrc = $sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify:" + splitUrl[3] + ":" +splitUrl[4].split("?")[0]);
+				},
+
+				generalEmbed: function(dump) {
+
+						var generalUrl = dump.content;
+
+						dump.embedSrc = $sce.trustAsResourceUrl(generalUrl);
+				},
+
+				soundCloudEmbed: function(dump) {
+					//Used this
+					//https://developers.soundcloud.com/docs/api/guide#playing
+
+					SC.get('/resolve', {
+						url: dump.content
+					}, function(track) {
+							$timeout(function(){
+									dump.embedSrc = $sce.trustAsResourceUrl("https://w.soundcloud.com/player/?url=https%3A" +
+										track.uri.substring(track.uri.indexOf("//api.soundcloud.com")) +
+										"&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true");
+							},0);
+					});
+				}
+			}
+
+      var service = {
 
           //Function to return our supported embeds
           supported: supportedEmbed,
 
+					isEmbeddable: function(dump){
+							var canEmbed = getEmbedType(dump) ? true : false;
+							return canEmbed;
+					},
+
+					getVisible: function(){
+						  return visible;
+					},
+
+					getEmbed: function(){
+							return embedded;
+					},
+
+					getStyle: function(){
+							return styling;
+					},
+
+					maximize: function(){
+							setStyling("full");
+					},
+
+					smallsize: function(){
+							setStyling("small");
+					},
+
+					minimize: function(){
+							setStyling("min");
+					},
+
           //Function that will timeout our mouseover
           //And allow embedding by hovering link
-          lazyEmbed: function(dump) {
-
-              //Check if the dump is already in the array
-              for(var i = 0; i < embeds.length; i++) {
-                  if(dump._id == embeds[i].embed._id) {
-                      return dump;
-                  }
-              }
+          open: function(dump) {
 
               //Check if we are embeddable, if dump.embed is undefined
-              if(dump.embed == undefined) dump = isEmbeddable(dump);
+              if(dump.embedType == undefined) dump.embedType = getEmbedType(dump);
 
-              //Check if we've already embedded
-              if(dump.lazyEmbed ||
-              !dump.embed) return dump;
+              doEmbed(dump);
 
+							visible = true;
+							embedded = dump;
 
-              //Else, Add the dump to the embed queue
-              //$timout will return a cancellable promise
-              embeds.push({
-                  'embed': dump,
-                  'timeout': $timeout(function() {
+							return dump;
 
-                          //Check if we are still moused over,
-                          //if we are, embed!
-                          if(!dump.lazyEmbed &&
-                          dump.embed) {
-
-                              //Finally embed the dump
-                              return doEmbed(dump);
-                          }
-                      }, 1250)
-              });
-
-              //Start the timeout
-
-              return dump;
           },
 
-          cancelEmbed: function(dump) {
-
-              //First check if we were an embeddable link in then
-              //first place
-              if(!dump.embed) return;
-
-              //First search for the embed to cancel
-              for(var i = 0; i < embeds.length; i++) {
-                  if(dump._id == embeds[i].embed._id) {
-
-                      //Cancel the embed timeout
-                      $timeout.cancel(embeds[i].timeout);
-
-                      //Now remove from the array
-                      embeds.splice(i, 1);
-                      return true;
-                  }
-              }
-
-              //Return false since we couldnt cancel
-              return false;
-          },
-
-          //No embed
-          noEmbed : function(dump) {
-
-            //Get the response from noembed
-            $http.get("https://noembed.com/embed?url=" + dump.content + "&nowrap=on")
-              .then(function(response) {
-
-                //Check for no error
-                if (!response.data.error) {
-
-                    //Cannot use srcUrl since it embeds by URL and not HTML
-
-                      //Get the document
-                      var element = document.getElementById("embed-" + dump.content);
-
-                      if(element != null) {
-                          element.innerHTML = $sce.trustAsHtml(response.data.html);
-                      }
-
-                      // say the dump has been lazy loaded
-                      dump.lazyEmbed = true;
-
-                      //Also, refresh our grid
-                      //Timeout since we need to apply our new html
-                      $timeout(function () {
-                          Gridify.refreshGrid();
-                      }, refreshTimeout);
-
-                      //Return the dump
-                      return dump;
-                }
-                //Error
-                else {
-                    console.log("No Embed Error!, response: " + JSON.stringify(response));
-
-                    //Make the embed error
-                    dump.embed = "error";
-                    return dump;
-                }
-
-              });
-          },
-
-          //Image embeds
-          imageEmbed: function(dump) {
-
-              //Simply pass through the sourcing
-              return srcUrl("img", dump)
-          },
-
-          kickStarterEmbed: function(dump) {
-
-              //Get the embed url
-              var kickUrl = dump.content.split("?")[0] + "/widget/card.html?v=2";
-
-              //pass through the function
-              return srcUrl("kick", dump, kickUrl);
-          },
-
-          vineEmbed: function(dump) {
-
-              //Get the embed url
-              var vineUrl = dump.content+ "/embed/simple";
-
-              //pass through the function
-              return srcUrl("vine", dump, vineUrl);
-          },
-
-          spotifyEmbed: function(dump) {
-
-              //Get the spotify link type and id , last 2 out of 5 elemnts
-              var splitUrl = dump.content.split("/");
-
-              //pass through the function
-              return srcUrl("spotify", dump,
-              "https://embed.spotify.com/?uri=spotify:"
-              + splitUrl[3] + ":" +splitUrl[4].split("?")[0]);
-          },
-
-          soundCloudEmbed: function(dump) {
-            //Used this
-            //https://developers.soundcloud.com/docs/api/guide#playing
-
-            SC.get('/resolve', {
-              url: dump.content
-            }, function(track) {
-
-                //pass through the function
-                return srcUrl("scWidget", dump,
-                "https://w.soundcloud.com/player/?url=https%3A" +
-                track.uri.substring(track.uri.indexOf("//api.soundcloud.com")) +
-                "&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true");
-
-            });
+          close: function(dump) {
+						  visible = false;
+							embedded = null;
           }
       }
 
       //Simply return the embedder functions
       //To the outside world
-      return embedderFunctions;
+      return service;
   });

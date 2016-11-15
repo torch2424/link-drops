@@ -3,12 +3,13 @@ var Schema = mongoose.Schema;
 
 var Dump = new Schema({
   user_id: {
-    type: String,
-    required: 'The User Id is required'
+    type: String
+  },
+	title: {
+    type: String
   },
   content: {
-    type: String,
-    required: 'The Dump Content is required'
+    type: String
   },
   updated_at: Date
 });
@@ -16,12 +17,10 @@ var Dump = new Schema({
 var Label = new Schema({
     user_id: {
         type: String,
-        required: 'The User Id is required',
         ref: 'User'
     },
     title: {
-        type: String,
-        required: 'The category title is required'
+        type: String
     },
     dumps: [{
         type: String,
@@ -31,24 +30,20 @@ var Label = new Schema({
 
 var User = new Schema({
   username: {
-    type: String,
-    required: 'The User Name is required'
+    type: String
   },
   password: {
-    type: String,
-    required: 'The Password is required'
+    type: String
   },
   salt: String
 });
 
 var Session = new Schema({
   user_id: {
-    type: String,
-    required: 'The User Id is required'
+    type: String
   },
   token: {
-    type: String,
-    required: 'The sessionToken is required'
+    type: String
   }
 });
 

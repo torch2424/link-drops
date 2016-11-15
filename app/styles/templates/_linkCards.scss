@@ -41,8 +41,9 @@
         padding-right: 15px;
         padding-bottom: 10px;
 
-        -webkit-transition: all $baseAnimationSpeed ease-in-out;
-        transition: all $baseAnimationSpeed ease-in-out;
+				margin: 10px;
+
+				transition: none;
 
         .urlContainer {
 

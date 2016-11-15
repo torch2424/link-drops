@@ -1,94 +1,31 @@
 <ul id = "linkGrid">
     <li class = "card-panel linkCard md-whiteframe-10dp"
-    ng-repeat='dump in dumps | filter:enteredFind | limitTo:displayLinks'
-    ng-mouseover="dump.hovering = true; embedder.lazyEmbed(dump)"
-    ng-mouseleave="dump.hovering = false; embedder.cancelEmbed(dump)">
+    ng-repeat='dump in dumps | labelFilter:currentLabel.title | filter:enteredFind | limitTo:linkCount'>
 
-        <!-- Get our favicon and link title -->
-        <div class = "urlContainer">
+      <!-- Get our favicon and link title -->
+      <div class = "urlContainer">
 
-            <img ng-src="{{::dump.content | favicon}}" alt="Drop Icon" class = "dropFavicon">
-            <a id = "linkTitle-{{::$index}}"
-            href="{{::dump.content}}" target="_blank"
-            class = "dropURL"
-            ng-init = "getTitle(dump, $index)">
-            {{dump.content}}
-            </a>
+          <img ng-src="{{::dump.content | favicon}}" alt="Drop Icon" class = "dropFavicon">
+          <a id = "linkTitle-{{::$index}}"
+          href="{{::dump.content}}" target="_blank"
+          class = "dropURL"
+					title="Click to open this link in a new tab">
+          {{::(dump.title || dump.content).substring(0,80)}}<span ng-show="(dump.title || dump.content).length > 80">...</span>
+          </a>
 
-        </div>
-
-      <!-- Firstly, our loading ellipses if we are currently attempting to embed -->
-      <!-- With some nice help from https://martinwolf.org/blog/2015/01/pure-css-savingloading-dots-animation -->
-      <div class = "embedLoadContainer">
-          <p class="embedLoad"
-          ng-if="!dump.lazyEmbed && dump.embed && dump.hovering">
-              Loading<span>.</span><span>.</span><span>.</span>
-          </p>
-
-          <!-- Show an error here if couldn't embed -->
-          <div ng-if="dump.embed == 'error' &&
-                dump.hovering"
-            class="embedLoadError">
-              Error, could not embed link (Sorry!)
-          </div>
-    </div>
-
-      <!-- This need to be only noembed, and another div should be created under for embedly, followed by various native apis -->
-      <!-- Use our Fallbacks (NoEmbed And then Embedly), Display Media Embeds (Bandcamp, Youtube, Vimeo, etc... -->
-      <div class = "embed"
-      ng-if = "dump.embed == embedder.supported[0]"
-          id = "embed-{{::dump.content}}">
       </div>
 
-      <!-- Image Files -->
-      <div class = "embed"
-      ng-if = "dump.embed == embedder.supported[1]">
-          <img id = "img-{{::dump.content}}" />
-      </div>
+			<div ng-if="::Embedder.isEmbeddable(dump)"
+				style="text-align: center; line-height: 24px;"
+				ng-click="Embedder.open(dump); Embedder.getStyle().mode == 'min'? Embedder.smallsize() : false">
 
-      <!-- Soundcloud -->
-      <div class = "embed"
-      ng-if = "dump.embed == embedder.supported[2]">
-          <div class = "noembed-soundcloud">
-              <iframe
-              id = "scWidget-{{::dump.content}}"
-              width = "100%" height = "450"
-              frameborder="0" scrolling="no">
-              </iframe>
-          </div>
-      </div>
+				<i class="material-icons" style="vertical-align: top;">featured_video</i>
+				<span title="Click to show a preview window for this link">
+					Preview This
+				</span>
+			</div>
+			<br ng-if="::!Embedder.isEmbeddable(dump)" />
 
-      <!-- KickStarter -->
-      <div class = "embed"
-      ng-if = "dump.embed == embedder.supported[3]">
-          <iframe
-          id = "kick-{{::dump.content}}"
-          class = "kickEmbed"
-          frameborder="0" scrolling="no">
-          </iframe>
-      </div>
-
-      <!-- Vine -->
-      <div class = "embed"
-      ng-if = "dump.embed == embedder.supported[4]">
-          <iframe
-          id = "vine-{{::dump.content}}"
-          class = "vineEmbed"
-          frameborder="0" scrolling="no">
-          </iframe>
-      </div>
-
-      <!-- Spotify -->
-      <div class = "embed"
-      ng-if = "dump.embed == embedder.supported[5]">
-          <iframe
-          id = "spotify-{{::dump.content}}"
-          class = "spotifyEmbed"
-          frameborder="0" scrolling="no">
-          </iframe>
-      </div>
-
-      <br>
       <!-- Sharing/Categories -->
       <div class = "linkSubTextLeftContainer">
           <p ng-repeat="label in dump.labels"
@@ -98,7 +35,9 @@
               ng-click="removeLabel(dump, label)">
 
               <a class="linkLabelText"
-              ng-click="filterLabel(label)">{{label.title}}
+              ng-click="filterLabel(label)"
+							title="Click to show only links with this label"
+							href="">{{label.title}}
               </a>
           </p>
           <br />
@@ -115,8 +54,8 @@
 
       <!-- Last updated -->
       <div class = "linkSubTextRightContainer">
-          <p class = "linkSubText" ng-bind="dump.updated_at | date:'h:mm MM/dd/yyyy '"></p>
-          <a class = "deleteDump" ng-click = "removeLink(dump)"><p>Delete Drop</p></a>
+          <p class = "linkSubText"><span title="{{dump.updated_at | date:'h:mm MM/dd/yyyy '}}">{{::dateFromNow(dump.updated_at)}}</span></p>
+          <a class = "deleteDump" ng-click = "removeLink(dump)" href="" title="Delete this link permenantly"><p>Delete Link</p></a>
       </div>
     </li>
 </ul>

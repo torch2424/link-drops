@@ -1,0 +1,109 @@
+<div ng-if="Embedder.getVisible()" ng-style="Embedder.getStyle().backdrop" ng-click="Embedder.close()"></div>
+<div class="embedContainer card md-whiteframe-10dp" ng-if="Embedder.getVisible()" ng-style="Embedder.getStyle().container">
+
+		<div style="text-align: right; padding-right: 15px;">
+			<i ng-show="Embedder.getStyle().mode == 'full' || Embedder.getStyle().mode == 'small'" class="material-icons embedSizeSwitch" ng-click="Embedder.minimize()">remove</i>
+			<i ng-show="Embedder.getStyle().mode == 'min' || Embedder.getStyle().mode == 'small'" class="material-icons embedSizeSwitch" ng-click="Embedder.maximize()">featured_video</i>
+			<i ng-show="Embedder.getStyle().mode == 'min' || Embedder.getStyle().mode == 'full'" class="material-icons embedSizeSwitch" ng-click="Embedder.smallsize()">branding_watermark</i>
+			<i class="material-icons" ng-click="Embedder.close()">close</i>
+		</div>
+
+		<!-- Firstly, our loading ellipses if we are currently attempting to embed -->
+		<!-- With some nice help from https://martinwolf.org/blog/2015/01/pure-css-savingloading-dots-animation -->
+		<div class = "embedLoadContainer">
+				<!-- <p class="embedLoad"
+				ng-if="!Embedder.getEmbed().lazyEmbed && Embedder.getEmbed().embed && Embedder.getEmbed().hovering">
+						Loading<span>.</span><span>.</span><span>.</span>
+				</p> -->
+
+				<!-- Show an error here if couldn't embed -->
+				<div ng-if="Embedder.getEmbed().embed == 'error'"
+					class="embedLoadError">
+						Error, could not embed link (Sorry!)
+				</div>
+		</div>
+
+		<!-- This need to be only noembed, and another div should be created under for embedly, followed by various native apis -->
+		<!-- Use our Fallbacks (NoEmbed And then Embedly), Display Media Embeds (Bandcamp, Youtube, Vimeo, etc... -->
+		<div class = "embed"
+				ng-if = "Embedder.getEmbed().embedType == Embedder.supported[0]"
+				id = "embed-{{::Embedder.getEmbed().content}}"
+				ng-bind-html="Embedder.getEmbed().embedHtml"
+				ng-style="Embedder.getStyle().embed"
+				style="max-width: 100%; overflow: hidden;">
+		</div>
+
+		<!-- Image Files -->
+		<div class = "embed"
+				ng-if = "Embedder.getEmbed().embedType == Embedder.supported[1]">
+				<img id = "img-{{::Embedder.getEmbed().content}}"
+				 	ng-src="{{Embedder.getEmbed().embedSrc}}"
+					ng-style="Embedder.getStyle().embed"
+					style="max-width: 100%;"/>
+		</div>
+
+		<!-- Soundcloud -->
+		<div class = "embed"
+				ng-if = "Embedder.getEmbed().embedType == Embedder.supported[2]"
+				ng-style="Embedder.getStyle().embed">
+				<div class = "noembed-soundcloud">
+						<iframe
+						id = "scWidget-{{::Embedder.getEmbed().content}}"
+						width = "100%" height = "450"
+						frameborder="0" scrolling="no"
+						ng-src="{{Embedder.getEmbed().embedSrc}}">
+						</iframe>
+				</div>
+		</div>
+
+		<!-- KickStarter -->
+		<div class = "embed"
+				ng-if = "Embedder.getEmbed().embedType == Embedder.supported[3]"
+				ng-style="Embedder.getStyle().embed">
+				<iframe
+				id = "kick-{{::Embedder.getEmbed().content}}"
+				src=""
+				class = "kickEmbed"
+				frameborder="0" scrolling="no"
+				ng-src="{{Embedder.getEmbed().embedSrc}}">
+				</iframe>
+		</div>
+
+		<!-- Vine -->
+		<div class = "embed"
+				ng-if = "Embedder.getEmbed().embedType == Embedder.supported[4]"
+				ng-style="Embedder.getStyle().embed">
+				<iframe
+				id = "vine-{{::Embedder.getEmbed().content}}"
+				class = "vineEmbed"
+				frameborder="0" scrolling="no"
+				ng-src="{{Embedder.getEmbed().embedSrc}}">
+				</iframe>
+		</div>
+
+		<!-- Spotify -->
+		<div class = "embed"
+				ng-if = "Embedder.getEmbed().embedType == Embedder.supported[5]"
+				ng-style="Embedder.getStyle().embed">
+				<iframe
+				id = "spotify-{{::Embedder.getEmbed().content}}"
+				class = "spotifyEmbed"
+				frameborder="0" scrolling="no"
+				ng-src="{{Embedder.getEmbed().embedSrc}}">
+				</iframe>
+		</div>
+
+		<!-- General Website -->
+		<div class = "embed"
+				ng-if = "Embedder.getEmbed().embedType == Embedder.supported[6]"
+				ng-style="Embedder.getStyle().embed">
+				<span id="general-loading-{{::Embedder.getEmbed().content}}">Loading ...</span>
+				<iframe
+				id = "general-{{::Embedder.getEmbed().content}}"
+				class = "generalEmbed"
+				frameborder="0" scrolling="yes"
+				height="450"
+				ng-src="{{Embedder.getEmbed().embedSrc}}">
+				</iframe>
+		</div>
+</div>

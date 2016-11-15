@@ -44,6 +44,30 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     }
 }
 
+.labelSidebar {
+	background-color: white;
+	position: fixed;
+	left: 0px;
+	bottom: 20px;
+	top: 80px;
+	padding: 15px;
+	width: 200px;
+	z-index: 10;
+
+	.labelSidebar-list {
+		overflow: auto;
+		max-height: calc(100% - 60px);
+	}
+}
+
+.embedSizeSwitch {
+	margin-right: 5px;
+}
+
+iframe {
+	width: 100%;
+}
+
 .mainIcon {
     height: 128px;
     width: 128px;
