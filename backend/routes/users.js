@@ -25,7 +25,7 @@ router.post('/login', function(req, res, next) {
         });
       } else {
         //Hash the requested password and salt
-        var hash = crypto.pbkdf2Sync(req.body.password, user.salt, 10000, 512);
+        var hash = crypto.pbkdf2Sync(req.body.password, user.salt, 10000, 512, 'sha512').toString('base64');
         //Compare to stored hash
         if (hash == user.password) {
           //Create a random token
@@ -78,7 +78,7 @@ router.post('/join', function(req, res, next) {
           //Create a random salt
           var salt = crypto.randomBytes(128).toString('base64');
           //Create a unique hash from the provided password and salt
-          var hash = crypto.pbkdf2Sync(req.body.password, salt, 10000, 512);
+          var hash = crypto.pbkdf2Sync(req.body.password, salt, 10000, 512, 'sha512').toString('base64');
           //Create a new user with the assembled information
           var newUser = new User({
             username: req.body.username.toLowerCase(),
